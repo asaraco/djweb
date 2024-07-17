@@ -1,0 +1,19 @@
+@import "../../color-vars.scss";
+
+.nativeFileUploader {
+    display: none;
+}
+.fileUploader {
+    font-size: 0.25em;
+    color: rgba(var(--newsFg));
+}
+
+@media screen and (max-width: 960px) {
+    .fileUploadBtn {
+        padding: 1em;
+    }
+    .fileUploadBtn:hover {
+        background-color: rgba(var(--btnFg),1);
+        color: rgba(var(--btnBg),1);
+    }
+}

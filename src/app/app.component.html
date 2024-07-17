@@ -1,0 +1,47 @@
+<section id="headerSection" [ngClass]="{shrink: scrolledDown}">
+    <div class="headerButton hbLeft">
+        <app-file-upload class="desktopOnly"></app-file-upload>
+        <button id="hamburgerBtn" class="mobileOnly" (click)="toggleHamburgerMenu()">☰</button>
+    </div>
+    <div id="headerBar">
+        <a href="/">
+            <h1>Legendary<span class="h1Secondary">Radio</span></h1>
+        </a>
+    </div>
+    <div class="headerButton hbRight desktopOnly">
+        <button (click)="toggleHelpText()">Help</button>
+        <button (click)="toggleTheme()">{{themeButton}}</button>
+    </div>    
+    <div id="hamburgerMenu" *ngIf="showMenu">
+        <!--button id="libraryButton" (click)="resetView()" [ngClass]="{toggled: (!showQueue && !showNew)}">Library</button-->
+        <button id="headerQueueButton" (click)="toggleQueue()" [ngClass]="{toggled: showQueue}">Queue</button>
+        <button id="headerNewButton" (click)="toggleNewArrivals()" [ngClass]="{toggled: showNew}">New Arrivals</button>
+        <button (click)="toggleHelpText()">Help</button>
+        <button (click)="toggleTheme()">{{themeButton}}</button>
+        <app-file-upload></app-file-upload>
+    </div>
+</section>
+
+<section id="welcomeText">
+    <app-toast [toastText]="[UI_WELCOME_TEXT, UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD]" [(showToast)]=showHelp [persistent]=true></app-toast>
+    
+</section>
+
+<section id="mainSection" ontouchmove>
+    <section class="subSection" id="leftWrapper" [ngClass]="{mobileNew: showNew}">
+        <app-new-arrivals></app-new-arrivals>
+        <button id="closeNew" class="mobileOnly" (click)="toggleNewArrivals()" [ngClass]="{mobileQueue: showNew}">𐌢</button>
+    </section>
+    <section class="subSection" id="browseWrapper">
+        <!--router-outlet></router-outlet-->
+        <app-library></app-library>
+    </section>
+    <section class="subSection" id="queueWrapper" [ngClass]="{mobileQueue: showQueue}">
+        <div id="queueHeader">
+            <h3>Song Queue</h3>
+            <button id="closeQueue" class="mobileOnly" (click)="toggleQueue()" [ngClass]="{mobileQueue: showQueue}">𐌢</button>
+        </div>
+        <app-playlist id="pAutoDj" [playlist]="autoDjPlaylist"></app-playlist>
+        <app-playlist id="pRecent" [playlist]="mostRecentPlaylist"></app-playlist>
+    </section>
+</section> 

@@ -1,0 +1,66 @@
+:host.toastError div {    
+    background-color: rgba(var(--toastBgError));
+}
+div.toast {
+    position: fixed;
+    /*bottom: 2dvh;*/
+    top: 15dvh;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: auto;
+    width: auto;
+    max-width: 50dvw;
+    z-index: 5000;
+    text-align: center;
+    font-size: 1.5dvh;
+    padding: 2em;
+    border-radius: 5dvh;
+    background-color: rgba(var(--toastBg),0.8);
+    color: rgba(var(--toastFg),1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: 1s;
+}
+div.disappear {
+    opacity: 0;
+    pointer-events: none;
+}
+button {
+    position: absolute;
+    top: 1dvh;
+    right: 1dvw;
+    text-shadow: none;
+    border: none;
+    color: rgba(var(--toastFg),1);
+    background-color: rgba(0,0,0,0);
+}
+button:hover {
+    border: none;
+    box-shadow: none;
+}
+
+@media screen and (orientation: portrait) {
+    div.toast {
+        max-width: 80dvw;
+        font-size: 1.5dvw;
+        button {
+            top: 2dvw;
+            right: 2dvh;
+        }
+    }
+}
+
+@media screen and (max-width: 960px) {
+    :host.toastError div, :host.toastInfo div {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 80dvw;
+    }
+    
+    div.toast {
+        top: auto;
+        font-size: 1.5dvh;
+    }
+}

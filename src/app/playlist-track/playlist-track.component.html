@@ -1,0 +1,5 @@
+<span class="track">
+    <span *ngIf="!isAlbumView(playlistTrack.track)" class="tMain" title="{{playlistTrack.track.album}} ({{playlistTrack.track.year}})">{{playlistTrack.track.title}} - <i>{{playlistTrack.track.artist}}</i></span>
+    <span *ngIf="isAlbumView(playlistTrack.track)" class="tMain" title="{{playlistTrack.track.artist}} ({{playlistTrack.track.year}})">{{playlistTrack.track.title}} - <i>{{playlistTrack.track.album}}</i></span>
+    <span class="tDuration">({{playlistTrack.track.duration * 1000 | date:'mm:ss'}})</span>
+</span>

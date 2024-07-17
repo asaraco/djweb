@@ -1,0 +1,71 @@
+/* You can add global styles to this file, and also import other style files */
+@import "color-vars.scss";
+
+@function hexToRGB($hex) {
+    @return red($hex), green($hex), blue($hex);
+}
+
+html {
+    font-size: 16px;
+    box-sizing: border-box;
+    color: rgba(var(--fg),1);
+    scroll-behavior: smooth;
+    @media screen and (prefers-reduced-motion: reduce) {
+        scroll-behavior: auto;
+    }
+}
+body {
+    font-size: 62.5%;
+    font-family: Roboto, 'Open Sans', Arial;
+    background-color: rgba(var(--bg), 1);
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    background-color: rgba(var(--btnBg),1);
+    color: rgba(var(--btnFg),1);
+    border: none;
+    border-radius:3px;
+    text-align:center;
+    vertical-align:middle;
+    text-transform:uppercase;
+    font-weight:900;
+    cursor:pointer;
+    text-shadow: 0px 1px 3px rgba(var(--shadow),0.75);
+    transition: all .35s ease-in-out;
+}
+button:hover {
+    box-shadow: 0 0 10px rgba(var(--btnBg),0.5), inset 0 0 1px 1px rgba(var(--btnFg),1);
+}
+
+.track {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding-bottom: 2px;
+}
+
+#pAutoDj {
+    color: rgba(var(--queueFg), 0.95);
+}
+
+#pRecent {
+    color: rgba(var(--queueFg-weak), 0.75);
+    .playlistDiv {
+        div:first-child {
+            color: rgba(var(--queueFg-strong), 1);
+            font-weight: bold;
+            text-shadow: rgba(var(--queueFg-weak), 0.75) 1px 0 4px;
+        }
+    }
+}
+
+@media screen and (max-width: 960px) {
+    body {
+        margin: 0;
+    }
+}

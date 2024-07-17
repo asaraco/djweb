@@ -1,0 +1,20 @@
+<div id="naHeader">
+    <h3>New Arrivals</h3>
+</div>
+<div id="naContent">
+    <div class="naTrack" id="naId{{t.id}}" [ngClass]="{requested: justRequested==t.id}" *ngFor="let t of tracks">
+        <div class="naTrackText">
+            <div class="naTrackMain">
+                <span class="title">{{t.title}}</span>
+            </div>
+            <div class="naTrackSub">
+                <span class="artist">{{t.artist}}</span>
+                <span class="duration">{{t.duration * 1000 | date:'mm:ss'}}</span>
+            </div>
+        </div>
+        <div class="naRequest">
+            <button type="button" [disabled]="!requestable" (click)="requestAndAddSong(t.id, t.duration)" title={{buttonTooltip}}>+</button>
+        </div>
+    </div>
+</div>
+<app-toast id="requestToast" [toastText]="[UI_REQUEST_TEXT]" [(showToast)]="showReqToast"></app-toast>

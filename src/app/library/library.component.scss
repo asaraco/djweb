@@ -1,0 +1,379 @@
+div#libraryForm {
+    position: sticky;
+    top: 4dvh;
+    form {
+        display: flex;
+        flex-direction: row;
+        /*color:#afa;*/
+        font-size:2dvh;
+        div {
+            display: flex;
+        }
+        input {
+            color: rgba(var(--inputFg),1);
+            background-color: rgba(0,0,0,0);
+            border: 0;
+        }
+        input::placeholder, span.crateDropPlaceholder, span.crateDropIcon {
+            color: rgba(var(--inputFg),0.5);
+            font-style: italic;
+        }
+        div#searchField {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            background-color: rgba(var(--inputBg),1);
+            input {
+                /*font-size: 2em;*/
+                width: 100%;
+                height: 100%;
+                padding: 0.5em;
+                background-color: rgba(0,0,0,0);
+            }
+            input::-webkit-search-cancel-button {
+                color: green;
+            }
+        }
+        div#searchField:hover {
+            background-color: rgba(var(--crateHover),1);
+        }
+        div#categoryFilter {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            position: relative;
+            background-color: rgba(var(--inputBg),1);
+            .crateBtn {           
+                color: rgba(var(--libTh));
+                height: 2em;
+                border: none;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                width: 100%;
+                span.crateLogo {
+                    flex: 1;
+                    height: 100%;
+                }
+                img {                    
+                    height: 0;
+                    min-height: 100%;
+                }
+                span.crateDesc {
+                    flex: 3;
+                    padding: 2dvh;
+                }                
+            }            
+            div#crateDropDown {
+                position: absolute;
+                margin-top: 2em;
+                width: 0;
+                height: 0;
+                z-index: 1;
+                flex-direction: column;
+                transition-duration: 0.25s;
+                background-color: rgba(var(--crateDropBg),0.5);
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                .crateBtn {
+                    display: none;
+                    /*height: 2em;*/
+                    flex-grow: 1;
+                    flex-direction: row-reverse;
+                    /*font-size: 0.5em;*/
+                    font-size: 1.5dvh;
+                    border-bottom: 1px solid #555;
+                }
+            }
+            div#crateDropDown.unrolled {
+                width: 50dvw;
+                height: 75dvh;
+                .crateBtn {
+                    display: flex;
+                }
+            }
+            #crateActive {
+                justify-content: flex-end;
+                margin-bottom: 0;
+                /*background-color: rgba(var(--inputBg),1);*/
+                background-color: rgba(0,0,0,0);
+                span.crateDropIcon {
+                    z-index: 10;
+                }
+            }
+            .crateBtn:hover, #crateActive:hover {
+                background-color: rgba(var(--crateHover),0.5);
+            }
+        }
+    }
+}    
+
+div#libraryBrowse {
+    display: flex;
+    div#alphaScroll {
+        position: sticky;
+        top: 8dvh;
+        width: 10dvw;
+        height: 100%;
+        cursor: pointer;
+        opacity: 0.5;
+        transition-duration: opacity 0.4s;
+        div#alphaLinks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5dvw;
+            height: 90dvh;
+            padding-left: 0.5em;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            font-weight: bold;
+            /*background: linear-gradient(90deg, rgba(var(--inputBg),1),65%, rgba(var(--inputBg),0));*/
+            a {
+                flex: 1;
+                width: 100%;
+                padding: 0.5em;
+                /*text-align: center;*/
+                text-decoration: none;
+                transition-duration: 0.1s;
+                color: rgba(var(--libFg),0.75);
+                background-color: rgba(0, 0, 0, 0.0);
+                text-shadow: 5px 5px 5px rgba(var(--inputBg),1);
+            }
+            a:hover {
+                color: rgba(var(--newsFg),1);
+                font-size: 2dvw;
+                transform: translateX(-1dvw);
+            }
+            button:hover + a {
+                color: rgba(var(--newsFg),0.75);
+            }
+            a:has(+ a:hover) {
+                color: rgba(var(--newsFg),0.75);
+            }
+        }
+    }
+    div#alphaScroll.shrink {
+        div#alphaLinks {
+            height: 92dvh;
+        }
+    }
+    div#alphaScroll:hover {
+        opacity: 1.0;
+    }
+    div#libraryScroll {
+        padding: 0 2em;
+    }
+    table.libraryTable {
+        width: 100%;
+        table-layout: fixed;
+        /*background:#595959;*/
+        background-color: rgba(0,0,0,0);
+        background: linear-gradient(0deg, rgba(var(--libBg),0.05), rgba(var(--libBg),0.25));
+        color: rgba(var(--libFg0),1);
+        border-collapse: collapse;
+        tr {
+            font-size: 1.25em;
+        }
+        tr:nth-child(odd) {
+            background-color: rgba(var(--libBg),0.4);
+        }
+        td {
+            padding: 0.5em;
+        }
+        th {
+            padding-top: 0.5em;
+            text-align: left;
+            font-family: 'Roboto Condensed', 'Roboto', Arial;
+            font-size: 3dvh;
+            color: rgba(var(--libTh),1);
+            border-bottom: 2px solid rgba(var(--libTh),1);
+            background: linear-gradient(0deg, rgba(var(--libTh),0.15), rgba(0,0,0,0.0) 25%);
+        }
+        col.title {
+            width: 30%;
+        }
+        .title{
+            color: rgba(var(--libTitle),1);
+        }
+        col.album {
+            width: 40%;
+        }
+        .album {
+            font-style: italic;
+        }
+        col.request {
+            width: 2%;
+        }
+        col.artist {
+            width: 23%;
+        }
+        .artist {
+            color: rgba(var(--libFg),0.5);
+        }
+        .album {
+            color: rgba(var(--fg), 0.5);
+        }
+        col.duration {
+            width: 5%;
+        }
+        .duration {
+            color: rgba(var(--libFg),0.4);
+        }
+        .request {            
+            button {
+                color: rgba(var(--reqBtnFg),1);
+                background-color: rgba(var(--reqBtnBg),1);
+                border-radius: 100%;
+            }
+            button:hover {
+                cursor: pointer;
+            }
+            span {
+                display: none;
+                text-align: center;
+                color: red;
+            }
+        }
+        td.request.requested {
+            button {
+                display: none;
+            }
+            span {
+                display: block;
+            }
+        }
+        td.request button:disabled {
+            background-color:rgba(0, 0, 0, 0.5);
+            cursor:auto;
+            box-shadow: none;
+        }
+        td.request button:disabled[title] {
+            content: 'Please wait before requesting again.';
+        }
+    }
+}
+
+@media screen and (orientation: portrait) {
+    div#libraryForm {
+        top: 3dvw;
+        form {
+            font-size: 2dvw;
+            div#categoryFilter {
+                div#crateDropDown {
+                    .crateBtn {
+                        font-size: 1dvw;
+                    }
+                }
+            }            
+        }
+    }
+
+    div#libraryBrowse {
+        div#alphaScroll {
+            top: 7dvw;
+            div#alphaLinks {
+                height: 93dvh;
+            }
+        }
+        div#alphaScroll.shrink {
+            div#alphaLinks {
+                height: 96dvh;
+            }
+        }
+        table.libraryTable {
+            th {
+                font-size: 3dvw;
+            }
+            col.title {
+                width: 35%;
+            }
+            col.request {
+                width: 5%;
+            }
+            col.album {
+                width: 35%;
+            }
+            col.artist {
+                width: 20%;
+            }
+            col.duration {
+                width: 5%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 960px) {
+    div#libraryForm {
+        top: 5dvh;
+        form {
+            font-size: 3dvw;
+            div#categoryFilter {
+                .crateBtn {
+                    span.crateLogo, span.crateDesc {
+                        padding: 1dvh;
+                        font-size: 1dvh;
+                    }
+                }
+                div#crateDropDown.unrolled {
+                    right: 2dvw;
+                    width: 75dvw;
+                }
+            }
+        }
+    }
+    div#libraryBrowse {
+        /*overflow:hidden;*/
+        div#alphaScroll {
+            top: 5lvh;
+            width: 5dvw;
+            opacity: 0.5;
+            div#alphaLinks {
+                width: 5dvw;
+                height: 92lvh;
+                a:hover {
+                    transform: none;
+                }
+            }
+        }
+        div#alphaScroll.shrink {
+            top: 9dvh;
+            div#alphaLinks {
+                height: 92lvh;
+            }
+        }
+        table.libraryTable {
+            th {
+                font-size: 2.5dvh;
+            }
+            col.title {
+                width: 45%;
+            }
+            col.request {
+                width: 10%;
+            }
+            col.album {
+                width: 45%;
+            }
+            col.duration, col.artist {
+                display: none;
+            }
+            /*td.artist, col.artist {
+                display: none;
+            }*/
+            td.album, td.artist, td.duration {
+                display: flex;
+                font-size: 0.75em;
+                justify-content: flex-end;
+            }
+        }
+        table.libraryTable.noAlbumCol {
+            col.duration, col.artist {
+                display: table-column;
+            }
+        }
+    }
+}
