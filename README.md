@@ -1,3 +1,10 @@
+Split from the following repo on 7/16/2024: https://github.com/asaraco/legendarylandj
+
+This is the Angular front-end application for viewing and controlling song requests for a DJ application, communicating with backend services defined in the "djserv" repository.
+It was originally built to interact with the Mixxx DJ software, indirectly, by accessing and manipulating the database (via webservice calls).
+
+
+
 # Djweb
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.3.
