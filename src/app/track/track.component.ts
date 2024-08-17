@@ -6,12 +6,14 @@ export class Track {
   title: string = "";
   album: string = "";
   albumArtist: string = "";
-  sortArtist: string = "";
+  //sortArtist: string = "";
+  grouping: string = "";
   duration: number = 0;
   year: number = 0;
   genre: string = "";
   crateIds!: number[];
-  constructor() {}
+  constructor() {
+  }
 }
 
 @Component({

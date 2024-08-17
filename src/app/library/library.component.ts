@@ -52,7 +52,8 @@ export class LibraryComponent implements OnInit {
       if (data.triggerRefresh) {
         this.libraryDataService.retrieveAllTracks().subscribe(
           data => { 
-                    this.tracks = data._embedded.tracks;
+                    //this.tracks = data._embedded.tracks;
+                    this.tracks = data;
                     this.filteredTracks = this.searchControl.valueChanges.pipe(debounceTime(500), startWith(''), map(value => this._filter(value)));
                   }
         );
@@ -64,7 +65,8 @@ export class LibraryComponent implements OnInit {
     // Get main list of tracks
     this.libraryDataService.retrieveAllTracks().subscribe(
       data => { 
-                this.tracks = data._embedded.tracks;
+                //this.tracks = data._embedded.tracks;
+                this.tracks = data;
                 this.filteredTracks = this.searchControl.valueChanges.pipe(debounceTime(500), startWith(''), map(value => this._filter(value)));
               }
     );

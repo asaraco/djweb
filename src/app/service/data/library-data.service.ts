@@ -26,7 +26,8 @@ export class LibraryDataService {
   the JSON response has an "_embedded" wrapper for the tracks array */
 
   retrieveAllTracks(): Observable<any> {
-    return this.http.get<Track[]>(`${API_URL}/tracks/search/findByCratesIdNotInOrderBySortArtistAscAlbumAsc?crateids=${CRATES_HIDDEN}`)
+    //return this.http.get<Track[]>(`${API_URL}/tracks/search/findByCratesIdNotInOrderBySortArtistAscAlbumAsc?crateids=${CRATES_HIDDEN}`)
+    return this.http.get<Track[]>(`${API_URL}/getSongs`)
   }
   
   retrieveNewTracks(): Observable<any> {
