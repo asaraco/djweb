@@ -31,6 +31,7 @@ export class LibraryDataService {
   }
   
   retrieveNewTracks(): Observable<any> {
-    return this.http.get<Track[]>(`${API_URL}/tracks/search/findAllByCratesIsNull`)
+    //return this.http.get<Track[]>(`${API_URL}/tracks/search/findAllByCratesIsNull`)
+    return this.http.get<Track[]>(`${API_URL}/getUnratedLocalTracks`)
   }
 }

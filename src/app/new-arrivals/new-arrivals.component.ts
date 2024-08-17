@@ -43,7 +43,8 @@ export class NewArrivalsComponent implements OnInit {
           //console.log(newTracks.length + " = " + this.tracks.length);
           this.libraryDataService.retrieveNewTracks().subscribe(
             data => {
-              newTracks = data._embedded.tracks;
+              //newTracks = data._embedded.tracks;
+              newTracks = data;
             }
           )
         } else {
@@ -60,7 +61,8 @@ export class NewArrivalsComponent implements OnInit {
     //Get tracks
     this.libraryDataService.retrieveNewTracks().subscribe(
       data => {
-        this.tracks = data._embedded.tracks;
+        //this.tracks = data._embedded.tracks;
+        this.tracks = data;
       }
     );
     // Handle request blocking
@@ -110,7 +112,8 @@ export class NewArrivalsComponent implements OnInit {
           this.playlistDataService.notifyOfRequest(duration, requestTotal, true);
           this.justRequested = id;
           let animationInterval = setInterval(() => {
-            this.libraryDataService.retrieveNewTracks().subscribe(data2 => this.tracks = data2._embedded.tracks);
+            //this.libraryDataService.retrieveNewTracks().subscribe(data2 => this.tracks = data2._embedded.tracks);
+            this.libraryDataService.retrieveNewTracks().subscribe(data2 => this.tracks = data2);
             clearInterval(animationInterval);
           }, 1000);          
         });
