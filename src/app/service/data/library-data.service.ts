@@ -27,7 +27,7 @@ export class LibraryDataService {
 
   retrieveAllTracks(): Observable<any> {
     //return this.http.get<Track[]>(`${API_URL}/tracks/search/findByCratesIdNotInOrderBySortArtistAscAlbumAsc?crateids=${CRATES_HIDDEN}`)
-    return this.http.get<Track[]>(`${API_URL}/getSongs`)
+    return this.http.get<Track[]>(`${API_URL}/getRatedTracks`)
   }
   
   retrieveNewTracks(): Observable<any> {
