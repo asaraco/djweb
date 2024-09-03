@@ -48,7 +48,7 @@ export class PlaylistDataService {
     return this.http.post<string>(`${API_URL}/requestSong?id=${id}`, null);
   }
 
-  requestTrackCrate(songid: number, crateid: number): Observable<string> {
+  requestTrackCrate(songid: number, crateid: string): Observable<string> {
     var responseMsg: string;
     return this.http.post<string>(`${API_URL}/requestSongCrate?songid=${songid}&crateid=${crateid}`, null);
   }

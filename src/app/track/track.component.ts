@@ -11,7 +11,7 @@ export class Track {
   duration: number = 0;
   year: number = 0;
   genre: string = "";
-  crateIds!: number[];
+  crates!: string[];
   constructor() {
   }
 }

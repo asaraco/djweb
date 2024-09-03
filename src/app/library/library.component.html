@@ -7,9 +7,9 @@
             <div id="crateActive" class="crateBtn"
                     title="{{filterCrate.desc}}"
                     (click)="toggleCrateDropDown()">
-                <span *ngIf="filterCrate.id===0" class="crateDropPlaceholder">{{UI_CATS_TEXT}}</span>
-                <ng-container *ngIf="!(filterCrate.id==0) && (filterCrate.imageFileName=='')">{{filterCrate.name}}</ng-container>
-                <img *ngIf="!(filterCrate.id==0) && !(filterCrate.imageFileName=='')" src="assets/images/{{filterCrate.imageFileName}}" alt="{{filterCrate.name}}"/>
+                <span *ngIf="filterCrate.id===''" class="crateDropPlaceholder">{{UI_CATS_TEXT}}</span>
+                <ng-container *ngIf="!(filterCrate.id=='') && (filterCrate.imageFileName=='')">{{filterCrate.name}}</ng-container>
+                <img *ngIf="!(filterCrate.id=='') && !(filterCrate.imageFileName=='')" src="assets/images/{{filterCrate.imageFileName}}" alt="{{filterCrate.name}}"/>
                 <span class="crateDropIcon">▼</span>
             </div>
             <div id="crateDropDown" [ngClass]="{unrolled: showCrateDropDown}">

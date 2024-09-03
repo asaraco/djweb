@@ -17,7 +17,7 @@ export class PlaylistTrack {
 export class PlaylistTrackComponent {
   id: number = 0;
   @Input() playlistTrack: any;
-  CRATES_ALBUMVIEW: number[] = CRATES_ALBUMVIEW;
+  CRATES_ALBUMVIEW: string[] = CRATES_ALBUMVIEW;
   //playlistTrack!: PlaylistTrack;
   constructor(private playlistDataService: PlaylistDataService){}
   ngOnInit(): void {
@@ -38,7 +38,7 @@ export class PlaylistTrackComponent {
   isAlbumView(t: Track): boolean {
     var albumView = false;
     CRATES_ALBUMVIEW.forEach(x => {
-      if(t.crateIds.includes(x)) {
+      if(t.crates.includes(x)) {
         albumView = true;
       }
     });

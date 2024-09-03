@@ -15,7 +15,7 @@ export class HideCratesPipe implements PipeTransform {
       data.forEach(t => {
         var hide = false;
         CRATES_HIDDEN.forEach(x => {
-          if(t.crateIds.includes(x)) {
+          if(t.crates.includes(x)) {
             hide = true;
           }
         });

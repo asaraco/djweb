@@ -20,7 +20,7 @@ export class LibraryComponent implements OnInit {
   headingList: String[] = [];
   headingListChanged: boolean = true;
   //@Input() filterCrate: number = 0;
-  selectedCrateId: number = 0;
+  selectedCrateId: string = "";
   filterCrate: CrateMeta = CRATE_ALL;
   startsWith: string = "";
   searchTerm: string = "";
@@ -39,8 +39,8 @@ export class LibraryComponent implements OnInit {
   UI_CATS_TEXT: string = UI_CATS_TEXT;
   UI_REQUEST_TEXT: string = UI_REQUEST_TEXT;
   CRATES_SELECTABLE: CrateMeta[] = CRATES_SELECTABLE;
-  CRATES_SIMPLEVIEW: number[] = CRATES_SIMPLEVIEW;
-  CRATES_ALBUMVIEW: number[] = CRATES_ALBUMVIEW;
+  CRATES_SIMPLEVIEW: string[] = CRATES_SIMPLEVIEW;
+  CRATES_ALBUMVIEW: string[] = CRATES_ALBUMVIEW;
 
   constructor(
     private libraryDataService: LibraryDataService,
@@ -102,12 +102,12 @@ export class LibraryComponent implements OnInit {
   private _filter(value: string): Track[] {
     const filterValue = value ? value.toLowerCase(): "";
     //return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue));
-    if (this.selectedCrateId > 0) { // some track category selected
+    if (this.selectedCrateId != "") { // some track category selected
       // In order to avoid changing category view TOO fast, defer directive-modifying variable change to here
       //this.filterCrate = this.selectedCrateId;
       CRATES_SELECTABLE.forEach(c => {        if (c.id===this.selectedCrateId) this.filterCrate = c;      });
       this.headingListChanged = true;
-      return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue) && track.crateIds.includes(this.selectedCrateId));
+      return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue) && track.crates.includes(this.selectedCrateId));
     } else {                      // "All tracks"
       // In order to avoid changing category view TOO fast, defer directive-modifying variable change to here
       //this.filterCrate = this.selectedCrateId;
@@ -153,8 +153,10 @@ export class LibraryComponent implements OnInit {
    * Set the active crate.
    * @param id 
    */
-  selectCrate(id: number) {
+  selectCrate(id: string) {
+    console.log("SELECT CRATE: " + id);
     this.selectedCrateId = id;
+    console.log("selectedCrateId: " + this.selectedCrateId);
     this.searchControl.updateValueAndValidity({onlySelf: false, emitEvent: true});
     this.toggleCrateDropDown();
   }
