@@ -46,7 +46,7 @@ export const CRATE_VGM              = new CrateMeta("#vgm", "Video Game","btn_vg
 export const CRATE_OSV              = new CrateMeta("#osv", "Video Game OSV","btn_vgosv.png", "Video game music the way it originally sounded. Get your bleeps and bloops on.");
 //export const CRATE_GAME_OTHER       = new CrateMeta(14, "Video Game Covers/Remixes",    "btn_vgremix.png", "Video game music, reinterpreted.")
 export const CRATE_PSYCHED          = new CrateMeta("#getPsyched", "GET PSYCHED",  "btn_getpsyched.png", "When there's no time for a training montage, these will get you pumped for a legendary performance.");
-export const CRATE_HITS             = new CrateMeta("#hits", "Greatest Hits","btn_greatesthits.png", "Songs that are objectively popular or have otherwise achieved Legendary status.");
+export const CRATE_HITS             = new CrateMeta("#hit", "Greatest Hits","btn_greatesthits.png", "Songs that are objectively popular or have otherwise achieved Legendary status.");
 export const CRATE_MASHUP           = new CrateMeta("#mashup", "Mash-ups",     "btn_mashups.png", "Mash-ups of songs, some better than others.");
 export const CRATE_LAN_LIBRARY      = new CrateMeta("#ll", "The LAN Library","","Catch-all crate for uploaded songs.");
 

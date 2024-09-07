@@ -5,11 +5,11 @@
         </div>
         <div id="categoryFilter">
             <div id="crateActive" class="crateBtn"
-                    title="{{filterCrate.desc}}"
+                    title="AMS - PUT TITLE HERE - AMS"
                     (click)="toggleCrateDropDown()">
-                <span *ngIf="filterCrate.id===''" class="crateDropPlaceholder">{{UI_CATS_TEXT}}</span>
-                <ng-container *ngIf="!(filterCrate.id=='') && (filterCrate.imageFileName=='')">{{filterCrate.name}}</ng-container>
-                <img *ngIf="!(filterCrate.id=='') && !(filterCrate.imageFileName=='')" src="assets/images/{{filterCrate.imageFileName}}" alt="{{filterCrate.name}}"/>
+                <span *ngIf="filterCrates.length===0" class="crateDropPlaceholder">{{UI_CATS_TEXT}}</span>
+                <ng-container *ngIf="filterCrates.length>0">AMS - CRATE NAME HERE - AMS</ng-container>
+                <img *ngIf="filterCrates.length>0" src="assets/images/{{filterCrates[0].imageFileName}}" alt="{{filterCrates[0].name}}"/>
                 <span class="crateDropIcon">▼</span>
             </div>
             <div id="crateDropDown" [ngClass]="{unrolled: showCrateDropDown}">
@@ -18,7 +18,7 @@
                 </button-->
                 <div class="crateBtn" *ngFor="let crate of CRATES_SELECTABLE" 
                         title="{{crate.name}}"
-                        [ngClass]="{'crateSelected': filterCrate.id===crate.id}"
+                        [ngClass]="{'crateSelected': filterCrates.includes(crate)}"
                         (click)="selectCrate(crate.id)">
                     <span class="crateLogo">
                         <img *ngIf="!(crate.imageFileName == '')" src="assets/images/{{crate.imageFileName}}" alt="{{crate.name}}"/>
@@ -40,7 +40,7 @@
         </div>
     </div>
     <div id="libraryScroll">
-        <table class="libraryTable" *ngIf="!CRATES_ALBUMVIEW.includes(filterCrate.id) && !CRATES_SIMPLEVIEW.includes(filterCrate.id)">
+        <table class="libraryTable">
             <col class="title">
             <col class="request">
             <col class="album">
@@ -50,7 +50,7 @@
             <thead id="loading" *ngIf="!(filteredTracks | async)"><th colspan="5">Loading...</th></thead>
             <!--ng-container *ngFor="let group of (filteredTracks | async)! | groupByArtist"-->
             <ng-container *ngFor="let group of (filteredTracks | async)! | groupBy: 'grouping' ">
-                <thead *ngIf="!CRATES_SIMPLEVIEW.includes(filterCrate.id)">
+                <thead>
                     <th class="tdHeading" colspan="5" id="{{group.group}}">{{group.group}}</th>
                     <!--th colspan="5" id="{{group.items[0]['groupName']}}">{{group.items[0]['groupName']}}</th-->
                 </thead>
@@ -62,19 +62,18 @@
                             <button type="button" (click)="requestSong(t.id, t.duration)" [disabled]="(justRequested > -1) && (justRequested != t.id)" title={{buttonTooltip}}>+</button>
                             <span>✔️</span>
                         </td>
-                        <td class="album" *ngIf="!CRATES_SIMPLEVIEW.includes(filterCrate.id)">{{t.album}}</td>
+                        <td class="album">{{t.album}}</td>
                         <td class="artist">{{t.artist}}</td>
                         <td class="duration">{{t.duration * 1000 | date:'mm:ss'}}</td>
                     </tr>
                 </ng-container>
             </ng-container>
         </table>
-        <table class="libraryTable noAlbumCol" *ngIf="CRATES_SIMPLEVIEW.includes(filterCrate.id)">
+        <!--table class="libraryTable noAlbumCol" *ngIf="CRATES_SIMPLEVIEW.includes(filterCrate.id)">
             <col class="title">
             <col class="request">
             <col class="artist">
             <col class="duration">
-            <!--ng-container *ngFor="let group of (filteredTracks | async)! | groupBy: 'sortArtist' "-->
             <thead id="loading" *ngIf="!(filteredTracks | async)"><th colspan="4">Loading...</th></thead>
             <ng-container *ngFor="let t of (filteredTracks | async)!">
                     <tr>
@@ -87,14 +86,13 @@
                         <td class="duration">{{t.duration * 1000 | date:'mm:ss'}}</td>
                     </tr>
             </ng-container>
-        </table>
-        <table class="libraryTable noAlbumCol" *ngIf="CRATES_ALBUMVIEW.includes(filterCrate.id)">
+        </table-->
+        <!--table class="libraryTable noAlbumCol" *ngIf="CRATES_ALBUMVIEW.includes(filterCrate.id)">
             <col class="title">
             <col class="request">
             <col class="artist">
             <col class="duration">
             <thead id="loading" *ngIf="!(filteredTracks | async)"><th colspan="4">Loading...</th></thead>
-            <!--ng-container *ngFor="let group of (filteredTracks | async)! | groupBy: 'album' "-->
             <ng-container *ngFor="let group of (filteredTracks | async)! | groupBy: 'grouping' ">
                 <thead *ngIf="!CRATES_SIMPLEVIEW.includes(filterCrate.id)">
                     <th colspan="4" id="{{group.group}}">{{group.group}}</th>
@@ -111,6 +109,6 @@
                     </tr>
                 </ng-container>
             </ng-container>
-        </table>
+        </table-->
     </div>
 </div>
