@@ -34,7 +34,7 @@ export class CrateMeta {
 }
 
 export const CRATE_ALL              = new CrateMeta("", "",           "", "(all songs)");   // Not really a crate, just useful for making the selectable options iterable
-export const CRATE_INSTRUMENTALS    = new CrateMeta("#instrumental", "Instrumentals", "",   "Instrumental versions of songs");
+export const CRATE_INSTRUMENTALS    = new CrateMeta("#instrumental", "Instrumentals", "btn_instrumentals.png",   "Instrumental versions of non-instrumental songs.");
 export const CRATE_ACAPELLAS        = new CrateMeta("#acapella", "Acapellas",     "", "* HIDDEN * | Acapella versions of songs");
 export const CRATE_MAIN             = new CrateMeta("#main", "Main Rotation", "", "Songs that will play automatically.");
 export const CRATE_OLD              = new CrateMeta("#dad", "Golden Oldies", "btn_goldenoldies.png", "Dad Rock and other music by, and/or for, old people. Sorry, boomer");
@@ -42,8 +42,8 @@ export const CRATE_SOUNDTRACKS      = new CrateMeta("#soundtrack", "Soundtracks"
 export const CRATE_CHILL            = new CrateMeta("#chill", "Chill",         "", "* HIDDEN * | For when the party dies down");
 export const CRATE_COMEDY           = new CrateMeta("#comedy", "Comedic/Memey", "btn_comedy.png", "Intentionally comedic songs. Request at your peril.");
 export const CRATE_MEMES            = new CrateMeta("#meme", "Comedic/Memey", "btn_comedy.png", "Songs that have become viral/memes for whatever reasons. Request at your peril.");
-export const CRATE_VGM              = new CrateMeta("#vgm", "Video Game","btn_vgosv.png", "Music from video games.");
-export const CRATE_OSV              = new CrateMeta("#osv", "Video Game OSV","btn_vgosv.png", "Video game music the way it originally sounded. Get your bleeps and bloops on.");
+export const CRATE_VGM              = new CrateMeta("#vgm", "Video Game","btn_vgm.png", "Music from or related to video games.");
+export const CRATE_OSV              = new CrateMeta("#osv", "Video Game OSV","btn_osv.png", "No covers or remixes, just pure VGM.");
 //export const CRATE_GAME_OTHER       = new CrateMeta(14, "Video Game Covers/Remixes",    "btn_vgremix.png", "Video game music, reinterpreted.")
 export const CRATE_PSYCHED          = new CrateMeta("#getPsyched", "GET PSYCHED",  "btn_getpsyched.png", "When there's no time for a training montage, these will get you pumped for a legendary performance.");
 export const CRATE_HITS             = new CrateMeta("#hit", "Greatest Hits","btn_greatesthits.png", "Songs that are objectively popular or have otherwise achieved Legendary status.");
@@ -66,4 +66,6 @@ export const CRATES_SELECTABLE = [  CRATE_ALL,
                                     CRATE_OSV,
                                     CRATE_VGM,
                                     CRATE_MASHUP,
+                                    CRATE_INSTRUMENTALS,
+                                    CRATE_COMEDY,
                                     CRATE_MEMES         ]

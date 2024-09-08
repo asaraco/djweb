@@ -8,8 +8,9 @@
                     title="AMS - PUT TITLE HERE - AMS"
                     (click)="toggleCrateDropDown()">
                 <span *ngIf="filterCrates.length===0" class="crateDropPlaceholder">{{UI_CATS_TEXT}}</span>
-                <ng-container *ngIf="filterCrates.length>0">AMS - CRATE NAME HERE - AMS</ng-container>
-                <img *ngIf="filterCrates.length>0" src="assets/images/{{filterCrates[0].imageFileName}}" alt="{{filterCrates[0].name}}"/>
+                <ng-container *ngIf="filterCrates.length>0">
+                    <img *ngFor="let crate of filterCrates" src="assets/images/{{crate.imageFileName}}" alt="{{crate.id}}"/>
+                </ng-container>
                 <span class="crateDropIcon">▼</span>
             </div>
             <div id="crateDropDown" [ngClass]="{unrolled: showCrateDropDown}">
