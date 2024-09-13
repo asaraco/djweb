@@ -21,11 +21,11 @@
                         title="{{crate.name}}"
                         [ngClass]="{'crateSelected': filterCrates.includes(crate)}"
                         (click)="selectCrate(crate.id)">
-                    <span class="crateLogo">
-                        <img *ngIf="!(crate.imageFileName == '')" src="assets/images/{{crate.imageFileName}}" alt="{{crate.name}}"/>
-                        <ng-container *ngIf="crate.imageFileName=='' ">{{crate.name}}</ng-container>
-                    </span>                    
-                    <span class="crateDesc">{{crate.desc}}</span>
+                    <div class="crateLogo" [ngStyle]="{'background-image': 'url(assets/images/'+crate.imageFileName+')'}">
+                        <!--img *ngIf="!(crate.imageFileName == '')" src="assets/images/{{crate.imageFileName}}" alt="{{crate.name}}"/>
+                        <ng-container *ngIf="crate.imageFileName=='' ">{{crate.name}}</ng-container-->
+                    </div>                    
+                    <div class="crateDesc">{{crate.desc}}</div>
                 </div>
             </div>
         </div>

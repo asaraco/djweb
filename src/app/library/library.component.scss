@@ -46,24 +46,27 @@ div#libraryForm {
             background-color: rgba(var(--inputBg),1);
             .crateBtn {           
                 color: rgba(var(--libTh));
-                height: 2em;
+                /*height: 2em;
+                width: 100%;*/
                 border: none;
                 cursor: pointer;
                 display: flex;
                 align-items: center;
-                width: 100%;
-                span.crateLogo {
+                div.crateLogo {
                     flex: 1;
-                    height: 100%;
+                    width: 100%;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                }
+                div.crateDesc {
+                    flex: 1;
+                    padding: 1dvh;
                 }
                 img {                    
                     height: 0;
                     min-height: 100%;
-                }
-                span.crateDesc {
-                    flex: 3;
-                    padding: 2dvh;
-                }                
+                }  
             }            
             div#crateDropDown {
                 position: absolute;
@@ -71,19 +74,27 @@ div#libraryForm {
                 width: 0;
                 height: 0;
                 z-index: 1;
-                flex-direction: column;
-                transition-duration: 0.25s;
+                flex-direction: row;
+                flex-wrap: wrap;
+                transition-duration: 0.1s;
                 background-color: rgba(var(--crateDropBg),0.5);
                 backdrop-filter: blur(8px);
                 -webkit-backdrop-filter: blur(8px);
                 .crateBtn {
                     display: none;
                     /*height: 2em;*/
-                    flex-grow: 1;
-                    flex-direction: row-reverse;
+                    /*flex-grow: 1;*/
+                    flex-direction: column;
                     /*font-size: 0.5em;*/
                     font-size: 1.5dvh;
-                    border-bottom: 1px solid #555;
+                    /*border-bottom: 1px solid #555;*/
+                    background-color: rgba(var(--crateDropBg),0.75);
+                    border-radius: 5px;
+                    margin: 5px;
+                    padding: 10px;
+                    width: 20dvh;
+                    height: 20dvh;
+                    /*overflow: hidden;*/
                 }
             }
             div#crateDropDown.unrolled {
