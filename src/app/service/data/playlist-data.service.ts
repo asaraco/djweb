@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { Playlist } from 'src/app/playlist/playlist.component';
 import { Track } from 'src/app/track/track.component';
+import { PlaylistTrack } from 'src/app/playlist-track/playlist-track.component';
 
 export class PlaylistRequest {
   constructor(public duration: number, public reqTotal: number, public triggerRefresh: boolean) {}
@@ -41,6 +42,10 @@ export class PlaylistDataService {
 
   retrieveHighestPlaylistTrack(id: number): Observable<Track> {
     return this.http.get<Track>(`${API_URL}playlistTracks/search/findFirstByPlaylistIdOrderByPositionDesc?playlistId=${id}`);
+  }
+
+  retrieveAutomixQueue(): Observable<Playlist> {
+    return this.http.get<Playlist>(`${API_URL}/getQueue`);
   }
 
   requestTrack(id: number): Observable<string> {

@@ -5,7 +5,7 @@ import { PlaylistTrack } from '../playlist-track/playlist-track.component';
 
 export class Playlist {
   name!: string;
-  dateModified!: Date;
+  //dateModified!: Date;
   playlistTracks!: PlaylistTrack[];
   constructor(
     //public id: number

@@ -51,13 +51,17 @@ export class AppComponent implements OnInit {
       let currentTrackDuration = data._embedded.playlistTracks[0].track.duration;
       //console.log("current track duration: " + currentTrackDuration);
     });
-    
+    /*
     this.playlistDataService.retrievePlaylist(1).subscribe(data => {
       //this.autoDjPlaylist = new Playlist(1);
       this.autoDjPlaylist.name = data.name;
       this.autoDjPlaylist.playlistTracks = data._embedded.playlistTracks;
     });
-
+    */
+    this.playlistDataService.retrieveAutomixQueue().subscribe(data => {
+      this.autoDjPlaylist.name = data.name;
+      this.autoDjPlaylist.playlistTracks = data.playlistTracks.splice(0,5).reverse();
+    })
     // AMS 2023/10/16 - Retrieve or randomly generate a user ID # for this session.
     //                  Also store in array to make sure there are no duplicates.
     if (!localStorage.getItem('userNumber')) {
