@@ -48,6 +48,10 @@ export class PlaylistDataService {
     return this.http.get<Playlist>(`${API_URL}/getQueue`);
   }
 
+  retrieveLastPlayed(): Observable<Playlist> {
+    return this.http.get<Playlist>(`${API_URL}/getPlayHistory`);
+  }
+
   requestTrack(id: number): Observable<string> {
     var responseMsg: string;
     return this.http.post<string>(`${API_URL}/requestSong?id=${id}`, null);

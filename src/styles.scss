@@ -54,12 +54,13 @@ button:hover {
 }
 
 #pRecent {
-    color: rgba(var(--queueFg-weak), 0.75);
+    color: rgba(var(--queueFg-weak), 0.5);
     .playlistDiv {
         div:first-child {
             color: rgba(var(--queueFg-strong), 1);
             font-weight: bold;
-            text-shadow: rgba(var(--queueFg-weak), 0.75) 1px 0 4px;
+            text-shadow: rgba(var(--queueFg-weak), 0.5) 1px 0 4px;
+            border-bottom: 1px solid rgba(var(--queueFg-strong));
         }
     }
 }
