@@ -51,18 +51,26 @@ button:hover {
 
 #pAutoDj {
     color: rgba(var(--queueFg), 0.95);
-}
-
-#pRecent {
-    color: rgba(var(--queueFg-weak), 0.5);
     .playlistDiv {
-        div:first-child {
+        div:last-child {
             color: rgba(var(--queueFg-strong), 1);
             font-weight: bold;
             text-shadow: rgba(var(--queueFg-weak), 0.5) 1px 0 4px;
             border-bottom: 1px solid rgba(var(--queueFg-strong));
         }
     }
+}
+
+#pRecent {
+    color: rgba(var(--queueFg-weak), 0.5);
+    /*.playlistDiv {
+        div:first-child {
+            color: rgba(var(--queueFg-strong), 1);
+            font-weight: bold;
+            text-shadow: rgba(var(--queueFg-weak), 0.5) 1px 0 4px;
+            border-bottom: 1px solid rgba(var(--queueFg-strong));
+        }
+    }*/
 }
 
 @media screen and (max-width: 960px) {

@@ -101,29 +101,24 @@ export class LibraryComponent implements OnInit {
    */
   private _filter(value: string): Track[] {
     const filterValue = value ? value.toLowerCase(): "";
-    console.log(`_filter(${value})`);
     let s = "";
     this.filterCrates.forEach(c=>s+=c.id);
-    console.log(`_filter: selectedCrateIds = ${this.selectedCrateIds} \t filterCrates = ${s}`);
-    console.log(this.filterCrates);
     //return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue));
     this.filterCrates = [];
     if (this.selectedCrateIds.length > 0) { // some track category selected
-      console.log("selectedCrateIDs.length > 0");
       // In order to avoid changing category view TOO fast, defer directive-modifying variable change to here
       //this.filterCrate = this.selectedCrateId;
       CRATES_SELECTABLE.forEach(c => {        
-        if (this.selectedCrateIds.includes(c.id) && !this.filterCrates.includes(c)) { this.filterCrates.push(c); console.log(`adding ${c.id}`); }
+        if (this.selectedCrateIds.includes(c.id) && !this.filterCrates.includes(c)) { this.filterCrates.push(c); }
       });
       this.headingListChanged = true;
       // "some" function checks if one array contains any element of another; "every" checks if it has ALL
       return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue) && this.selectedCrateIds.every(e=>track.crates.includes(e)));
     } else {                      // "All tracks"
-      console.log("selectedCrateIDs.length <= 0");
       // In order to avoid changing category view TOO fast, defer directive-modifying variable change to here
       //this.filterCrate = this.selectedCrateId;
       CRATES_SELECTABLE.forEach(c => {        
-        if (this.selectedCrateIds.includes(c.id) && !this.filterCrates.includes(c)) { this.filterCrates.push(c); console.log(`adding ${c.id}`); }     
+        if (this.selectedCrateIds.includes(c.id) && !this.filterCrates.includes(c)) { this.filterCrates.push(c); }     
       });
       this.headingListChanged = true;
       return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue));
@@ -167,10 +162,8 @@ export class LibraryComponent implements OnInit {
    * @param id 
    */
   selectCrate(id: string) {
-    console.log(`selectCrate(${id})`);
     // Check if crate already selected; if so, deselect it
     if (this.selectedCrateIds.includes(id)) {
-      console.log(`Deselecting crate ${id}`);
       // "Deep copy" the array to force DOM to update
       /*
       let tempArray: string[] = [];
@@ -183,10 +176,8 @@ export class LibraryComponent implements OnInit {
       let i = this.selectedCrateIds.indexOf(id);
       this.selectedCrateIds.splice(i,1);
     } else {
-      console.log(`Selecting crate ${id}`);
       this.selectedCrateIds.push(id);
     }
-    console.log(`selectedCrateIds = ${this.selectedCrateIds}`);
     this.searchControl.updateValueAndValidity({onlySelf: false, emitEvent: true});
     this.toggleCrateDropDown();
   }
