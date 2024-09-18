@@ -11,7 +11,8 @@
                 <ng-container *ngIf="filterCrates.length>0">
                     <img *ngFor="let crate of filterCrates" src="assets/images/{{crate.imageFileName}}" alt="{{crate.id}}"/>
                 </ng-container>
-                <span class="crateDropIcon">▼</span>
+                <!--span class="crateDropIcon">▼</span-->
+                <div class="crateDropIcon">&nbsp;</div>
             </div>
             <div id="crateDropDown" [ngClass]="{unrolled: showCrateDropDown}">
                 <!--button class="crateBtn" (click)="selectCrate(0)" [ngClass]="{'crateSelected': filterCrate===0}">
