@@ -68,9 +68,9 @@ div#libraryForm {
                     min-height: 100%;
                 }
                 div.crateDropIcon {
-                    width: 2em;
-                    background-image: url(/assets/images/filter.png);
-                    background-size: contain;
+                    width: 5dvh;
+                    background-image: url(/assets/images/btnFilter.svg);
+                    background-size: cover;
                     background-repeat: no-repeat;
                     background-position-x: right;
                 }
@@ -114,6 +114,8 @@ div#libraryForm {
             #crateActive {
                 justify-content: flex-end;
                 margin-bottom: 0;
+                height: 100%;
+                align-items: stretch;
                 /*background-color: rgba(var(--inputBg),1);*/
                 background-color: rgba(0,0,0,0);
                 span.crateDropIcon {
