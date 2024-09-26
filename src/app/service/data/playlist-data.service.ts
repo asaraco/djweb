@@ -61,4 +61,9 @@ export class PlaylistDataService {
     var responseMsg: string;
     return this.http.post<string>(`${API_URL}/requestSongCrate?songid=${songid}&crateid=${crateid}`, null);
   }
+
+  requestTrackAndAskTheDJ(id: number): Observable<string> {
+    var songInfo: string;
+    return this.http.post<string>(`${API_URL}/findSongByIdForAskTheDJ?id=${id}`, null);
+  }
 }

@@ -215,8 +215,11 @@ export class LibraryComponent implements OnInit {
       //Make the request
       //console.log("Request song #" + id);
       var resultMsg: string;
-      this.playlistDataService.requestTrack(id).subscribe(data => {
+      //this.playlistDataService.requestTrack(id).subscribe(data => {
+      this.playlistDataService.requestTrackAndAskTheDJ(id).subscribe(data => {
+        console.log("Got a result");
         resultMsg = data;
+        console.log(resultMsg);
         this.showReqToast = true;
         localStorage.setItem('lastRequest', id.toString());
         //this.setReqDelay(duration, now);
