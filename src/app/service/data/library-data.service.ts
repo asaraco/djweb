@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { API_URL, CRATES_HIDDEN } from 'src/app/app.constants';
+import { OnlineResult } from 'src/app/library/library.component';
 import { Track } from 'src/app/track/track.component';
 
 @Injectable({
@@ -33,5 +34,9 @@ export class LibraryDataService {
   retrieveNewTracks(): Observable<any> {
     //return this.http.get<Track[]>(`${API_URL}/tracks/search/findAllByCratesIsNull`)
     return this.http.get<Track[]>(`${API_URL}/getUnratedLocalTracks`)
+  }
+
+  deezerSearch(query: string): Observable<OnlineResult[]> {
+    return this.http.get<OnlineResult[]>(`${API_URL}/deezerSearch?query=${query}`);
   }
 }

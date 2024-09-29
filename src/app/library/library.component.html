@@ -3,6 +3,9 @@
         <div id="searchField">
             <input type="search" placeholder="{{UI_SEARCH_TEXT}}" [formControl]="searchControl">
         </div>
+        <div>
+            <button (click)="deezerSearch(searchTerm)">Search Deezer</button>
+        </div>
         <div id="categoryFilter">
             <div id="crateActive" class="crateBtn"
                     title="AMS - PUT TITLE HERE - AMS"
@@ -31,6 +34,11 @@
             </div>
         </div>
     </form>
+    <div>
+        <div *ngFor="let r of onlineResults">
+            {{r.artist}} - {{r.title}} ({{r.album}}) <span *ngIf="r.explicit" alt="Explicit lyrics - request will probably be denied">⛔</span>
+        </div>
+    </div>
 </div>
 
 <app-toast id="requestToast" [toastText]="[UI_REQUEST_TEXT]" [(showToast)]="showReqToast"></app-toast>

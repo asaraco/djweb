@@ -7,6 +7,13 @@ import { Observable, Subscription, debounceTime, map, startWith } from 'rxjs';
 import { PlaylistDataService } from '../service/data/playlist-data.service';
 import { PlaylistTrack } from '../playlist-track/playlist-track.component';
 
+export class OnlineResult {
+  artist: string = "";
+  title: string = "";
+  album: string = "";
+  explicit: boolean = false;
+}
+
 /** Main component code */
 
 @Component({
@@ -15,6 +22,7 @@ import { PlaylistTrack } from '../playlist-track/playlist-track.component';
   styleUrls: ['./library.component.scss']
 })
 export class LibraryComponent implements OnInit {
+  onlineResults!: OnlineResult[];
   tracks!: Track[];
   filteredTracks!: Observable<Track[]>;
   headingList: String[] = [];
@@ -326,5 +334,12 @@ export class LibraryComponent implements OnInit {
       if (temp)           headingTexts.push(temp);
     }
     return headingTexts;
+  }
+
+  deezerSearch(query: string) {
+    this.libraryDataService.deezerSearch(this.searchControl.value).subscribe(data => {
+      console.log(data);
+      this.onlineResults = data;
+    });
   }
 }
