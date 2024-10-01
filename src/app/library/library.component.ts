@@ -8,9 +8,11 @@ import { PlaylistDataService } from '../service/data/playlist-data.service';
 import { PlaylistTrack } from '../playlist-track/playlist-track.component';
 
 export class OnlineResult {
+  id!: number;
   artist: string = "";
   title: string = "";
   album: string = "";
+  duration!: number;
   explicit: boolean = false;
 }
 
@@ -110,6 +112,13 @@ export class LibraryComponent implements OnInit {
   private _filter(value: string): Track[] {
     const filterValue = value ? value.toLowerCase(): "";
     let s = "";
+    // AMS 9/30/2024 - ALso trigger online search
+    if (!(value==null || value=="")) {
+      this.libraryDataService.deezerSearch(this.searchControl.value).subscribe(data2 => {
+        console.log(data2);
+        this.onlineResults = data2;
+      });
+    }
     this.filterCrates.forEach(c=>s+=c.id);
     //return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue));
     this.filterCrates = [];

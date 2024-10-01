@@ -34,11 +34,6 @@
             </div>
         </div>
     </form>
-    <div>
-        <div *ngFor="let r of onlineResults">
-            {{r.artist}} - {{r.title}} ({{r.album}}) <span *ngIf="r.explicit" alt="Explicit lyrics - request will probably be denied">⛔</span>
-        </div>
-    </div>
 </div>
 
 <app-toast id="requestToast" [toastText]="[UI_REQUEST_TEXT]" [(showToast)]="showReqToast"></app-toast>
@@ -79,6 +74,31 @@
                 </ng-container>
             </ng-container>
         </table>
+        <div class="libraryGrid deezerResults" *ngIf="onlineResults">
+            <!--col class="title">
+            <col class="request">
+            <col class="album">
+            <col class="artist">
+            <col class="duration"-->
+            <div>
+                <h2>Online Results from Deezer</h2>
+            </div>
+            <ng-container *ngFor="let dt of onlineResults">
+                <div class="gridRow">
+                    <div class="gridCol title">{{dt.title}}</div>
+                    <div class="gridCol artist">{{dt.artist}}</div>
+                    <div class="gridCol request">
+                        <button type="button" (click)="requestSong(dt.id, dt.duration)" [disabled]="(justRequested > -1) && (justRequested != dt.id)" title={{buttonTooltip}}>+</button>
+                        <span>✔️</span>
+                    </div>
+                    <div class="gridCol album">{{dt.album}}</div>                    
+                    <div class="gridCol duration">{{dt.duration * 1000 | date:'mm:ss'}}</div>
+                    <div class="gridCol explicit">
+                        <span *ngIf="dt.explicit" alt="Explicit lyrics - request will probably be denied">⛔</span>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
         <!--table class="libraryTable noAlbumCol" *ngIf="CRATES_SIMPLEVIEW.includes(filterCrate.id)">
             <col class="title">
             <col class="request">
