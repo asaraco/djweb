@@ -134,6 +134,7 @@ div#libraryForm {
 
 div#libraryBrowse {
     display: flex;
+    flex-direction: column;
     div#alphaScroll {
         position: sticky;
         top: 8dvh;
@@ -187,26 +188,27 @@ div#libraryBrowse {
         opacity: 1.0;
     }
     div#libraryScroll {
-        padding: 0 2em;
+        padding: 0 1dvw 0 2dvw;
     }
-    table.libraryTable {
-        width: 100%;
-        table-layout: fixed;
-        /*background:#595959;*/
+    div.libraryGrid {
         background-color: rgba(0,0,0,0);
         background: linear-gradient(0deg, rgba(var(--libBg),0.05), rgba(var(--libBg),0.25));
         color: rgba(var(--libFg0),1);
-        border-collapse: collapse;
-        tr {
+        div.gridRow {
+            display: flex;
             font-size: 1.25em;
+            align-items: center;
         }
-        tr:nth-child(odd) {
+        div.gridRow:nth-child(odd) {
             background-color: rgba(var(--libBg),0.4);
         }
-        td {
+        div.gridCol {
+            display: flex;
+            justify-content: space-between;
             padding: 0.5em;
         }
-        th {
+        div.gridHeading {
+            flex: 1;
             padding-top: 0.5em;
             text-align: left;
             font-family: 'Roboto Condensed', 'Roboto', Arial;
@@ -215,38 +217,41 @@ div#libraryBrowse {
             border-bottom: 2px solid rgba(var(--libTh),1);
             background: linear-gradient(0deg, rgba(var(--libTh),0.15), rgba(0,0,0,0.0) 25%);
         }
-        col.title {
-            width: 30%;
+        div.gridCol.title {
+            flex: 1;
         }
-        .title{
+        div.gridCol.title {
             color: rgba(var(--libTitle),1);
         }
-        col.album {
-            width: 40%;
+        div.gridCol.otherInfo {
+            flex: 1;
+            flex-direction: column;
         }
-        .album {
+        div.gridCol.artist, div.gridCol.album {
+            flex: 1;
+        }
+        div.gridCol.album {
             font-style: italic;
-        }
-        col.request {
-            width: 2%;
-        }
-        col.artist {
-            width: 23%;
-        }
-        .artist {
-            color: rgba(var(--libFg),0.5);
-        }
-        .album {
             color: rgba(var(--fg), 0.5);
         }
-        col.duration {
-            width: 5%;
+        div.gridCol.artist {
+            color: rgba(var(--libFg),0.5);
         }
-        .duration {
+        div.gridCol.duration {
             color: rgba(var(--libFg),0.4);
         }
-        .request {            
+        /*
+        div.gridCol.request {
+            padding-left: 1dvmax;
+            padding-right: 1dvmax;
+        }
+            */
+        div.gridCol.request {            
             button {
+                /*
+                height: 1dvmax;
+                width: 1dvmax;
+                */
                 color: rgba(var(--reqBtnFg),1);
                 background-color: rgba(var(--reqBtnBg),1);
                 border-radius: 100%;
@@ -260,7 +265,7 @@ div#libraryBrowse {
                 color: red;
             }
         }
-        td.request.requested {
+        div.gridCol.request.requested {
             button {
                 display: none;
             }
@@ -268,16 +273,16 @@ div#libraryBrowse {
                 display: block;
             }
         }
-        td.request button:disabled {
+        div.gridCol.request button:disabled {
             background-color:rgba(0, 0, 0, 0.5);
             cursor:auto;
             box-shadow: none;
         }
-        td.request button:disabled[title] {
+        div.gridCol.request button:disabled[title] {
             content: 'Please wait before requesting again.';
         }
     }
-    div.libraryGrid {
+    div.libraryGrid.deezerResults {
         background-color: rgba(0,0,0,0);
         background: linear-gradient(0deg, rgba(var(--libBg),0.05), rgba(var(--libBg),0.25));
         color: rgba(var(--libFg0),1);

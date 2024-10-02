@@ -65,9 +65,9 @@ export class AppComponent implements OnInit {
     this.playlistDataService.retrieveAutomixQueue().subscribe(data => {
       this.autoDjPlaylist.name = data.name;
       this.autoDjPlaylist.playlistTracks = data.playlistTracks.splice(0,5).reverse();
-      let lastIndex = this.autoDjPlaylist.playlistTracks.length;
+      let lastIndex = this.autoDjPlaylist.playlistTracks.length - 1;
       let currentTrackDuration = this.autoDjPlaylist.playlistTracks[lastIndex].track.duration;
-      console.log("currentTrackDuration = " + currentTrackDuration);
+      //console.log("currentTrackDuration = " + currentTrackDuration);
     })
     this.playlistDataService.retrieveLastPlayed().subscribe(data => {
       this.mostRecentPlaylist.name = data.name;

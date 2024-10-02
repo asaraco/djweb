@@ -335,7 +335,8 @@ export class LibraryComponent implements OnInit {
    * @returns String[] Inner text of all <TH> elements
    */
   getTableHeadings(): String[] {
-    let heads = document.getElementsByTagName('th');
+    //let heads = document.getElementsByTagName('th');
+    let heads = document.getElementsByClassName('gridHeading');
     let headingTexts: String[] = [];
     for (let i=0; i < heads.length; i++) {
       let temp;
