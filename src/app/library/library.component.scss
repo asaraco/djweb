@@ -205,7 +205,9 @@ div#libraryBrowse {
         div.gridCol {
             display: flex;
             justify-content: space-between;
-            padding: 0.5em;
+            &.gc1 {
+                padding: 0.5em;
+            }            
         }
         div.gridHeading {
             flex: 1;
@@ -240,18 +242,8 @@ div#libraryBrowse {
         div.gridCol.duration {
             color: rgba(var(--libFg),0.4);
         }
-        /*
-        div.gridCol.request {
-            padding-left: 1dvmax;
-            padding-right: 1dvmax;
-        }
-            */
         div.gridCol.request {            
             button {
-                /*
-                height: 1dvmax;
-                width: 1dvmax;
-                */
                 color: rgba(var(--reqBtnFg),1);
                 background-color: rgba(var(--reqBtnBg),1);
                 border-radius: 100%;
@@ -344,25 +336,8 @@ div#libraryBrowse {
                 height: 96dvh;
             }
         }
-        table.libraryTable {
-            th {
-                font-size: 3dvw;
-            }
-            col.title {
-                width: 35%;
-            }
-            col.request {
-                width: 5%;
-            }
-            col.album {
-                width: 35%;
-            }
-            col.artist {
-                width: 20%;
-            }
-            col.duration {
-                width: 5%;
-            }
+        div#libraryScroll {
+            padding: 0 2dvw 0 4dvw;
         }
     }
 }
@@ -404,36 +379,6 @@ div#libraryBrowse {
             top: 9dvh;
             div#alphaLinks {
                 height: 92lvh;
-            }
-        }
-        table.libraryTable {
-            th {
-                font-size: 2.5dvh;
-            }
-            col.title {
-                width: 45%;
-            }
-            col.request {
-                width: 10%;
-            }
-            col.album {
-                width: 45%;
-            }
-            col.duration, col.artist {
-                display: none;
-            }
-            /*td.artist, col.artist {
-                display: none;
-            }*/
-            td.album, td.artist, td.duration {
-                display: flex;
-                font-size: 0.75em;
-                justify-content: flex-end;
-            }
-        }
-        table.libraryTable.noAlbumCol {
-            col.duration, col.artist {
-                display: table-column;
             }
         }
     }
