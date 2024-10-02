@@ -190,124 +190,123 @@ div#libraryBrowse {
     div#libraryScroll {
         padding: 0 1dvw 0 2dvw;
     }
-    div.libraryGrid {
-        background-color: rgba(0,0,0,0);
-        background: linear-gradient(0deg, rgba(var(--libBg),0.05), rgba(var(--libBg),0.25));
-        color: rgba(var(--libFg0),1);
-        div.gridRow {
-            display: flex;
-            font-size: 1.25em;
-            align-items: center;
+}
+
+div.libraryGrid {
+    background-color: rgba(0,0,0,0);
+    background: linear-gradient(0deg, rgba(var(--libBg),0.05), rgba(var(--libBg),0.25));
+    color: rgba(var(--libFg0),1);
+    div.gridRow {
+        display: flex;
+        font-size: 1.25em;
+        align-items: center;
+    }
+    div.gridRow:nth-child(odd) {
+        background-color: rgba(var(--libBg),0.4);
+    }
+    div.gridHeading {
+        flex: 1;
+        padding-top: 0.5em;
+        text-align: left;
+        font-family: 'Roboto Condensed', 'Roboto', Arial;
+        font-size: 3dvh;
+        color: rgba(var(--libTh),1);
+        border-bottom: 2px solid rgba(var(--libTh),1);
+        background: linear-gradient(0deg, rgba(var(--libTh),0.15), rgba(0,0,0,0.0) 25%);
+    }
+    div.gridCol {
+        display: flex;
+        justify-content: space-between;
+        &.gc1 {
+            padding: 0.5em;
         }
-        div.gridRow:nth-child(odd) {
-            background-color: rgba(var(--libBg),0.4);
-        }
-        div.gridCol {
-            display: flex;
-            justify-content: space-between;
-            &.gc1 {
-                padding: 0.5em;
-            }            
-        }
-        div.gridHeading {
+        &.title, &.otherInfo, &.artist, &.album {
             flex: 1;
-            padding-top: 0.5em;
-            text-align: left;
-            font-family: 'Roboto Condensed', 'Roboto', Arial;
-            font-size: 3dvh;
-            color: rgba(var(--libTh),1);
-            border-bottom: 2px solid rgba(var(--libTh),1);
-            background: linear-gradient(0deg, rgba(var(--libTh),0.15), rgba(0,0,0,0.0) 25%);
         }
-        div.gridCol.title {
-            flex: 1;
+        &.title {
             color: rgba(var(--libTitle),1);
             .remix {
                 color: rgba(var(--libTitle),0.5);
                 font-style: italic;
             }
         }
-        div.gridCol.otherInfo {
-            flex: 1;
+        &.otherInfo {
             flex-direction: column;
         }
-        div.gridCol.artist, div.gridCol.album {
-            flex: 1;
-        }
-        div.gridCol.album {
+        &.album {
             font-style: italic;
             color: rgba(var(--fg), 0.5);
         }
-        div.gridCol.artist {
+        &.artist {
             color: rgba(var(--libFg),0.5);
         }
-        div.gridCol.duration {
+        &.duration {
             color: rgba(var(--libFg),0.4);
         }
-        div.gridCol.request {            
-            button {
-                color: rgba(var(--reqBtnFg),1);
-                background-color: rgba(var(--reqBtnBg),1);
-                border-radius: 100%;
-            }
-            button:hover {
-                cursor: pointer;
-            }
-            span {
-                display: none;
-                text-align: center;
-                color: red;
-            }
+    }        
+    div.gridCol.request {            
+        button {
+            color: rgba(var(--reqBtnFg),1);
+            background-color: rgba(var(--reqBtnBg),1);
+            border-radius: 100%;
         }
-        div.gridCol.request.requested {
-            button {
-                display: none;
-            }
-            span {
-                display: block;
-            }
+        button:hover {
+            cursor: pointer;
         }
-        div.gridCol.request button:disabled {
-            background-color:rgba(0, 0, 0, 0.5);
-            cursor:auto;
-            box-shadow: none;
-        }
-        div.gridCol.request button:disabled[title] {
-            content: 'Please wait before requesting again.';
+        span {
+            display: none;
+            text-align: center;
+            color: red;
         }
     }
-    div.libraryGrid.deezerResults {
-        background-color: rgba(0,0,0,0);
-        background: linear-gradient(0deg, rgba(var(--libBg),0.05), rgba(var(--libBg),0.25));
-        color: rgba(var(--libFg0),1);
-        h2 {
-            padding-top: 0.5em;
-            text-align: left;
-            font-family: 'Roboto Condensed', 'Roboto', Arial;
-            font-size: 3dvh;
-            color: rgba(200,64,255,1);
-            border-bottom: 2px solid rgba(200,64,255,1);
-            background: linear-gradient(0deg, rgba(200,64,255,0.15), rgba(0,0,0,0.0) 25%);
+    div.gridCol.request.requested {
+        button {
+            display: none;
         }
-        div.gridRow {
-            display: flex;
-            font-size: 1.25em;
-            div.gridCol {
-                flex: 3;
-                padding: 0.5em;
-                &.explicit {
-                    flex: 1;
-                }
-            }
-        }
-        div.gridRow:nth-child(odd) {
-            background-color: rgba(var(--libBg),0.4);
+        span {
+            display: block;
         }
     }
-    div.deezerResults {
-        div.title, div.album, div.artist {
-            color: #cc55cc;
+    div.gridCol.request button:disabled {
+        background-color:rgba(0, 0, 0, 0.5);
+        cursor:auto;
+        box-shadow: none;
+    }
+    div.gridCol.request button:disabled[title] {
+        content: 'Please wait before requesting again.';
+    }
+}
+div.libraryGrid.deezerResults {
+    background-color: rgba(0,0,0,0);
+    background: linear-gradient(0deg, rgba(var(--libBg),0.05), rgba(var(--libBg),0.25));
+    color: rgba(var(--libFg0),1);
+    h2 {
+        padding-top: 0.5em;
+        text-align: left;
+        font-family: 'Roboto Condensed', 'Roboto', Arial;
+        font-size: 3dvh;
+        color: rgba(200,64,255,1);
+        border-bottom: 2px solid rgba(200,64,255,1);
+        background: linear-gradient(0deg, rgba(200,64,255,0.15), rgba(0,0,0,0.0) 25%);
+    }
+    div.gridRow {
+        display: flex;
+        font-size: 1.25em;
+        div.gridCol {
+            flex: 3;
+            padding: 0.5em;
+            &.explicit {
+                flex: 1;
+            }
         }
+    }
+    div.gridRow:nth-child(odd) {
+        background-color: rgba(var(--libBg),0.4);
+    }
+}
+div.deezerResults {
+    div.title, div.album, div.artist {
+        color: #cc55cc;
     }
 }
 

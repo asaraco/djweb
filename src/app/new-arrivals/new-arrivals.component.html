@@ -1,7 +1,23 @@
 <div id="naHeader">
     <h3>New Arrivals</h3>
 </div>
-<div id="naContent">
+
+<div class="libraryGrid" id="news">
+    <div class="gridRow naTrack" id="naId{{t.id}}" [ngClass]="{requested: justRequested==t.id}" *ngFor="let t of tracks">
+        <div class="gridCol gc1 otherInfo">
+            <div class="gridCol gc1 title">{{t.title}}</div>
+            <div class="gridCol gc1">
+                <div class="artist">{{t.artist}}</div>
+                <div class="duration">{{t.duration * 1000 | date:'mm:ss'}}</div>
+            </div>
+        </div>
+        <div class="gridCol gc1 request" [ngClass]="{'requested': justRequested === t.id}">
+            <button type="button" [disabled]="!requestable" (click)="requestAndAddSong(t.id, t.duration)" title={{buttonTooltip}}>+</button>
+        </div>
+    </div>
+</div>
+
+<!--div id="naContent">
     <div class="naTrack" id="naId{{t.id}}" [ngClass]="{requested: justRequested==t.id}" *ngFor="let t of tracks">
         <div class="naTrackText">
             <div class="naTrackMain">
@@ -16,5 +32,5 @@
             <button type="button" [disabled]="!requestable" (click)="requestAndAddSong(t.id, t.duration)" title={{buttonTooltip}}>+</button>
         </div>
     </div>
-</div>
+</div-->
 <app-toast id="requestToast" [toastText]="[UI_REQUEST_TEXT]" [(showToast)]="showReqToast"></app-toast>

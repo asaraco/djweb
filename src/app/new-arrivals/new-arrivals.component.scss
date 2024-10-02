@@ -1,3 +1,5 @@
+@import "../library/library.component.scss";
+
 h3 {
     color: rgba(var(--newsHeadFg),1);
     font-family: 'Roboto Condensed', 'Roboto', Arial;
@@ -5,61 +7,32 @@ h3 {
     text-transform: uppercase;
     text-align: center;
 }
-div#naContent {
-    padding: 0 0.5dvw;
-    div.naTrack:nth-child(odd) {
-        background-color: rgba(var(--newsBg),0.25);
-    }
-    div.naTrack {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        position: relative;
-        left: 0;
-        transition: 0.5s ease-in;
-        div.naTrackText {
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            padding: 0.5em;
-            div {
-                display: flex;
-            }
-            div.naTrackMain {
-                flex: 1;
+
+div.libraryGrid {
+    font-size: 0.75em;
+    padding: 0.25dvw;
+    &#news {
+        div.gridRow:nth-child(odd) {
+            background-color: rgba(var(--newsBg),0.25);
+        }
+        div.gridCol {
+            &.gc1 {
+                padding: 0.25em;
+            }            
+            &.title {
                 color: rgba(var(--newsFg),1);
-                span.title {
-                    flex: 1;
-                }
             }
-            div.naTrackSub {
-                justify-content: space-between;
+            &.otherInfo {
                 color: rgba(var(--newsFg),0.5);
-                font-style:italic;
             }
         }
-        div.naRequest {
-            padding: 0.25dvw;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            button {
-                color: rgba(var(--newsBtnFg),1);
-                background-color: rgba(var(--newsBtnBg),1);
-                border-radius: 100%;
-            }
-            button:hover {
-                cursor: pointer;
-            }
-            button:disabled {
-                background-color:rgba(0, 0, 0, 0.5);
-                cursor:auto;
-                box-shadow: none;
-            }
+        div.gridCol.request button {
+            color: rgba(var(--newsBtnFg),1);
+            background-color: rgba(var(--newsBtnBg),1);
         }
-    }
-    div.naTrack.requested {
-        left: 100%;
-        opacity: 0;
-    }
+        div.naTrack.requested {
+            left: 100%;
+            opacity: 0;
+        }
+    }    
 }
