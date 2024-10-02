@@ -1,9 +1,8 @@
 <div id="naHeader">
     <h3>New Arrivals</h3>
 </div>
-
 <div class="libraryGrid" id="news">
-    <div class="gridRow naTrack" id="naId{{t.id}}" [ngClass]="{requested: justRequested==t.id}" *ngFor="let t of tracks">
+    <div class="gridRow naTrack" id="naId{{t.id}}" [ngClass]="{requested: justRequested==t.id}" *ngFor="let t of uploadedTracks">
         <div class="gridCol gc1 otherInfo">
             <div class="gridCol gc1 title">{{t.title}}</div>
             <div class="gridCol gc1">
@@ -15,6 +14,31 @@
             <button type="button" [disabled]="!requestable" (click)="requestAndAddSong(t.id, t.duration)" title={{buttonTooltip}}>+</button>
         </div>
     </div>
+</div>
+
+<div id="rrHeader">
+    <h3>Recently Released</h3>
+</div>
+<div class="libraryGrid" id="recents">
+    <ng-container *ngFor="let group of recentTracks | groupBy: 'grouping' ">
+    <div class="gridRow">
+        <div class="gridHeading" id="{{group.group}}" (click)="toggleSection(group.group)">{{group.group}}</div>
+    </div>
+    <section id="section_{{group.group}}">
+        <div class="gridRow rrTrack" id="rrId{{t.id}}" [ngClass]="{requested: justRequested==t.id}" *ngFor="let t of group.items">
+            <div class="gridCol gc1 otherInfo">
+                <div class="gridCol gc1 title">{{t.title}}</div>
+                <div class="gridCol gc1">
+                    <div class="album">{{t.album}}</div>
+                    <div class="duration">{{t.duration * 1000 | date:'mm:ss'}}</div>
+                </div>
+            </div>
+            <div class="gridCol gc1 request" [ngClass]="{'requested': justRequested === t.id}">
+                <button type="button" [disabled]="!requestable" (click)="requestAndAddSong(t.id, t.duration)" title={{buttonTooltip}}>+</button>
+            </div>
+        </div>
+    </section>
+    </ng-container>
 </div>
 
 <!--div id="naContent">

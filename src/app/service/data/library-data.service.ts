@@ -36,6 +36,10 @@ export class LibraryDataService {
     return this.http.get<Track[]>(`${API_URL}/getUnratedLocalTracks`)
   }
 
+  retrieveRecentTracks(): Observable<any> {
+    return this.http.get<Track[]>(`${API_URL}/getRatedRecentTracks`);
+  }
+
   deezerSearch(query: string): Observable<OnlineResult[]> {
     return this.http.get<OnlineResult[]>(`${API_URL}/deezerSearch?query=${query}`);
   }

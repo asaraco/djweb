@@ -11,7 +11,8 @@ import { CRATE_LAN_LIBRARY, CrateMeta, UI_BTN_TOOLTIP_DISABLED, UI_REQUEST_TEXT 
   styleUrls: ['./new-arrivals.component.scss']
 })
 export class NewArrivalsComponent implements OnInit {
-  tracks!: Track[];
+  uploadedTracks!: Track[];
+  recentTracks!: Track[];
   requestInterval: any;
   requestable: boolean = true;
   justRequested!: number;
@@ -34,12 +35,12 @@ export class NewArrivalsComponent implements OnInit {
       //console.log("Detected upload");
       //Copy tracks to temp array
       let newTracks: Track[] = [];
-      this.tracks.forEach(t => newTracks.push(Object.assign({}, t)));
+      this.uploadedTracks.forEach(t => newTracks.push(Object.assign({}, t)));
       //Retrieve "new tracks" from service until something actually new is detected.
       //Since comparing the actual arrays would take a while, let's just compare length.
       //Unless someone else uploads something at the exact same time, this should usually be enough...
       let upInterval = setInterval(() => {
-        if (newTracks.length==this.tracks.length) {
+        if (newTracks.length==this.uploadedTracks.length) {
           //console.log(newTracks.length + " = " + this.tracks.length);
           this.libraryDataService.retrieveNewTracks().subscribe(
             data => {
@@ -55,6 +56,10 @@ export class NewArrivalsComponent implements OnInit {
       }, 2500);
       
     });
+    // AMS 10/2/2024 - implement "recently released" section
+    this.libraryDataService.retrieveRecentTracks().subscribe(data => {
+      this.recentTracks = data;
+    })
   }
 
   ngOnInit(): void {
@@ -62,7 +67,7 @@ export class NewArrivalsComponent implements OnInit {
     this.libraryDataService.retrieveNewTracks().subscribe(
       data => {
         //this.tracks = data._embedded.tracks;
-        this.tracks = data;
+        this.uploadedTracks = data;
       }
     );
     // Handle request blocking
@@ -113,7 +118,7 @@ export class NewArrivalsComponent implements OnInit {
           this.justRequested = id;
           let animationInterval = setInterval(() => {
             //this.libraryDataService.retrieveNewTracks().subscribe(data2 => this.tracks = data2._embedded.tracks);
-            this.libraryDataService.retrieveNewTracks().subscribe(data2 => this.tracks = data2);
+            this.libraryDataService.retrieveNewTracks().subscribe(data2 => this.uploadedTracks = data2);
             clearInterval(animationInterval);
           }, 1000);          
         });
@@ -158,5 +163,16 @@ export class NewArrivalsComponent implements OnInit {
     this.requestable = true;
     clearInterval(this.requestInterval);
     this.buttonTooltip = "";
+  }
+
+  toggleSection(sectionName: string) {
+    let section = document.getElementById("section_" + sectionName);
+    if (section!=null) {
+      if (section.style.display!='none') {
+        section.style.display='none';
+      } else {
+        section.style.display='block';
+      }
+    }    
   }
 }

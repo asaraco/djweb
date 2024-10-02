@@ -1,11 +1,18 @@
 @import "../library/library.component.scss";
 
 h3 {
-    color: rgba(var(--newsHeadFg),1);
     font-family: 'Roboto Condensed', 'Roboto', Arial;
     font-size: 2em;
     text-transform: uppercase;
     text-align: center;
+}
+
+div#naHeader h3 {
+    color: rgba(var(--newsHeadFg),1);
+}
+
+div#rrHeader h3 {
+    color: rgba(var(--recentHeadFg),1);
 }
 
 div.libraryGrid {
@@ -34,5 +41,35 @@ div.libraryGrid {
             left: 100%;
             opacity: 0;
         }
-    }    
+    }
+    &#recents {
+        div.gridHeading {
+            font-size: 1.5dvh;
+            color: rgba(var(--recentHeadFg),1);
+            border-bottom: 1px solid rgba(var(--recentHeadFg),1);
+            background: linear-gradient(0deg, rgba(var(--recentHeadFg),0.15), rgba(0,0,0,0.0) 25%);
+            cursor: pointer;
+            &:hover {
+                color: rgba(var(--libTh),1);
+            }
+        }
+        div.gridRow:nth-child(odd) {
+            background-color: rgba(var(--recentBg),0.25);
+        }
+        div.gridCol {
+            &.gc1 {
+                padding: 0.25em;
+            }            
+            &.title {
+                color: rgba(var(--recentFg),1);
+            }
+            &.otherInfo {
+                color: rgba(var(--recentFg),0.5);
+            }
+        }
+        div.gridCol.request button {
+            color: rgba(var(--recentBtnFg),1);
+            background-color: rgba(var(--recentBtnBg),1);
+        }
+    }
 }

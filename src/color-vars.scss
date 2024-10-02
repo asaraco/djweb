@@ -39,6 +39,11 @@ $newsBtnBg0: $djYellow;
 $toastBg0:  lighten($legendaryBlue, 15%);
 $toastBgError0: lighten($legendaryRed, 25%);
 $toastFg0:  $inputBg0;
+$recentHeadFg0: lighten($legendaryRed, 25%);
+$recentFg0: lighten($legendaryRed, 15%);
+$recentBg0: darken($legendaryRed, 65%);
+$recentBtnFg0: #000000;
+$recentBtnBg0: $legendaryRed;
 
 /* Light theme vars */
 $bg1:   #e5e5f5;
@@ -73,6 +78,11 @@ $newsBtnBg1: darken($djYellow, 25%);
 $toastBg1:  darken($legendaryGreen,25%);
 $toastBgError1: $legendaryRed;
 $toastFg1:  $inputBg1;
+$recentHeadFg1: darken($legendaryRed, 55%);
+$recentFg1: darken($legendaryRed, 45%);
+$recentBg1: lighten($legendaryRed, 25%);
+$recentBtnFg1: #ffffff;
+$recentBtnBg1: darken($legendaryRed,25%);
 
 :root {
     --bg:   #{hexToRGB($bg0)};
@@ -110,6 +120,11 @@ $toastFg1:  $inputBg1;
     --toastBg:    #{hexToRGB($toastBg0)};
     --toastBgError:    #{hexToRGB($toastBgError0)};
     --toastFg:    #{hexToRGB($toastFg0)};
+    --recentHeadFg: #{hexToRGB($recentHeadFg0)};
+    --recentFg:     #{hexToRGB($recentFg0)};
+    --recentBg:     #{hexToRGB($recentBg0)};
+    --recentBtnFg:  #{hexToRGB($recentBtnFg0)};
+    --recentBtnBg:  #{hexToRGB($recentBtnBg0)};
     /*@media screen and (prefers-color-scheme: light) {*/
     
 }
@@ -149,4 +164,9 @@ $toastFg1:  $inputBg1;
     --toastBg:    #{hexToRGB($toastBg1)};
     --toastBgError:    #{hexToRGB($toastBgError1)};
     --toastFg:    #{hexToRGB($toastFg1)};
+    --recentHeadFg: #{hexToRGB($recentHeadFg1)};
+    --recentFg:     #{hexToRGB($recentFg1)};
+    --recentBg:     #{hexToRGB($recentBg1)};
+    --recentBtnFg:  #{hexToRGB($recentBtnFg1)};
+    --recentBtnBg:  #{hexToRGB($recentBtnBg1)};
 }
