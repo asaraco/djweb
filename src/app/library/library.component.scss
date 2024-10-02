@@ -221,9 +221,11 @@ div#libraryBrowse {
         }
         div.gridCol.title {
             flex: 1;
-        }
-        div.gridCol.title {
             color: rgba(var(--libTitle),1);
+            .remix {
+                color: rgba(var(--libTitle),0.5);
+                font-style: italic;
+            }
         }
         div.gridCol.otherInfo {
             flex: 1;
@@ -339,6 +341,9 @@ div#libraryBrowse {
         div#libraryScroll {
             padding: 0 2dvw 0 4dvw;
         }
+    }
+    div.gridCol.title {
+        flex-direction: column;
     }
 }
 
