@@ -54,7 +54,7 @@
                 <div class="gridHeading indexedHeader" id="{{group.items[0].grouping}}">{{group.items[0].grouping}}</div>
             </div>
                 <ng-container *ngFor="let t of group.items; first as isFirst">
-            <div class="gridRow">
+            <div class="gridRow" [ngClass]="{onlineSource: t.onlineSource}">
                 <div class="gridCol gc1 title">{{t.title}} <span class="remix">{{t.subtitle}}</span></div>
                 <div class="gridCol gc1 request" [ngClass]="{'requested': justRequested === t.id}">
                     <button type="button" (click)="requestSong(t.id, t.duration)" [disabled]="(justRequested > -1) && (justRequested != t.id)" title={{buttonTooltip}}>+</button>

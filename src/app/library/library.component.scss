@@ -245,7 +245,18 @@ div.libraryGrid {
         &.duration {
             color: rgba(var(--libFg),0.4);
         }
-    }        
+    }
+    .gridRow.onlineSource {
+        .title {
+            color: rgba(128,200,255, 1);
+            .remix {
+                color: rgba(128,200,255,0.5);
+            }
+        }
+        .album {
+            color: rgba(128,200,255, 0.5);
+        }
+    }
     div.gridCol.request {            
         button {
             color: rgba(var(--reqBtnFg),1);

@@ -13,6 +13,7 @@ export class Track {
   year: number = 0;
   genre: string = "";
   crates!: string[];
+  onlineSource: boolean = false;
   constructor() {
   }
 }
