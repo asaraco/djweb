@@ -65,6 +65,7 @@ export class LibraryComponent implements OnInit {
                     //this.tracks = data._embedded.tracks;
                     this.tracks = data;
                     this.filteredTracks = this.searchControl.valueChanges.pipe(debounceTime(500), startWith(''), map(value => this._filter(value)));
+                    //this.alphaJump(0);
                   }
         );
       }      
@@ -78,6 +79,7 @@ export class LibraryComponent implements OnInit {
                 //this.tracks = data._embedded.tracks;
                 this.tracks = data;
                 this.filteredTracks = this.searchControl.valueChanges.pipe(debounceTime(500), startWith(''), map(value => this._filter(value)));
+                //this.alphaJump(0);
               }
     );
     // Handle request blocking
@@ -336,7 +338,7 @@ export class LibraryComponent implements OnInit {
    */
   getTableHeadings(): String[] {
     //let heads = document.getElementsByTagName('th');
-    let heads = document.getElementsByClassName('gridHeading');
+    let heads = document.getElementsByClassName('indexedHeader');
     let headingTexts: String[] = [];
     for (let i=0; i < heads.length; i++) {
       let temp;

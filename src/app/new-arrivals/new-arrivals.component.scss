@@ -49,8 +49,12 @@ div.libraryGrid {
             border-bottom: 1px solid rgba(var(--recentHeadFg),1);
             background: linear-gradient(0deg, rgba(var(--recentHeadFg),0.15), rgba(0,0,0,0.0) 25%);
             cursor: pointer;
+            transition: .5s ease-out;
             &:hover {
                 color: rgba(var(--libTh),1);
+                border-bottom: 1px solid rgba(var(--libTh),1);
+                background: linear-gradient(0deg, rgba(var(--recentHeadFg),0.15), rgba(0,0,0,0.0) 75%);
+                transition: 0s;
             }
         }
         div.gridRow:nth-child(odd) {

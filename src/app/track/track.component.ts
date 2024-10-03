@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 
 export class Track {
   id!: number;
+  filePath: string = "";
   artist: string = "";
   title: string = "";
   album: string = "";
   albumArtist: string = "";
-  //sortArtist: string = "";
+  sortArtist: string = "";
   grouping: string = "";
   duration: number = 0;
   year: number = 0;

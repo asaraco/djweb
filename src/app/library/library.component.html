@@ -49,9 +49,9 @@
             <div class="gridRow" id="loading" *ngIf="!(filteredTracks | async)">
                 <div class="gridHeading">Loading...</div>
             </div>
-            <ng-container *ngFor="let group of (filteredTracks | async)! | groupBy: 'grouping' ">
+            <ng-container *ngFor="let group of (filteredTracks | async)! | groupBy: 'sortArtist' ">
             <div class="gridRow">
-                <div class="gridHeading" id="{{group.group}}">{{group.group}}</div>
+                <div class="gridHeading indexedHeader" id="{{group.items[0].grouping}}">{{group.items[0].grouping}}</div>
             </div>
                 <ng-container *ngFor="let t of group.items; first as isFirst">
             <div class="gridRow">
