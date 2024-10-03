@@ -36,7 +36,7 @@
     </form>
 </div>
 
-<app-toast id="requestToast" [toastText]="[UI_REQUEST_TEXT]" [(showToast)]="showReqToast"></app-toast>
+<app-toast id="requestToast" [toastText]="[reqToastText]" [(showToast)]="showReqToast"></app-toast>
 
 <div id="libraryBrowse">
     <div id="alphaScroll" [ngClass]="{shrink: scrolledDown}">
@@ -71,23 +71,28 @@
         </div>
 
         <div class="libraryGrid deezerResults" *ngIf="onlineResults">
-            <div>
-                <h2>Online Results from Deezer</h2>
+            <div class="gridRow">
+                <div class="gridCol gridHeading">Online Results from Deezer</div>
             </div>
-            <ng-container *ngFor="let dt of onlineResults">
-                <div class="gridRow">
-                    <div class="gridCol title">{{dt.title}}</div>
-                    <div class="gridCol artist">{{dt.artist}}</div>
-                    <div class="gridCol request">
-                        <button type="button" (click)="requestSong(dt.id, dt.duration)" [disabled]="(justRequested > -1) && (justRequested != dt.id)" title={{buttonTooltip}}>+</button>
-                        <span>✔️</span>
-                    </div>
-                    <div class="gridCol album">{{dt.album}}</div>                    
-                    <div class="gridCol duration">{{dt.duration * 1000 | date:'mm:ss'}}</div>
-                    <div class="gridCol explicit">
-                        <span *ngIf="dt.explicit" alt="Explicit lyrics - request will probably be denied">⛔</span>
-                    </div>
+            <ng-container *ngFor="let t of onlineResults">
+            <div class="gridRow">
+                <div class="gridCol gc1 otherInfo">
+                    <div class="gridCol gc2 title">{{t.title}}</div>
+                    <div class="gridCol gc2 artist">{{t.artist}}</div>
                 </div>
+                <div *ngIf="!t.explicit" class="gridCol gc1 request" [ngClass]="{'requested': justRequested === t.id}">
+                    <button type="button" (click)="requestSong(t.id, t.duration)" [disabled]="(justRequested > -1) && (justRequested != t.id)" title={{buttonTooltip}}>+</button>
+                    <span>✔️</span>
+                </div>
+                <div *ngIf="t.explicit" class="gridCol gc1 request" [ngClass]="{'requested': justRequested === t.id}">
+                    <button class="explicit" type="button" (click)="askTheDJ(t.artist,t.title)" title="Explicit lyrics - request will be reviewed manually">+</button>
+                </div>
+                <div class="gridCol gc1 explicit">
+                    <span *ngIf="t.explicit" alt="Explicit lyrics - request will probably be denied">E</span>
+                </div>                           
+                <div class="gridCol gc2 album">{{t.album}}</div>   
+                <div class="gridCol gc1 gc2 duration">{{t.duration * 1000 | date:'mm:ss'}}</div>          
+            </div>
             </ng-container>
         </div>
     </div>

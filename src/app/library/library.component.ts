@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Track } from '../track/track.component';
 import { LibraryDataService } from '../service/data/library-data.service';
-import { UI_SEARCH_TEXT, UI_CATS_TEXT, CrateMeta, CRATES_SELECTABLE, CRATES_SIMPLEVIEW, CRATE_ALL, CRATES_ALBUMVIEW, UI_REQUEST_TEXT, UI_BTN_TOOLTIP_DISABLED } from '../app.constants';
+import { UI_SEARCH_TEXT, UI_CATS_TEXT, CrateMeta, CRATES_SELECTABLE, CRATES_SIMPLEVIEW, CRATE_ALL, CRATES_ALBUMVIEW, UI_REQUEST_TEXT, UI_BTN_TOOLTIP_DISABLED, UI_REQUEST_PENDING_TEXT } from '../app.constants';
 import { FormControl } from '@angular/forms';
 import { Observable, Subscription, debounceTime, map, startWith } from 'rxjs';
 import { PlaylistDataService } from '../service/data/playlist-data.service';
@@ -37,6 +37,7 @@ export class LibraryComponent implements OnInit {
   searchControl: FormControl = new FormControl();
   justRequested: number = -1;
   showReqToast: boolean = false;
+  reqToastText: string = "";
   requestInterval: any;
   toastInterval: any;
   alphabet: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
@@ -48,6 +49,7 @@ export class LibraryComponent implements OnInit {
   UI_SEARCH_TEXT: string = UI_SEARCH_TEXT;
   UI_CATS_TEXT: string = UI_CATS_TEXT;
   UI_REQUEST_TEXT: string = UI_REQUEST_TEXT;
+  UI_REQUEST_PENDING_TEXT: string = UI_REQUEST_PENDING_TEXT;
   CRATES_SELECTABLE: CrateMeta[] = CRATES_SELECTABLE;
   CRATES_SIMPLEVIEW: string[] = CRATES_SIMPLEVIEW;
   CRATES_ALBUMVIEW: string[] = CRATES_ALBUMVIEW;
@@ -117,7 +119,6 @@ export class LibraryComponent implements OnInit {
     // AMS 9/30/2024 - ALso trigger online search
     if (!(value==null || value=="")) {
       this.libraryDataService.deezerSearch(this.searchControl.value).subscribe(data2 => {
-        console.log(data2);
         this.onlineResults = data2;
       });
     }
@@ -236,16 +237,34 @@ export class LibraryComponent implements OnInit {
       var resultMsg: string;
       //this.playlistDataService.requestTrack(id).subscribe(data => {
       this.playlistDataService.requestTrackAndAskTheDJ(id).subscribe(data => {
-        console.log("Got a result");
+        //console.log("Got a result");
         resultMsg = data;
         console.log(resultMsg);
-        this.showReqToast = true;
-        localStorage.setItem('lastRequest', id.toString());
-        //this.setReqDelay(duration, now);
-        this.playlistDataService.notifyOfRequest(duration, requestTotal, false);
-        this.justRequested = id;
+        if (resultMsg=="OK") {
+          this.reqToastText = UI_REQUEST_TEXT;
+          this.showReqToast = true;
+          localStorage.setItem('lastRequest', id.toString());
+          //this.setReqDelay(duration, now);
+          this.playlistDataService.notifyOfRequest(duration, requestTotal, false);
+          this.justRequested = id;
+        } else {
+          this.reqToastText = "Something went wrong. Please try again or notify the DJ.";
+          this.showReqToast = true;
+        }        
       });    
     }
+  }
+
+  askTheDJ(artist: string, title: string) {
+    var resultMsg: string;
+    var message: string = artist + " - " + title;
+    this.playlistDataService.requestAskTheDJ(encodeURIComponent(message)).subscribe(data => {
+      //console.log("Got a result");
+      resultMsg = data;
+      //console.log(resultMsg);
+      this.reqToastText = UI_REQUEST_PENDING_TEXT;
+      this.showReqToast = true;
+    })
   }
 
   /**
@@ -350,7 +369,6 @@ export class LibraryComponent implements OnInit {
 
   deezerSearch(query: string) {
     this.libraryDataService.deezerSearch(this.searchControl.value).subscribe(data => {
-      console.log(data);
       this.onlineResults = data;
     });
   }

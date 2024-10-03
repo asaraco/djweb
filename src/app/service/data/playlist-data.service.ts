@@ -66,4 +66,8 @@ export class PlaylistDataService {
     var songInfo: string;
     return this.http.post<string>(`${API_URL}/findSongByIdForAskTheDJ?id=${id}`, null);
   }
+
+  requestAskTheDJ(message: string): Observable<string> {
+    return this.http.post<string>(`${API_URL}/requestAskTheDJ?message=${message}`, null);
+  }
 }

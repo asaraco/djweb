@@ -225,9 +225,11 @@ div.libraryGrid {
         }
         &.title {
             color: rgba(var(--libTitle),1);
+            font-weight: bold;            
             .remix {
                 color: rgba(var(--libTitle),0.5);
                 font-style: italic;
+                font-weight: normal;
             }
         }
         &.otherInfo {
@@ -249,6 +251,7 @@ div.libraryGrid {
             color: rgba(var(--reqBtnFg),1);
             background-color: rgba(var(--reqBtnBg),1);
             border-radius: 100%;
+            text-shadow: none;
         }
         button:hover {
             cursor: pointer;
@@ -277,37 +280,44 @@ div.libraryGrid {
     }
 }
 div.libraryGrid.deezerResults {
-    background-color: rgba(0,0,0,0);
-    background: linear-gradient(0deg, rgba(var(--libBg),0.05), rgba(var(--libBg),0.25));
-    color: rgba(var(--libFg0),1);
-    h2 {
-        padding-top: 0.5em;
-        text-align: left;
-        font-family: 'Roboto Condensed', 'Roboto', Arial;
-        font-size: 3dvh;
-        color: rgba(200,64,255,1);
-        border-bottom: 2px solid rgba(200,64,255,1);
-        background: linear-gradient(0deg, rgba(200,64,255,0.15), rgba(0,0,0,0.0) 25%);
+    div.gridHeading {
+        color: rgba(255,200,255,1);
     }
-    div.gridRow {
-        display: flex;
-        font-size: 1.25em;
-        div.gridCol {
-            flex: 3;
-            padding: 0.5em;
-            &.explicit {
-                flex: 1;
-            }
+    div.gridCol {
+        &.otherInfo {
+            flex: 10;
+        }
+        &.title {
+            color: rgba(235,200,235,1);
+        }
+        &.artist {
+            color: rgba(235,200,235,0.75);
+        }
+        &.album {
+            flex: 9;
+            color: rgba(235,200,235,0.5);
         }
     }
-    div.gridRow:nth-child(odd) {
-        background-color: rgba(var(--libBg),0.4);
+    div.gridCol.request {
+        button {
+            background-color: rgba(235,200,235,1);
+        }
+        button.explicit {
+            border: 2px solid rgba(235,200,235,0.75);
+            color: rgba(235,200,235,0.75);
+            background-color: rgba(0,0,0,0);
+        }
     }
-}
-div.deezerResults {
-    div.title, div.album, div.artist {
-        color: #cc55cc;
+    .explicit {
+        flex: 1;
     }
+    .explicit span {
+        background-color: rgba(235,200,235,1);
+        color: rgba(0,0,0,1);
+        padding: 2px 5px;
+        font-weight: bold;
+        border-radius: 2px;
+    }    
 }
 
 @media screen and (orientation: portrait) {

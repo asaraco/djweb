@@ -8,6 +8,7 @@ export const API_URL = "http://localhost:8081";
 export const UI_SEARCH_TEXT = "Filter by any search term...";
 export const UI_CATS_TEXT   = "Filter by category...";
 export const UI_REQUEST_TEXT = "Song added to queue.";
+export const UI_REQUEST_PENDING_TEXT = "Request submitted for manual review.";
 export const UI_UPLOAD_SUCCESS_TEXT = "Your file should appear in the New Arrivals section in a few moments.";
 export const UI_UPLOAD_ERROR_TEXT = "Please try again. If the issue persists, try refreshing the browser. Otherwise, contact an admin.";
 export const UI_BTN_TOOLTIP_DISABLED = "Please wait before requesting another song."
