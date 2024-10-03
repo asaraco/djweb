@@ -255,9 +255,9 @@ export class LibraryComponent implements OnInit {
     }
   }
 
-  askTheDJ(artist: string, title: string) {
+  askTheDJ(message: string) {
     var resultMsg: string;
-    var message: string = artist + " - " + title;
+    console.log(message);
     this.playlistDataService.requestAskTheDJ(encodeURIComponent(message)).subscribe(data => {
       //console.log("Got a result");
       resultMsg = data;
@@ -265,6 +265,10 @@ export class LibraryComponent implements OnInit {
       this.reqToastText = UI_REQUEST_PENDING_TEXT;
       this.showReqToast = true;
     })
+  }
+
+  askTheDJSong(artist: string, title: string) {
+    this.askTheDJ(artist + " - " + title);
   }
 
   /**

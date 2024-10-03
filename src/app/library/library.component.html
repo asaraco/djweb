@@ -4,7 +4,7 @@
             <input type="search" placeholder="{{UI_SEARCH_TEXT}}" [formControl]="searchControl">
         </div>
         <div>
-            <button (click)="deezerSearch(searchTerm)">Search Deezer</button>
+            <button (click)="askTheDJ(searchControl.value)">Ask The DJ</button>
         </div>
         <div id="categoryFilter">
             <div id="crateActive" class="crateBtn"
@@ -85,7 +85,7 @@
                     <span>✔️</span>
                 </div>
                 <div *ngIf="t.explicit" class="gridCol gc1 request" [ngClass]="{'requested': justRequested === t.id}">
-                    <button class="explicit" type="button" (click)="askTheDJ(t.artist,t.title)" title="Explicit lyrics - request will be reviewed manually">+</button>
+                    <button class="explicit" type="button" (click)="askTheDJSong(t.artist,t.title)" title="Explicit lyrics - request will be reviewed manually">+</button>
                 </div>
                 <div class="gridCol gc1 explicit">
                     <span *ngIf="t.explicit" alt="Explicit lyrics - request will probably be denied">E</span>
