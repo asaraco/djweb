@@ -4,8 +4,7 @@ div#libraryForm {
     form {
         display: flex;
         flex-direction: row;
-        /*color:#afa;*/
-        font-size:2dvh;
+        font-size:1rem;
         div {
             display: flex;
         }
@@ -24,7 +23,6 @@ div#libraryForm {
             flex-direction: column;
             background-color: rgba(var(--inputBg),1);
             input {
-                /*font-size: 2em;*/
                 width: 100%;
                 height: 100%;
                 padding: 0.5em;
@@ -89,19 +87,14 @@ div#libraryForm {
                 -webkit-backdrop-filter: blur(8px);
                 .crateBtn {
                     display: none;
-                    /*height: 2em;*/
-                    /*flex-grow: 1;*/
                     flex-direction: column;
-                    /*font-size: 0.5em;*/
-                    font-size: 1.5dvh;
-                    /*border-bottom: 1px solid #555;*/
+                    font-size: 0.7rem;
                     background-color: rgba(var(--crateDropBg),0.75);
                     border-radius: 5px;
                     margin: 5px;
                     padding: 10px;
                     width: 20dvh;
                     height: 20dvh;
-                    /*overflow: hidden;*/
                 }
             }
             div#crateDropDown.unrolled {
@@ -156,6 +149,7 @@ div#libraryBrowse {
             font-weight: bold;
             /*background: linear-gradient(90deg, rgba(var(--inputBg),1),65%, rgba(var(--inputBg),0));*/
             a {
+                font-size: 1.2vmin;
                 flex: 1;
                 width: 100%;
                 padding: 0.5em;
@@ -198,7 +192,7 @@ div.libraryGrid {
     color: rgba(var(--libFg0),1);
     div.gridRow {
         display: flex;
-        font-size: 1.25em;
+        font-size: .8rem;
         align-items: center;
     }
     div.gridRow:nth-child(odd) {
@@ -209,7 +203,7 @@ div.libraryGrid {
         padding-top: 0.5em;
         text-align: left;
         font-family: 'Roboto Condensed', 'Roboto', Arial;
-        font-size: 3dvh;
+        font-size: 1.25rem;
         color: rgba(var(--libTh),1);
         border-bottom: 2px solid rgba(var(--libTh),1);
         background: linear-gradient(0deg, rgba(var(--libTh),0.15), rgba(0,0,0,0.0) 25%);
@@ -334,16 +328,18 @@ div.libraryGrid.deezerResults {
 @media screen and (orientation: portrait) {
     div#libraryForm {
         top: 3dvw;
+        /*
         form {
-            font-size: 2dvw;
+            font-size: 1rem;
             div#categoryFilter {
                 div#crateDropDown {
                     .crateBtn {
-                        font-size: 1dvw;
+                        font-size: 0.75rem;
                     }
                 }
             }            
         }
+            */
     }
 
     div#libraryBrowse {
@@ -371,12 +367,12 @@ div.libraryGrid.deezerResults {
     div#libraryForm {
         top: 5dvh;
         form {
-            font-size: 3dvw;
+            /*font-size: 1.5rem;*/
             div#categoryFilter {
                 .crateBtn {
                     span.crateLogo, span.crateDesc {
                         padding: 1dvh;
-                        font-size: 1dvh;
+                        /*font-size: 0.5rem;*/
                     }
                 }
                 div#crateDropDown.unrolled {

@@ -103,7 +103,7 @@ $recentBtnBg1: darken($legendaryRed,25%);
     --libDur:   #{hexToRGB($libDur0)};
     --queueFg:  #{hexToRGB($queueFg0)};
     --queueFg-weak:  #{hexToRGB(darken($queueFg0, 5%))};
-    --queueFg-strong:  #{hexToRGB(lighten($queueFg0, 5%))};
+    --queueFg-strong:  #{hexToRGB(lighten($queueFg0, 10%))};
     --queueBg-a:  #{hexToRGB($queueBg0)};
     --queueBg-b:  #{hexToRGB(lighten($queueBg0, 10%))};
     --btnBg:      #{hexToRGB($btnBg0)};

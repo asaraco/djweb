@@ -7,7 +7,7 @@
     justify-content:center;
     align-items:flex-end;
     background: linear-gradient(0deg, rgba(var(--headBgA),1) 25%, rgba(var(--headBgB),1) 90%, rgba(var(--headBgC),1) 110%);
-    font-size: 5dvh;
+    font-size: 2.75rem;
     text-align: center;
     transition: 0.1s;
     div#headerBar {
@@ -39,7 +39,7 @@
 }
 #headerSection.shrink {
     height: 4dvh;
-    font-size: 2dvh;
+    font-size: 1.25rem;
     top: 0;
     div#headerBar {
         height: 4dvh;
@@ -66,16 +66,18 @@
 
 #queueWrapper {
     background: linear-gradient(180deg, rgba(var(--queueBg-a),0.25), rgba(var(--queueBg-b),0.9));
+    mask-image: linear-gradient(to bottom, rgba(var(--queueBg-b),0.9) 0%, transparent 100%);
     /*min-width: 15%;*/
     flex: 1;
-    height: fit-content;
+    /*height: fit-content;*/
+    height: 100vh;
     position: sticky;
     top: 4dvh;
     div#queueHeader {
         h3 {
             color: rgba(var(--queueFg),1);
             font-family: 'Roboto Condensed', 'Roboto', Arial;
-            font-size: 2em;
+            font-size: 1.25rem;
             text-transform: uppercase;
             text-align: center;
         }
@@ -105,7 +107,7 @@ button#closeQueue, button#closeNew {
 @media screen and (orientation: portrait) {
     #headerSection {
         height: 6dvw;
-        font-size: 4dvw;
+        font-size: 2rem;
         div#headerBar {
             height: 6dvw;
         }
@@ -115,7 +117,7 @@ button#closeQueue, button#closeNew {
     }
     #headerSection.shrink {
         height: 3dvw;
-        font-size: 1.5dvw;
+        font-size: 1rem;
         div#headerBar {
             height: 3dvw;
         }
@@ -123,6 +125,7 @@ button#closeQueue, button#closeNew {
 
     #queueWrapper, app-new-arrivals {
         top: 3dvw;
+        width: 90dvw;
     }
 }
 
@@ -142,7 +145,7 @@ button#closeQueue, button#closeNew {
             height: 5dvh;
             h1 {
                 /*font-family: 'Roboto', 'Roboto', Arial;*/
-                font-size: 3dvh;
+                font-size: 1.5rem;
                 padding: 0.5dvh;
             }
         }
@@ -157,7 +160,7 @@ button#closeQueue, button#closeNew {
         div#headerBar {
             height: 5dvh;
             h1 {
-                font-size: 3dvh;
+                font-size: 1.5rem;
             }
         }
         div#toolBar {

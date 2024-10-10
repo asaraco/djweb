@@ -13,7 +13,7 @@ div.toast {
     max-width: 50dvw;
     z-index: 5000;
     text-align: center;
-    font-size: 1.5dvh;
+    font-size: 1rem;
     padding: 2em;
     border-radius: 5dvh;
     background-color: rgba(var(--toastBg),0.8);
@@ -43,7 +43,7 @@ button:hover {
 @media screen and (orientation: portrait) {
     div.toast {
         max-width: 80dvw;
-        font-size: 1.5dvw;
+        font-size: 1rem;
         button {
             top: 2dvw;
             right: 2dvh;
@@ -61,6 +61,6 @@ button:hover {
     
     div.toast {
         top: auto;
-        font-size: 1.5dvh;
+        font-size: 1rem;
     }
 }
