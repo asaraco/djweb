@@ -16,6 +16,15 @@ export class OnlineResult {
   explicit: boolean = false;
 }
 
+export class SongRequest {
+  filePath: string = "";
+  constructor(
+    private fp: string
+  ){
+    this.filePath = fp;
+  }
+}
+
 /** Main component code */
 
 @Component({
@@ -217,7 +226,7 @@ export class LibraryComponent implements OnInit {
    * @param id Track id
    * @param duration Track duration
    */
-  requestSong(id: number, duration: number) {
+  requestSongById(id: number, duration: number) {
     //Verify that requests aren't currently delayed
     const now = new Date();
     const nru = localStorage.getItem('noRequestsUntil');
@@ -247,6 +256,44 @@ export class LibraryComponent implements OnInit {
           //this.setReqDelay(duration, now);
           this.playlistDataService.notifyOfRequest(duration, requestTotal, false);
           this.justRequested = id;
+        } else {
+          this.reqToastText = "Something went wrong. Please try again or notify the DJ.";
+          this.showReqToast = true;
+        }        
+      });    
+    }
+  }
+
+  requestSong(song: Track) {
+    //Verify that requests aren't currently delayed
+    const now = new Date();
+    const nru = localStorage.getItem('noRequestsUntil');
+    if ((nru) && (now.getTime() < JSON.parse(nru))) { 
+      //console.log("Sorry, no requests until " + nru);
+    } else {
+      //Get total # of requests by this user from local storage
+      //let userId = localStorage.getItem('userNumber');
+      let ls_requestTotal = localStorage.getItem('requestTotal');
+      let requestTotal: number = 0;
+      if (ls_requestTotal) {
+        requestTotal = JSON.parse(ls_requestTotal);
+      }
+      //console.log("requestTotal = " + requestTotal);
+      //Make the request
+      //console.log("Request song #" + id);
+      var resultMsg: string;
+      //this.playlistDataService.requestTrack(id).subscribe(data => {
+      this.playlistDataService.requestFile(song.filePath).subscribe(data => {
+        //console.log("Got a result");
+        resultMsg = data;
+        console.log(resultMsg);
+        if (resultMsg=="OK") {
+          this.reqToastText = UI_REQUEST_TEXT;
+          this.showReqToast = true;
+          localStorage.setItem('lastRequest', song.id.toString());
+          //this.setReqDelay(duration, now);
+          this.playlistDataService.notifyOfRequest(song.duration, requestTotal, false);
+          this.justRequested = song.id;
         } else {
           this.reqToastText = "Something went wrong. Please try again or notify the DJ.";
           this.showReqToast = true;

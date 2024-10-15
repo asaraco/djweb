@@ -5,6 +5,7 @@ import { Observable, Subject } from 'rxjs';
 import { Playlist } from 'src/app/playlist/playlist.component';
 import { Track } from 'src/app/track/track.component';
 import { PlaylistTrack } from 'src/app/playlist-track/playlist-track.component';
+import { SongRequest } from 'src/app/library/library.component';
 
 export class PlaylistRequest {
   constructor(public duration: number, public reqTotal: number, public triggerRefresh: boolean) {}
@@ -55,6 +56,11 @@ export class PlaylistDataService {
   requestTrack(id: number): Observable<string> {
     var responseMsg: string;
     return this.http.post<string>(`${API_URL}/requestSong?id=${id}`, null);
+  }
+
+  requestFile(path: string): Observable<string> {
+    var req: SongRequest = new SongRequest(path);
+    return this.http.post<string>(`${API_URL}/requestDirect`, req);
   }
 
   requestTrackCrate(songid: number, crateid: string): Observable<string> {
