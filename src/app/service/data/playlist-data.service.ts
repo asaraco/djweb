@@ -33,15 +33,15 @@ export class PlaylistDataService {
   /* AMS - I don't like using "any" as the type instead of "Playlist", but due to using JPA/HAL
   the JSON response is not just a Playlist, it also has an "_embedded" wrapper
   for the playlistTracks array, and other generated stuff. So a bit more manual handling is needed. */
-  retrievePlaylist(id: number): Observable<any> {
+  retrieveMixxxPlaylist(id: number): Observable<any> {
     return this.http.get<Playlist>(`${API_URL}/playlists/${id}`);
   }
 
-  retrieveMostRecentPlaylist(): Observable<any> {
+  retrieveMixxxMostRecentPlaylist(): Observable<any> {
     return this.http.get<Playlist>(`${API_URL}/playlists/search/findTopByOrderByIdDesc`);
   }
 
-  retrieveHighestPlaylistTrack(id: number): Observable<Track> {
+  retrieveMixxxHighestPlaylistTrack(id: number): Observable<Track> {
     return this.http.get<Track>(`${API_URL}playlistTracks/search/findFirstByPlaylistIdOrderByPositionDesc?playlistId=${id}`);
   }
 

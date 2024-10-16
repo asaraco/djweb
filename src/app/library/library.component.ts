@@ -17,12 +17,9 @@ export class OnlineResult {
 }
 
 export class SongRequest {
-  filePath: string = "";
   constructor(
-    private fp: string
-  ){
-    this.filePath = fp;
-  }
+    private filePath: string = ""
+  ){}
 }
 
 /** Main component code */
@@ -281,13 +278,13 @@ export class LibraryComponent implements OnInit {
       //console.log("requestTotal = " + requestTotal);
       //Make the request
       //console.log("Request song #" + id);
-      var resultMsg: string;
+      var resultMsg: string = "false";
       //this.playlistDataService.requestTrack(id).subscribe(data => {
       this.playlistDataService.requestFile(song.filePath).subscribe(data => {
         //console.log("Got a result");
-        resultMsg = data;
+        resultMsg = data.toString();
         console.log(resultMsg);
-        if (resultMsg=="OK") {
+        if (resultMsg==="true") {
           this.reqToastText = UI_REQUEST_TEXT;
           this.showReqToast = true;
           localStorage.setItem('lastRequest', song.id.toString());
