@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { API_URL } from 'src/app/app.constants';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import { Playlist } from 'src/app/playlist/playlist.component';
+import { Playlist, PlaylistQueue } from 'src/app/playlist/playlist.component';
 import { Track } from 'src/app/track/track.component';
 import { PlaylistTrack } from 'src/app/playlist-track/playlist-track.component';
 import { SongRequest } from 'src/app/library/library.component';
@@ -45,8 +45,8 @@ export class PlaylistDataService {
     return this.http.get<Track>(`${API_URL}playlistTracks/search/findFirstByPlaylistIdOrderByPositionDesc?playlistId=${id}`);
   }
 
-  retrieveAutomixQueue(): Observable<Playlist> {
-    return this.http.get<Playlist>(`${API_URL}/getQueue`);
+  retrieveAutomixQueue(): Observable<PlaylistQueue> {
+    return this.http.get<PlaylistQueue>(`${API_URL}/getQueue`);
   }
 
   retrieveLastPlayed(): Observable<Playlist> {
@@ -79,5 +79,9 @@ export class PlaylistDataService {
 
   getTimeRemaining(): Observable<number> {
     return this.http.get<number>(`${API_URL}/getTimeRemaining`);
+  }
+
+  getSongProgress(): Observable<number> {
+    return this.http.get<number>(`${API_URL}/getSongPosition`);
   }
 }

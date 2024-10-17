@@ -12,6 +12,13 @@ export class Playlist {
   ) {}
 }
 
+export class PlaylistQueue extends Playlist {
+  dbOutdated: boolean = false;
+  currentTrackDurationSec: number = 0;
+  currentTrackProgress: number = 0.0;
+  currentTrackRemainingMs: number = 0;
+}
+
 @Component({
   selector: 'app-playlist',
   templateUrl: './playlist.component.html',
