@@ -4,3 +4,8 @@ span i {
 .tDuration {
     opacity: 0.5;
 }
+div.trackProgressBar {
+    display: inline-block;
+    position: absolute;
+    background-color: rgba(200,200,255,0.5);
+}

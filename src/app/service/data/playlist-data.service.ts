@@ -76,4 +76,8 @@ export class PlaylistDataService {
   requestAskTheDJ(message: string): Observable<string> {
     return this.http.post<string>(`${API_URL}/requestAskTheDJ?message=${message}`, null);
   }
+
+  getTimeRemaining(): Observable<number> {
+    return this.http.get<number>(`${API_URL}/getTimeRemaining`);
+  }
 }

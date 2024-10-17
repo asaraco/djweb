@@ -24,6 +24,8 @@ export class AppComponent implements OnInit {
   scrolledDown: boolean = false;
   requestSubscription: Subscription;
   currentTrackDuration: number = 100;
+  currentTrackProgress!: number;
+  progressBarInterval!: any;
   /* imported constants */
   UI_WELCOME_TEXT: string = UI_WELCOME_TEXT;
   UI_HELPTEXT_REQUEST: string = UI_HELPTEXT_REQUEST;
@@ -36,7 +38,9 @@ export class AppComponent implements OnInit {
       this.requestSubscription = this.playlistDataService.watchForNotification().subscribe((data) => {
         this.ngOnInit();
       });
-      setInterval(() => this.ngOnInit(), this.currentTrackDuration * 750);
+      // Set how often to refresh queue
+      // AMS 2024/10/16 - Now attempting to set this within ngOnInit() below, via "get_time"
+      //setInterval(() => this.ngOnInit(), this.currentTrackDuration * 750);
     }
 
   ngOnInit(): void {
@@ -66,14 +70,23 @@ export class AppComponent implements OnInit {
       this.autoDjPlaylist.name = data.name;
       this.autoDjPlaylist.playlistTracks = data.playlistTracks.splice(0,5).reverse();
       let lastIndex = this.autoDjPlaylist.playlistTracks.length - 1;
-      let currentTrackDuration = this.autoDjPlaylist.playlistTracks[lastIndex].track.duration;
-      //console.log("currentTrackDuration = " + currentTrackDuration);
+      this.currentTrackDuration = this.autoDjPlaylist.playlistTracks[lastIndex].track.duration; // track duration is in seconds
+      console.log("currentTrackDuration = " + this.currentTrackDuration);
+      this.playlistDataService.getTimeRemaining().subscribe(data => {   // remaining time is in ms
+        console.log("remaining time = " + data);
+        this.currentTrackProgress = ((this.currentTrackDuration - (data/1000)) / this.currentTrackDuration) * 100;  // Get a fraction then turn it into %
+        console.log("currentTrackProgress = " + this.currentTrackProgress);
+        setInterval(() => this.ngOnInit(), data + 1000);  // add 1000 ms delay to give VDJ time to update queue
+        this.progressBarInterval = setInterval(() => this.incrementProgressBar(), this.currentTrackDuration*10); // *10 achieves "*1000" to convert to ms, then /100
+      })
     })
     this.playlistDataService.retrieveLastPlayed().subscribe(data => {
       this.mostRecentPlaylist.name = data.name;
       this.mostRecentPlaylist.playlistTracks = data.playlistTracks.reverse().splice(1);
       
     })
+    // AMS 2024/10/16 - Get time remaining from VDJ Network Control plugin
+    
     // AMS 2023/10/16 - Retrieve or randomly generate a user ID # for this session.
     //                  Also store in array to make sure there are no duplicates.
     if (!localStorage.getItem('userNumber')) {
@@ -155,6 +168,19 @@ export class AppComponent implements OnInit {
     
     localStorage.setItem("theme", theme);
     document.documentElement.setAttribute("data-theme", theme);
+  }
+
+  incrementProgressBar() {
+    let progressDiv = document.querySelector("#pAutoDj .playlistDiv div:last-child .trackProgressBar");
+    console.log(this.currentTrackProgress);
+    if (this.currentTrackProgress<100) {
+      this.currentTrackProgress++
+    } else {
+      this.currentTrackProgress=0;
+      clearInterval(this.progressBarInterval);
+    } 
+    let style = "display:inline-block;width:" + this.currentTrackProgress + "%";
+    progressDiv?.setAttribute("style", style);
   }
 
 }
