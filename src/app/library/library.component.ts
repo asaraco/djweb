@@ -299,6 +299,14 @@ export class LibraryComponent implements OnInit {
     }
   }
 
+  requestSongDeezer(song: OnlineResult) {
+    let deezerTrack = new Track();
+    deezerTrack.filePath = "netsearch%3A%2F%2Fdz" + song.id;
+    deezerTrack.id = song.id;
+    deezerTrack.duration = song.duration;
+    this.requestSong(deezerTrack);
+  }
+
   askTheDJ(message: string) {
     var resultMsg: string;
     console.log(message);
