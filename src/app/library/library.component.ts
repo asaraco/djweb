@@ -18,7 +18,9 @@ export class OnlineResult {
 
 export class SongRequest {
   constructor(
-    private filePath: string = ""
+    private filePath: string = "",
+    private title: string = "",
+    private artist: string = ""
   ){}
 }
 
@@ -51,6 +53,7 @@ export class LibraryComponent implements OnInit {
   scrolledDown: boolean = false;
   requestSubscription: Subscription;
   buttonTooltip: string = "";
+  mostRecentSearch: string = "";
   /* imported constants */
   UI_SEARCH_TEXT: string = UI_SEARCH_TEXT;
   UI_CATS_TEXT: string = UI_CATS_TEXT;
@@ -70,7 +73,6 @@ export class LibraryComponent implements OnInit {
       if (data.triggerRefresh) {
         this.libraryDataService.retrieveAllTracks().subscribe(
           data => { 
-                    //this.tracks = data._embedded.tracks;
                     this.tracks = data;
                     this.filteredTracks = this.searchControl.valueChanges.pipe(debounceTime(500), startWith(''), map(value => this._filter(value)));
                     //this.alphaJump(0);
@@ -81,10 +83,10 @@ export class LibraryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("LIBRARY ON INIT");
     // Get main list of tracks
     this.libraryDataService.retrieveAllTracks().subscribe(
       data => { 
-                //this.tracks = data._embedded.tracks;
                 this.tracks = data;
                 this.filteredTracks = this.searchControl.valueChanges.pipe(debounceTime(500), startWith(''), map(value => this._filter(value)));
                 //this.alphaJump(0);
@@ -120,13 +122,15 @@ export class LibraryComponent implements OnInit {
    * @returns 
    */
   private _filter(value: string): Track[] {
+    console.log("_filter: ENTER");
     const filterValue = value ? value.toLowerCase(): "";
     let s = "";
     // AMS 9/30/2024 - ALso trigger online search
-    if (!(value==null || value=="")) {
+    if (!(value==null || value=="") && value!=this.mostRecentSearch) {
       this.libraryDataService.deezerSearch(this.searchControl.value).subscribe(data2 => {
         this.onlineResults = data2;
       });
+      this.mostRecentSearch = value;  // This should prevent duplicate searches
     }
     this.filterCrates.forEach(c=>s+=c.id);
     //return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue));
@@ -280,7 +284,7 @@ export class LibraryComponent implements OnInit {
       //console.log("Request song #" + id);
       var resultMsg: string = "false";
       //this.playlistDataService.requestTrack(id).subscribe(data => {
-      this.playlistDataService.requestFile(song.filePath).subscribe(data => {
+      this.playlistDataService.requestFile(song).subscribe(data => {
         //console.log("Got a result");
         resultMsg = data.toString();
         console.log(resultMsg);
@@ -303,7 +307,11 @@ export class LibraryComponent implements OnInit {
     let deezerTrack = new Track();
     deezerTrack.filePath = "netsearch%3A%2F%2Fdz" + song.id;
     deezerTrack.id = song.id;
+    deezerTrack.artist = song.artist;
+    deezerTrack.title = song.title;
     deezerTrack.duration = song.duration;
+    console.log(song.artist + song.title);
+    console.log(deezerTrack.artist + deezerTrack.title);
     this.requestSong(deezerTrack);
   }
 
