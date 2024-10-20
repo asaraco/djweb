@@ -58,12 +58,12 @@ export class PlaylistDataService {
     return this.http.post<string>(`${API_URL}/requestSong?id=${id}`, null);
   }
 
-  requestFile(track: Track): Observable<string> {
-    var req: SongRequest = new SongRequest(track.filePath, track.title, track.artist);
+  requestFile(track: Track, rated: boolean): Observable<string> {
+    var req: SongRequest = new SongRequest(track.filePath, track.title, track.artist, rated);
     return this.http.post<string>(`${API_URL}/requestDirect`, req);
   }
 
-  requestTrackCrate(songid: number, crateid: string): Observable<string> {
+  requestMixxxTrackCrate(songid: number, crateid: string): Observable<string> {
     var responseMsg: string;
     return this.http.post<string>(`${API_URL}/requestSongCrate?songid=${songid}&crateid=${crateid}`, null);
   }

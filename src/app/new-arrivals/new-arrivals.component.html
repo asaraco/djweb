@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="gridCol gc1 request" [ngClass]="{'requested': justRequested === t.id}">
-            <button type="button" [disabled]="!requestable" (click)="requestAndAddSong(t.id, t.duration)" title={{buttonTooltip}}>+</button>
+            <button type="button" [disabled]="!requestable" (click)="requestAndAddSong(t)" title={{buttonTooltip}}>+</button>
         </div>
     </div>
 </div>
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="gridCol gc1 request" [ngClass]="{'requested': justRequested === t.id}">
-                <button type="button" [disabled]="!requestable" (click)="requestAndAddSong(t.id, t.duration)" title={{buttonTooltip}}>+</button>
+                <button type="button" [disabled]="!requestable" (click)="requestSong(t)" title={{buttonTooltip}}>+</button>
             </div>
         </div>
     </section>

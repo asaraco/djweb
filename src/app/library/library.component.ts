@@ -20,7 +20,8 @@ export class SongRequest {
   constructor(
     private filePath: string = "",
     private title: string = "",
-    private artist: string = ""
+    private artist: string = "",
+    private rated: boolean = false
   ){}
 }
 
@@ -284,7 +285,7 @@ export class LibraryComponent implements OnInit {
       //console.log("Request song #" + id);
       var resultMsg: string = "false";
       //this.playlistDataService.requestTrack(id).subscribe(data => {
-      this.playlistDataService.requestFile(song).subscribe(data => {
+      this.playlistDataService.requestFile(song, true).subscribe(data => {
         //console.log("Got a result");
         resultMsg = data.toString();
         console.log(resultMsg);

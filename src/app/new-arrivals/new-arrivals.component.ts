@@ -92,7 +92,7 @@ export class NewArrivalsComponent implements OnInit {
    * @param id Track id
    * @param duration Track duration
    */
-    requestAndAddSong(id: number, duration: number) {
+    requestAndAddSongById(id: number, duration: number) {
       const now = new Date();
       const nru = localStorage.getItem('noRequestsUntil');
       if ((nru) && (now.getTime() < JSON.parse(nru))) { 
@@ -109,7 +109,7 @@ export class NewArrivalsComponent implements OnInit {
         //Make the request
         //console.log("Request song #" + id);
         var resultMsg: string;
-        this.playlistDataService.requestTrackCrate(id, CRATE_LAN_LIBRARY.id).subscribe(data => {
+        this.playlistDataService.requestMixxxTrackCrate(id, CRATE_LAN_LIBRARY.id).subscribe(data => {
           resultMsg = data;
           this.showReqToast = true;
           localStorage.setItem('lastRequest', id.toString());
@@ -122,6 +122,81 @@ export class NewArrivalsComponent implements OnInit {
             clearInterval(animationInterval);
           }, 1000);          
         });
+      }
+    }
+
+    requestAndAddSong(song: Track) {
+      const now = new Date();
+      const nru = localStorage.getItem('noRequestsUntil');
+      if ((nru) && (now.getTime() < JSON.parse(nru))) { 
+        //console.log("Sorry, no requests until " + nru);
+      } else {
+        //Get total # of requests by this user from local storage
+        //let userId = localStorage.getItem('userNumber');
+        let ls_requestTotal = localStorage.getItem('requestTotal');
+        let requestTotal: number = 0;
+        if (ls_requestTotal) {
+          requestTotal = JSON.parse(ls_requestTotal);
+        }
+        //console.log("requestTotal = " + requestTotal);
+        //Make the request
+        //console.log("Request song #" + id);
+        var resultMsg: string;
+        this.playlistDataService.requestFile(song, false).subscribe(data => {
+          resultMsg = data;
+          this.showReqToast = true;
+          localStorage.setItem('lastRequest', song.id.toString());
+          //this.setReqDelay(duration, now);
+          this.playlistDataService.notifyOfRequest(song.duration, requestTotal, true);
+          this.justRequested = song.id;
+          let animationInterval = setInterval(() => {
+            //this.libraryDataService.retrieveNewTracks().subscribe(data2 => this.tracks = data2._embedded.tracks);
+            this.libraryDataService.retrieveNewTracks().subscribe(data2 => this.uploadedTracks = data2);
+            clearInterval(animationInterval);
+          }, 1000);          
+        });
+      }
+    }
+
+    /**
+     * AMS 2024/10/19 - Shamelessly copy/pasting from Library component. Really need to refactor requests already!!!
+     * @param song 
+     */
+    requestSong(song: Track) {
+      //Verify that requests aren't currently delayed
+      const now = new Date();
+      const nru = localStorage.getItem('noRequestsUntil');
+      if ((nru) && (now.getTime() < JSON.parse(nru))) { 
+        //console.log("Sorry, no requests until " + nru);
+      } else {
+        //Get total # of requests by this user from local storage
+        //let userId = localStorage.getItem('userNumber');
+        let ls_requestTotal = localStorage.getItem('requestTotal');
+        let requestTotal: number = 0;
+        if (ls_requestTotal) {
+          requestTotal = JSON.parse(ls_requestTotal);
+        }
+        //console.log("requestTotal = " + requestTotal);
+        //Make the request
+        //console.log("Request song #" + id);
+        var resultMsg: string = "false";
+        //this.playlistDataService.requestTrack(id).subscribe(data => {
+        this.playlistDataService.requestFile(song, true).subscribe(data => {
+          //console.log("Got a result");
+          resultMsg = data.toString();
+          console.log(resultMsg);
+          if (resultMsg==="true") {
+            //this.reqToastText = UI_REQUEST_TEXT;
+            this.showReqToast = true;
+            localStorage.setItem('lastRequest', song.id.toString());
+            //this.setReqDelay(duration, now);
+            this.playlistDataService.notifyOfRequest(song.duration, requestTotal, false);
+            this.justRequested = song.id;
+          } else {
+            //this.reqToastText = "Something went wrong. Please try again or notify the DJ.";
+            this.showReqToast = true;
+          }        
+        });    
       }
     }
 
