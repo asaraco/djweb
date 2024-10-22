@@ -144,7 +144,8 @@ export class LibraryComponent implements OnInit {
       });
       this.headingListChanged = true;
       // "some" function checks if one array contains any element of another; "every" checks if it has ALL
-      return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue) && this.selectedCrateIds.every(e=>track.crates.includes(e)));
+      //return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue) && this.selectedCrateIds.every(e=>track.crates.includes(e)));
+      return this.tracks.filter(track => this.hasAllSearchTerms(this.friendlyTrackString(track), filterValue) && this.selectedCrateIds.every(e=>track.crates.includes(e)));
     } else {                      // "All tracks"
       // In order to avoid changing category view TOO fast, defer directive-modifying variable change to here
       //this.filterCrate = this.selectedCrateId;
@@ -152,7 +153,7 @@ export class LibraryComponent implements OnInit {
         if (this.selectedCrateIds.includes(c.id) && !this.filterCrates.includes(c)) { this.filterCrates.push(c); }     
       });
       this.headingListChanged = true;
-      return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue));
+      return this.tracks.filter(track => this.hasAllSearchTerms(this.friendlyTrackString(track), filterValue));
     }
   }
 
@@ -186,6 +187,27 @@ export class LibraryComponent implements OnInit {
     }
 
     return friendlyText;
+  }
+
+  /**
+   * Split a search string into separate components by space.
+   * Search another given string by each term individually.
+   * If any term is NOT found, return false.
+   * Return true if it contains ALL of the terms.
+   * (Use this to make searches smarter and return matches for both "Radiohead" and "Kid A" for example,
+   * instead of "Radiohead Kid A" turning up nothing.)
+   * @param searchString 
+   * @param searchable 
+   * @returns 
+   */
+  private hasAllSearchTerms(searchable: string, searchString: string): boolean {
+    //if (searchString=="") return true;
+    let searchTerms = searchString.toLowerCase().split(" ");
+    let searchableTemp = searchable.toLowerCase();
+    for (let term of searchTerms) {
+      if (!searchableTemp.includes(term)) return false;
+    }
+    return true;
   }
 
   /**
