@@ -99,7 +99,7 @@ export class NewArrivalsComponent implements OnInit {
         //console.log("Sorry, no requests until " + nru);
       } else {
         //Get total # of requests by this user from local storage
-        //let userId = localStorage.getItem('userNumber');
+        //let userId = localStorage.getItem('userId');
         let ls_requestTotal = localStorage.getItem('requestTotal');
         let requestTotal: number = 0;
         if (ls_requestTotal) {
@@ -132,7 +132,7 @@ export class NewArrivalsComponent implements OnInit {
         //console.log("Sorry, no requests until " + nru);
       } else {
         //Get total # of requests by this user from local storage
-        //let userId = localStorage.getItem('userNumber');
+        //let userId = localStorage.getItem('userId');
         let ls_requestTotal = localStorage.getItem('requestTotal');
         let requestTotal: number = 0;
         if (ls_requestTotal) {
@@ -170,7 +170,7 @@ export class NewArrivalsComponent implements OnInit {
         //console.log("Sorry, no requests until " + nru);
       } else {
         //Get total # of requests by this user from local storage
-        //let userId = localStorage.getItem('userNumber');
+        //let userId = localStorage.getItem('userId');
         let ls_requestTotal = localStorage.getItem('requestTotal');
         let requestTotal: number = 0;
         if (ls_requestTotal) {

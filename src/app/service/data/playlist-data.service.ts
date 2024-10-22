@@ -68,13 +68,13 @@ export class PlaylistDataService {
     return this.http.post<string>(`${API_URL}/requestSongCrate?songid=${songid}&crateid=${crateid}`, null);
   }
 
-  requestTrackAndAskTheDJ(id: number): Observable<string> {
+  requestTrackAndAskTheDJ(id: number, username: string): Observable<string> {
     var songInfo: string;
-    return this.http.post<string>(`${API_URL}/findSongByIdForAskTheDJ?id=${id}`, null);
+    return this.http.post<string>(`${API_URL}/findSongByIdForAskTheDJ?id=${id}&name=${username}`, null);
   }
 
-  requestAskTheDJ(message: string): Observable<string> {
-    return this.http.post<string>(`${API_URL}/requestAskTheDJ?message=${message}`, null);
+  requestAskTheDJ(message: string, username: string): Observable<string> {
+    return this.http.post<string>(`${API_URL}/requestAskTheDJ?message=${message}&name=${username}`, null);
   }
 
   getTimeRemaining(): Observable<number> {

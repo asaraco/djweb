@@ -75,7 +75,8 @@ button:hover {
     }*/
 }
 
-@media screen and (max-width: 960px) {
+/*@media screen and (max-width: 960px) {*/
+@media (orientation: portrait) {
     body {
         margin: 0;
     }

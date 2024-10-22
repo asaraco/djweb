@@ -97,14 +97,20 @@ export class AppComponent implements OnInit {
     })
     // AMS 2023/10/16 - Retrieve or randomly generate a user ID # for this session.
     //                  Also store in array to make sure there are no duplicates.
-    if (!localStorage.getItem('userNumber')) {
-      this.userDataService.generateID().subscribe(data => {
-        localStorage.setItem('userNumber', JSON.stringify(data));
-        //console.log("Assigned User #: " + localStorage.getItem('userNumber'));
-        //this.firstTime = true;
-        this.showHelp = true;
-        localStorage.setItem('requestTotal', '0');
-      });
+    let username = window.location.search.substring(8); //string begins with "?userId="
+    console.log("window.location.search = " + username);
+    if (!localStorage.getItem('userId')) {
+      if (username!="") {
+        localStorage.setItem('userId', username);
+      } else {
+        this.userDataService.generateID().subscribe(data => {
+          localStorage.setItem('userId', JSON.stringify(data));
+          //this.firstTime = true;
+          this.showHelp = true;
+          localStorage.setItem('requestTotal', '0');
+        });
+      }
+      console.log("Assigned User ID: " + localStorage.getItem('userId'));
     }
   }
 

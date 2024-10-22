@@ -236,18 +236,26 @@ export class LibraryComponent implements OnInit {
       //console.log("Sorry, no requests until " + nru);
     } else {
       //Get total # of requests by this user from local storage
-      //let userId = localStorage.getItem('userNumber');
+      //let userId = localStorage.getItem('userId');
       let ls_requestTotal = localStorage.getItem('requestTotal');
       let requestTotal: number = 0;
       if (ls_requestTotal) {
         requestTotal = JSON.parse(ls_requestTotal);
       }
       //console.log("requestTotal = " + requestTotal);
+      // Set username
+      var username: string;
+      let ls_userId = localStorage.getItem('userId');
+      if (ls_userId) {
+        username = ls_userId;
+      } else {
+        username = "";
+      }
       //Make the request
       //console.log("Request song #" + id);
       var resultMsg: string;
       //this.playlistDataService.requestTrack(id).subscribe(data => {
-      this.playlistDataService.requestTrackAndAskTheDJ(id).subscribe(data => {
+      this.playlistDataService.requestTrackAndAskTheDJ(id,username).subscribe(data => {
         //console.log("Got a result");
         resultMsg = data;
         console.log(resultMsg);
@@ -274,7 +282,7 @@ export class LibraryComponent implements OnInit {
       //console.log("Sorry, no requests until " + nru);
     } else {
       //Get total # of requests by this user from local storage
-      //let userId = localStorage.getItem('userNumber');
+      //let userId = localStorage.getItem('userId');
       let ls_requestTotal = localStorage.getItem('requestTotal');
       let requestTotal: number = 0;
       if (ls_requestTotal) {
@@ -318,8 +326,17 @@ export class LibraryComponent implements OnInit {
 
   askTheDJ(message: string) {
     var resultMsg: string;
+    // Set username
+    var username: string;
+    let ls_userId = localStorage.getItem('userId');
+    if (ls_userId) {
+      username = ls_userId;
+    } else {
+      username = "";
+    }
+    // Send request
     console.log(message);
-    this.playlistDataService.requestAskTheDJ(encodeURIComponent(message)).subscribe(data => {
+    this.playlistDataService.requestAskTheDJ(encodeURIComponent(message), encodeURIComponent(username)).subscribe(data => {
       //console.log("Got a result");
       resultMsg = data;
       //console.log(resultMsg);

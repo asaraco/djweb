@@ -129,13 +129,15 @@ button#closeQueue, button#closeNew {
     }
 }
 
-@media screen and (min-width: 960px) {
+/*@media screen and (min-width: 960px) {*/
+@media (orientation: landscape) {
     .mobileOnly {
         display: none;
     }
 }
 
-@media screen and (max-width: 960px) {
+/*@media screen and (max-width: 960px) {*/
+@media (orientation: portrait) {
     #headerSection {
         top: 0;
         margin-top: 0;
