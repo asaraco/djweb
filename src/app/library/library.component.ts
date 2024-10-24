@@ -106,6 +106,10 @@ export class LibraryComponent implements OnInit {
     }
   }
 
+  /**
+   * Track & manage window scrolling behavior
+   * (allows for automatic scrolling to links)
+   */
   @HostListener("window:scroll", [])
   onWindowScroll() {
     const number = document.documentElement.scrollTop || document.body.scrollTop || 0;
@@ -117,10 +121,11 @@ export class LibraryComponent implements OnInit {
   }
 
   /**
+   * Filter library view by term entered in search box.
    * This and calling code are borrowed from
    * https://stackblitz.com/angular/lndebkoyare?file=app%2Fautocomplete-filter-example.ts
-   * @param value 
-   * @returns 
+   * @param value string - input search term
+   * @returns Track[] - filtered array of Track objects
    */
   private _filter(value: string): Track[] {
     console.log("_filter: ENTER");

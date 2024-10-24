@@ -11,14 +11,27 @@ import { Track } from 'src/app/track/track.component';
 export class LibraryDataService {
   private currentUpload = new Subject<boolean>();
 
+  /**
+   * Trigger an update to the "current upload" Subject (Observable)
+   * creating a new boolean object
+   * which observers will detect and use as needed
+   */
   notifyOfUpload() {
     this.currentUpload.next(true);
   }
 
+  /**
+   * Observe "current upload" Subject to detect when it changes
+   * @returns Observable<boolean>
+   */
   watchForUpload(): Observable<boolean> {
     return this.currentUpload.asObservable();
   }
 
+  /**
+   * Constructor.
+   * @param http HttpClient (injection)
+   */
   constructor(
     private http: HttpClient
   ) { }
