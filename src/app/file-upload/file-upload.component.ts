@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { API_URL, UI_UPLOAD_ERROR_TEXT, UI_UPLOAD_SUCCESS_TEXT } from '../app.constants';
 import { LibraryDataService } from '../service/data/library-data.service';
+import { Track } from '../track/track.component';
 
 @Component({
   selector: 'app-file-upload',
@@ -33,7 +34,20 @@ export class FileUploadComponent {
           this.fileMessage = [data.message];
           this.fileMessage.push(UI_UPLOAD_SUCCESS_TEXT);
           this.infoToast = true;
-          this.libraryDataService.notifyOfUpload();
+          // AMS 10/23/2024 - trigger a refresh of the browser within VDJ to hopefully find the new song
+          this.http.get(`${API_URL}/refreshSongBrowser`).subscribe(data => {
+            console.log(data);
+            if (data.toString().trim()=="true") {
+              console.log("VDJ song browser refreshed, updating New Arrivals widget");
+              //this.libraryDataService.retrieveNewTracks();
+              const refresh$: any = this.http.get<Track[]>(`${API_URL}/getUnratedLocalTracks`).subscribe(data => {
+                console.log(data);
+                this.libraryDataService.notifyOfUpload();
+              });
+            } else {
+              console.log("VDJ song browser upload may have failed, but song should still be uploaded");
+            }            
+          })          
         },
         error: (err: any)=> {
           this.fileMessage=[err.message];
