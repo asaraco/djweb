@@ -4,6 +4,8 @@ import { UserDataService } from './service/data/user-data.service';
 import { Playlist } from './playlist/playlist.component';
 import { Subscription } from 'rxjs';
 import { UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD, UI_WELCOME_TEXT } from './app.constants';
+import { Track } from './track/track.component';
+import { LibraryDataService } from './service/data/library-data.service';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +18,9 @@ export class AppComponent implements OnInit {
   themeButton: string = "Switch Theme";
   mostRecentPlaylist: Playlist = new Playlist();
   autoDjPlaylist: Playlist = new Playlist();
+  libraryTracks: Track[] = [];
+  uploadedTracks: Track[] = [];
+  recentTracks: Track[] = [];
   showMenu: boolean = false;
   showQueue: boolean = false;  
   showNew: boolean = false;
@@ -32,6 +37,7 @@ export class AppComponent implements OnInit {
   UI_HELPTEXT_UPLOAD: string = UI_HELPTEXT_UPLOAD;
 
   constructor(
+    private libraryDataService: LibraryDataService,
     private playlistDataService: PlaylistDataService,
     private userDataService: UserDataService
     ){
@@ -47,6 +53,11 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     console.log("APP COMPONENT INIT");
     this.detectColorScheme();
+    // AMS 10/24/2024 - refactoring to retrieve Library tracks at app level
+    // Get main list of tracks
+    this.libraryDataService.retrieveAllTracks().subscribe( data => this.libraryTracks = data );
+    this.libraryDataService.retrieveNewTracks().subscribe( data => this.uploadedTracks = data );
+    this.libraryDataService.retrieveRecentTracks().subscribe(data => this.recentTracks = data );
     /*** VDJ - "Automix" and most recent "History" M3U file */
     // For VDJ, 1st track of Automix Queue is the most reliable way of getting "current track"
     // (though it is also the last track of the latest M3U, but they refresh at different times)

@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { Track } from '../track/track.component';
 import { LibraryDataService } from '../service/data/library-data.service';
 import { UI_SEARCH_TEXT, UI_CATS_TEXT, CrateMeta, CRATES_SELECTABLE, CRATES_SIMPLEVIEW, CRATE_ALL, CRATES_ALBUMVIEW, UI_REQUEST_TEXT, UI_BTN_TOOLTIP_DISABLED, UI_REQUEST_PENDING_TEXT } from '../app.constants';
@@ -33,8 +33,10 @@ export class SongRequest {
   styleUrls: ['./library.component.scss']
 })
 export class LibraryComponent implements OnInit {
+  @Input() tracks!: Track[];
+
   onlineResults!: OnlineResult[];
-  tracks!: Track[];
+  //tracks!: Track[];
   filteredTracks!: Observable<Track[]>;
   headingList: String[] = [];
   headingListChanged: boolean = true;
@@ -71,6 +73,7 @@ export class LibraryComponent implements OnInit {
     this.requestSubscription = this.playlistDataService.watchForNotification().subscribe((data)=>{
       this.justRequested = 999999999999999;
       this.setReqDelay(data.duration, data.reqTotal, new Date());
+      /* AMS 10/24/2024 - service call moved to app component, assisted by ngOnChanges in here
       if (data.triggerRefresh) {
         this.libraryDataService.retrieveAllTracks().subscribe(
           data => { 
@@ -79,13 +82,20 @@ export class LibraryComponent implements OnInit {
                     //this.alphaJump(0);
                   }
         );
-      }      
+      } */     
     })
+  }
+
+  ngOnChanges(changes: { tracks: any; }) {
+    if (changes.tracks) {
+      this.filteredTracks = this.searchControl.valueChanges.pipe(debounceTime(500), startWith(''), map(value => this._filter(value)));
+    }
   }
 
   ngOnInit(): void {
     console.log("LIBRARY ON INIT");
     // Get main list of tracks
+    /* AMS 10/24/2024 - service call moved to app component
     this.libraryDataService.retrieveAllTracks().subscribe(
       data => { 
                 this.tracks = data;
@@ -93,6 +103,8 @@ export class LibraryComponent implements OnInit {
                 //this.alphaJump(0);
               }
     );
+    */
+    
     // Handle request blocking
     const now = new Date();
     const ls_noRequestsUntil = localStorage.getItem('noRequestsUntil');
@@ -129,14 +141,16 @@ export class LibraryComponent implements OnInit {
    */
   private _filter(value: string): Track[] {
     console.log("_filter: ENTER");
-    const filterValue = value ? value.toLowerCase(): "";
+    const filterValue = value ? value.trim().toLowerCase() : "";
     let s = "";
     // AMS 9/30/2024 - ALso trigger online search
-    if (!(value==null || value=="") && value!=this.mostRecentSearch) {
+    if (filterValue!="" && filterValue!=this.mostRecentSearch) {
       this.libraryDataService.deezerSearch(this.searchControl.value).subscribe(data2 => {
         this.onlineResults = data2;
       });
-      this.mostRecentSearch = value;  // This should prevent duplicate searches
+      this.mostRecentSearch = filterValue;  // This should prevent duplicate searches
+    } else {  // Default: just return the tracks without any filtering
+      return this.tracks;
     }
     this.filterCrates.forEach(c=>s+=c.id);
     //return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue));
@@ -476,9 +490,11 @@ export class LibraryComponent implements OnInit {
     return headingTexts;
   }
 
+  /*  AMS - pretty sure I'm not using this anymore, it happens in filter now
   deezerSearch(query: string) {
     this.libraryDataService.deezerSearch(this.searchControl.value).subscribe(data => {
       this.onlineResults = data;
     });
   }
+    */
 }

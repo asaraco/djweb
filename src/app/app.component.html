@@ -23,18 +23,17 @@
 </section>
 
 <section id="welcomeText">
-    <app-toast [toastText]="[UI_WELCOME_TEXT, UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD]" [(showToast)]=showHelp [persistent]=true></app-toast>
-    
+    <app-toast [toastText]="[UI_WELCOME_TEXT, UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD]" [(showToast)]=showHelp [persistent]=true></app-toast>    
 </section>
 
 <section id="mainSection" ontouchmove>
     <section class="subSection" id="leftWrapper" [ngClass]="{mobileNew: showNew}">
-        <app-new-arrivals></app-new-arrivals>
+        <app-new-arrivals [uploadedTracks]="uploadedTracks" [recentTracks]="recentTracks"></app-new-arrivals>
         <button id="closeNew" class="mobileOnly" (click)="toggleNewArrivals()" [ngClass]="{mobileQueue: showNew}">𐌢</button>
     </section>
     <section class="subSection" id="browseWrapper">
         <!--router-outlet></router-outlet-->
-        <app-library></app-library>
+        <app-library [tracks]="libraryTracks"></app-library>
     </section>
     <section class="subSection" id="queueWrapper" [ngClass]="{mobileQueue: showQueue}">
         <div id="queueHeader">

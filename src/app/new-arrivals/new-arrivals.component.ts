@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Track } from '../track/track.component';
 import { LibraryDataService } from '../service/data/library-data.service';
 import { PlaylistDataService } from '../service/data/playlist-data.service';
@@ -11,8 +11,11 @@ import { CRATE_LAN_LIBRARY, CrateMeta, UI_BTN_TOOLTIP_DISABLED, UI_REQUEST_TEXT 
   styleUrls: ['./new-arrivals.component.scss']
 })
 export class NewArrivalsComponent implements OnInit {
-  uploadedTracks!: Track[];
-  recentTracks!: Track[];
+  @Input() uploadedTracks!: Track[];
+  @Input() recentTracks!: Track[];
+
+  //uploadedTracks!: Track[];
+ //recentTracks!: Track[];
   requestInterval: any;
   requestable: boolean = true;
   justRequested!: number;
@@ -57,19 +60,21 @@ export class NewArrivalsComponent implements OnInit {
       
     });
     // AMS 10/2/2024 - implement "recently released" section
+    /* 10/24/2024 - moving to app component
     this.libraryDataService.retrieveRecentTracks().subscribe(data => {
       this.recentTracks = data;
     })
+      */
   }
 
   ngOnInit(): void {
+    /* AMS 10/24/2024 - moved this service up to app component
     //Get tracks
     this.libraryDataService.retrieveNewTracks().subscribe(
       data => {
-        //this.tracks = data._embedded.tracks;
         this.uploadedTracks = data;
       }
-    );
+    );*/
     // Handle request blocking
     const now = new Date();
     const ls_noRequestsUntil = localStorage.getItem('noRequestsUntil');
@@ -92,6 +97,7 @@ export class NewArrivalsComponent implements OnInit {
    * @param id Track id
    * @param duration Track duration
    */
+  /*
     requestAndAddSongById(id: number, duration: number) {
       const now = new Date();
       const nru = localStorage.getItem('noRequestsUntil');
@@ -124,6 +130,7 @@ export class NewArrivalsComponent implements OnInit {
         });
       }
     }
+      */
 
     requestAndAddSong(song: Track) {
       const now = new Date();
