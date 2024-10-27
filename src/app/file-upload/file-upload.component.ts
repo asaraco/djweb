@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { API_URL, UI_UPLOAD_ERROR_TEXT, UI_UPLOAD_SUCCESS_TEXT } from '../app.constants';
 import { LibraryDataService } from '../service/data/library-data.service';
 import { Track } from '../track/track.component';
@@ -10,6 +10,8 @@ import { Track } from '../track/track.component';
   styleUrls: ['./file-upload.component.scss']
 })
 export class FileUploadComponent {
+  @Output() uploadEvent = new EventEmitter<boolean>();
+
   fileName: string = "";
   fileMessage: string[] = [];
   infoToast: boolean = false;
@@ -39,15 +41,20 @@ export class FileUploadComponent {
             console.log(data);
             if (data.toString().trim()=="true") {
               console.log("VDJ song browser refreshed, updating New Arrivals widget");
+              this.libraryDataService.setUploadsOutdated(true);
+              this.uploadEvent.emit(true);
               //this.libraryDataService.retrieveNewTracks();
+              /*
               const refresh$: any = this.http.get<Track[]>(`${API_URL}/getUnratedLocalTracks`).subscribe(data => {
                 console.log(data);
-                this.libraryDataService.notifyOfUpload();
+                //this.libraryDataService.notifyOfUpload();
+                this.libraryDataService.setUploadsOutdated(true);
               });
+              */
             } else {
               console.log("VDJ song browser upload may have failed, but song should still be uploaded");
             }            
-          })          
+          });
         },
         error: (err: any)=> {
           this.fileMessage=[err.message];

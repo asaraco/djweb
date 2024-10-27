@@ -10,7 +10,28 @@ import { Track } from 'src/app/track/track.component';
 })
 export class LibraryDataService {
   private currentUpload = new Subject<boolean>();
-
+  // AMS 10/25/2024 - trying some flags
+  private libraryOutdated: boolean = true;
+  private queueOutdated: boolean = true;
+  private uploadsOutdated: boolean = true;
+  public isLibraryOutdated(): boolean {
+    return this.libraryOutdated;
+  }
+  public setLibraryOutdated(flag: boolean) {
+    this.libraryOutdated = flag;
+  }
+  public isQueueOutdated(): boolean {
+    return this.queueOutdated;
+  }
+  public setQueueOutdated(flag: boolean) {
+    this.queueOutdated = flag;
+  }
+  public isUploadsOutdated(): boolean {
+    return this.uploadsOutdated;
+  }
+  public setUploadsOutdated(flag: boolean) {
+    this.uploadsOutdated = flag;
+  }
   /**
    * Trigger an update to the "current upload" Subject (Observable)
    * creating a new boolean object

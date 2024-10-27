@@ -69,7 +69,7 @@ export class PlaylistDataService {
    * @returns Observable<string>
    */
   requestFile(track: Track, rated: boolean): Observable<string> {
-    var req: SongRequest = new SongRequest(track.filePath, track.title, track.artist, rated);
+    var req: SongRequest = new SongRequest(track.filePath, track.title, track.artist, track.duration, rated);
     return this.http.post<string>(`${API_URL}/requestDirect`, req);
   }  
 

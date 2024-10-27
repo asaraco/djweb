@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Track } from '../track/track.component';
 import { LibraryDataService } from '../service/data/library-data.service';
 import { UI_SEARCH_TEXT, UI_CATS_TEXT, CrateMeta, CRATES_SELECTABLE, CRATES_SIMPLEVIEW, CRATE_ALL, CRATES_ALBUMVIEW, UI_REQUEST_TEXT, UI_BTN_TOOLTIP_DISABLED, UI_REQUEST_PENDING_TEXT } from '../app.constants';
@@ -18,10 +18,11 @@ export class OnlineResult {
 
 export class SongRequest {
   constructor(
-    private filePath: string = "",
-    private title: string = "",
-    private artist: string = "",
-    private rated: boolean = false
+    public filePath: string,
+    public title: string,
+    public artist: string,
+    public duration: number,
+    public rated: boolean = false
   ){}
 }
 
@@ -34,6 +35,8 @@ export class SongRequest {
 })
 export class LibraryComponent implements OnInit {
   @Input() tracks!: Track[];
+  @Input() justRequested: string = "";
+  @Output() requestEvent = new EventEmitter<Track>();
 
   onlineResults!: OnlineResult[];
   //tracks!: Track[];
@@ -46,7 +49,7 @@ export class LibraryComponent implements OnInit {
   startsWith: string = "";
   searchTerm: string = "";
   searchControl: FormControl = new FormControl();
-  justRequested: number = -1;
+  //justRequested: string = "";
   showReqToast: boolean = false;
   reqToastText: string = "";
   requestInterval: any;
@@ -54,7 +57,7 @@ export class LibraryComponent implements OnInit {
   alphabet: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   showCrateDropDown: boolean = false;
   scrolledDown: boolean = false;
-  requestSubscription: Subscription;
+  //requestSubscription: Subscription;
   buttonTooltip: string = "";
   mostRecentSearch: string = "";
   /* imported constants */
@@ -69,53 +72,18 @@ export class LibraryComponent implements OnInit {
   constructor(
     private libraryDataService: LibraryDataService,
     private playlistDataService: PlaylistDataService
-  ){
-    this.requestSubscription = this.playlistDataService.watchForNotification().subscribe((data)=>{
-      this.justRequested = 999999999999999;
-      this.setReqDelay(data.duration, data.reqTotal, new Date());
-      /* AMS 10/24/2024 - service call moved to app component, assisted by ngOnChanges in here
-      if (data.triggerRefresh) {
-        this.libraryDataService.retrieveAllTracks().subscribe(
-          data => { 
-                    this.tracks = data;
-                    this.filteredTracks = this.searchControl.valueChanges.pipe(debounceTime(500), startWith(''), map(value => this._filter(value)));
-                    //this.alphaJump(0);
-                  }
-        );
-      } */     
-    })
-  }
+  ){ }
 
-  ngOnChanges(changes: { tracks: any; }) {
+  ngOnChanges(changes: { tracks: any; justRequested: string }) {
     if (changes.tracks) {
       this.filteredTracks = this.searchControl.valueChanges.pipe(debounceTime(500), startWith(''), map(value => this._filter(value)));
+    }
+    if (changes.justRequested) {
+      console.log("Library - justRequested: " + this.justRequested);
     }
   }
 
   ngOnInit(): void {
-    console.log("LIBRARY ON INIT");
-    // Get main list of tracks
-    /* AMS 10/24/2024 - service call moved to app component
-    this.libraryDataService.retrieveAllTracks().subscribe(
-      data => { 
-                this.tracks = data;
-                this.filteredTracks = this.searchControl.valueChanges.pipe(debounceTime(500), startWith(''), map(value => this._filter(value)));
-                //this.alphaJump(0);
-              }
-    );
-    */
-    
-    // Handle request blocking
-    const now = new Date();
-    const ls_noRequestsUntil = localStorage.getItem('noRequestsUntil');
-    const ls_lastRequest = localStorage.getItem('lastRequest');
-    if (ls_noRequestsUntil) {
-      let remainingTimeout = JSON.parse(ls_noRequestsUntil) - now.getTime();
-      if (remainingTimeout > 0) { 
-        if (ls_lastRequest) this.justRequested = JSON.parse(ls_lastRequest);
-        this.requestInterval = setInterval(() => this.reqTimeoutOver(), remainingTimeout);
-      }
-    }
   }
 
   /**
@@ -149,16 +117,15 @@ export class LibraryComponent implements OnInit {
         this.onlineResults = data2;
       });
       this.mostRecentSearch = filterValue;  // This should prevent duplicate searches
-    } else {  // Default: just return the tracks without any filtering
-      return this.tracks;
     }
     this.filterCrates.forEach(c=>s+=c.id);
     //return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue));
     this.filterCrates = [];
+    console.log("Crates: " + this.selectedCrateIds);
     if (this.selectedCrateIds.length > 0) { // some track category selected
       // In order to avoid changing category view TOO fast, defer directive-modifying variable change to here
       //this.filterCrate = this.selectedCrateId;
-      CRATES_SELECTABLE.forEach(c => {        
+      CRATES_SELECTABLE.forEach(c => {
         if (this.selectedCrateIds.includes(c.id) && !this.filterCrates.includes(c)) { this.filterCrates.push(c); }
       });
       this.headingListChanged = true;
@@ -234,22 +201,28 @@ export class LibraryComponent implements OnInit {
    * @param id 
    */
   selectCrate(id: string) {
-    // Check if crate already selected; if so, deselect it
-    if (this.selectedCrateIds.includes(id)) {
-      // "Deep copy" the array to force DOM to update
-      /*
-      let tempArray: string[] = [];
-      this.selectedCrateIds.forEach(c=>tempArray.push(c));
+    console.log("selectCrate(" + id + ")");
+    // If blank selection, clear all crates
+    if (id.trim()=="") {
       this.selectedCrateIds = [];
-      let i = tempArray.indexOf(id);
-      tempArray.splice(i,1);
-      tempArray.forEach(t=>this.selectedCrateIds.push(t));
-      */
-      let i = this.selectedCrateIds.indexOf(id);
-      this.selectedCrateIds.splice(i,1);
     } else {
-      this.selectedCrateIds.push(id);
-    }
+      // Check if crate already selected; if so, deselect it
+      if (this.selectedCrateIds.includes(id)) {
+        // "Deep copy" the array to force DOM to update
+        /*
+        let tempArray: string[] = [];
+        this.selectedCrateIds.forEach(c=>tempArray.push(c));
+        this.selectedCrateIds = [];
+        let i = tempArray.indexOf(id);
+        tempArray.splice(i,1);
+        tempArray.forEach(t=>this.selectedCrateIds.push(t));
+        */
+        let i = this.selectedCrateIds.indexOf(id);
+        this.selectedCrateIds.splice(i,1);
+      } else {
+        this.selectedCrateIds.push(id);
+      }
+    }    
     this.searchControl.updateValueAndValidity({onlySelf: false, emitEvent: true});
     this.toggleCrateDropDown();
   }
@@ -262,95 +235,8 @@ export class LibraryComponent implements OnInit {
     this.showCrateDropDown = !this.showCrateDropDown;
   }
 
-  /**
-   * Add a song to the Auto DJ queue.
-   * Set a delay on future requests 
-   * using a calculation based on the song's duration.
-   * @param id Track id
-   * @param duration Track duration
-   */
-  requestSongById(id: number, duration: number) {
-    //Verify that requests aren't currently delayed
-    const now = new Date();
-    const nru = localStorage.getItem('noRequestsUntil');
-    if ((nru) && (now.getTime() < JSON.parse(nru))) { 
-      //console.log("Sorry, no requests until " + nru);
-    } else {
-      //Get total # of requests by this user from local storage
-      //let userId = localStorage.getItem('userId');
-      let ls_requestTotal = localStorage.getItem('requestTotal');
-      let requestTotal: number = 0;
-      if (ls_requestTotal) {
-        requestTotal = JSON.parse(ls_requestTotal);
-      }
-      //console.log("requestTotal = " + requestTotal);
-      // Set username
-      var username: string;
-      let ls_userId = localStorage.getItem('userId');
-      if (ls_userId) {
-        username = ls_userId;
-      } else {
-        username = "";
-      }
-      //Make the request
-      //console.log("Request song #" + id);
-      var resultMsg: string;
-      //this.playlistDataService.requestTrack(id).subscribe(data => {
-      this.playlistDataService.requestTrackAndAskTheDJ(id,username).subscribe(data => {
-        //console.log("Got a result");
-        resultMsg = data;
-        console.log(resultMsg);
-        if (resultMsg=="OK") {
-          this.reqToastText = UI_REQUEST_TEXT;
-          this.showReqToast = true;
-          localStorage.setItem('lastRequest', id.toString());
-          //this.setReqDelay(duration, now);
-          this.playlistDataService.notifyOfRequest(duration, requestTotal, false);
-          this.justRequested = id;
-        } else {
-          this.reqToastText = "Something went wrong. Please try again or notify the DJ.";
-          this.showReqToast = true;
-        }        
-      });    
-    }
-  }
-
   requestSong(song: Track) {
-    //Verify that requests aren't currently delayed
-    const now = new Date();
-    const nru = localStorage.getItem('noRequestsUntil');
-    if ((nru) && (now.getTime() < JSON.parse(nru))) { 
-      //console.log("Sorry, no requests until " + nru);
-    } else {
-      //Get total # of requests by this user from local storage
-      //let userId = localStorage.getItem('userId');
-      let ls_requestTotal = localStorage.getItem('requestTotal');
-      let requestTotal: number = 0;
-      if (ls_requestTotal) {
-        requestTotal = JSON.parse(ls_requestTotal);
-      }
-      //console.log("requestTotal = " + requestTotal);
-      //Make the request
-      //console.log("Request song #" + id);
-      var resultMsg: string = "false";
-      //this.playlistDataService.requestTrack(id).subscribe(data => {
-      this.playlistDataService.requestFile(song, true).subscribe(data => {
-        //console.log("Got a result");
-        resultMsg = data.toString();
-        console.log(resultMsg);
-        if (resultMsg==="true") {
-          this.reqToastText = UI_REQUEST_TEXT;
-          this.showReqToast = true;
-          localStorage.setItem('lastRequest', song.id.toString());
-          //this.setReqDelay(duration, now);
-          this.playlistDataService.notifyOfRequest(song.duration, requestTotal, false);
-          this.justRequested = song.id;
-        } else {
-          this.reqToastText = "Something went wrong. Please try again or notify the DJ.";
-          this.showReqToast = true;
-        }        
-      });    
-    }
+    this.requestEvent.emit(song);
   }
 
   requestSongDeezer(song: OnlineResult) {
@@ -388,50 +274,6 @@ export class LibraryComponent implements OnInit {
 
   askTheDJSong(artist: string, title: string) {
     this.askTheDJ(artist + " - " + title);
-  }
-
-  /**
-   * Calculate and set a delay 
-   * @param duration 
-   * @param now 
-   */
-  setReqDelay(duration: number, reqTotal: number, now: Date) {
-    //Determine time since last request; if it's been a while, cut the "request total" down
-    const ls_noRequestsUntil = localStorage.getItem('noRequestsUntil');
-    if (ls_noRequestsUntil) {
-      let nru: number = JSON.parse(ls_noRequestsUntil);
-      let timeSince: number = now.getTime() - nru;
-      //console.log("LIBRARY: It's been " + timeSince + " since a request was made and delayed");
-      if (timeSince > 1800000) {  // 1,800,000 milliseconds = 30 minutes
-        let discountFactor = 1 + (timeSince / 1800000); // At least 1; for every half hour, add another
-        reqTotal = Math.round(reqTotal/discountFactor);
-      }
-    }
-    //Calculate delay
-    let newDelay = Math.round(duration) * ((1 + Math.round(reqTotal/3))*100);
-    this.requestInterval = setInterval(() => this.reqTimeoutOver(), newDelay);
-    let delayTime = now.getTime() + newDelay;
-    //console.log("Setting noRequestsUntil to " + delayTime);
-    localStorage.setItem('noRequestsUntil', JSON.stringify(delayTime));
-    reqTotal++;
-    localStorage.setItem('requestTotal',JSON.stringify(reqTotal));
-    //Set button tooltips
-    this.buttonTooltip = UI_BTN_TOOLTIP_DISABLED;
-    }
-
-  /**
-   * Reset request timeout variables when time's up
-   */
-  reqTimeoutOver() {
-    this.justRequested = -1;
-    //this.showReqToast = false
-    clearInterval(this.requestInterval);
-    this.buttonTooltip = "";
-  }
-
-  reqToast() {
-    this.showReqToast = true;
-    this.toastInterval = setInterval(() => {this.showReqToast = false; clearInterval(this.toastInterval)}, 2000);
   }
 
   /**
@@ -489,12 +331,4 @@ export class LibraryComponent implements OnInit {
     }
     return headingTexts;
   }
-
-  /*  AMS - pretty sure I'm not using this anymore, it happens in filter now
-  deezerSearch(query: string) {
-    this.libraryDataService.deezerSearch(this.searchControl.value).subscribe(data => {
-      this.onlineResults = data;
-    });
-  }
-    */
 }

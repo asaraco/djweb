@@ -1,6 +1,6 @@
 <section id="headerSection" [ngClass]="{shrink: scrolledDown}">
     <div class="headerButton hbLeft">
-        <app-file-upload class="desktopOnly"></app-file-upload>
+        <app-file-upload class="desktopOnly" (uploadEvent)="getNewArrivalsUntilChanged()"></app-file-upload>
         <button id="hamburgerBtn" class="mobileOnly" (click)="toggleHamburgerMenu()">☰</button>
     </div>
     <div id="headerBar">
@@ -23,17 +23,18 @@
 </section>
 
 <section id="welcomeText">
-    <app-toast [toastText]="[UI_WELCOME_TEXT, UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD]" [(showToast)]=showHelp [persistent]=true></app-toast>    
+    <app-toast [toastText]="[UI_WELCOME_TEXT, UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD]" [(showToast)]=showHelp [persistent]=true></app-toast>
+    <app-toast id="requestToast" [toastText]="[reqToastText]" [(showToast)]="showReqToast"></app-toast>
 </section>
 
 <section id="mainSection" ontouchmove>
     <section class="subSection" id="leftWrapper" [ngClass]="{mobileNew: showNew}">
-        <app-new-arrivals [uploadedTracks]="uploadedTracks" [recentTracks]="recentTracks"></app-new-arrivals>
+        <app-new-arrivals [uploadedTracks]="uploadedTracks" [recentTracks]="recentTracks" [justRequested]="justRequested" (requestEvent)="handleReqLib($event)" (requestAddEvent)="handleReqNew($event)"></app-new-arrivals>
         <button id="closeNew" class="mobileOnly" (click)="toggleNewArrivals()" [ngClass]="{mobileQueue: showNew}">𐌢</button>
     </section>
     <section class="subSection" id="browseWrapper">
         <!--router-outlet></router-outlet-->
-        <app-library [tracks]="libraryTracks"></app-library>
+        <app-library [tracks]="libraryTracks" [justRequested]="justRequested" (requestEvent)="handleReqLib($event)"></app-library>
     </section>
     <section class="subSection" id="queueWrapper" [ngClass]="{mobileQueue: showQueue}">
         <div id="queueHeader">

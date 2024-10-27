@@ -77,4 +77,14 @@ div.libraryGrid {
             background-color: rgba(var(--recentBtnBg),1);
         }
     }
+    &#news, &#recents {
+        div.gridCol.request button:disabled {
+            background-color:rgba(0, 0, 0, 0.5);
+            cursor:auto;
+            box-shadow: none;
+        }
+        div.gridCol.request button:disabled[title] {
+            content: 'Please wait before requesting again.';
+        }
+    }   
 }

@@ -1,8 +1,10 @@
 import { Crate } from "./crate/crate.component";
 
 /* App Configuration */
-export const API_URL = "http://localhost:8081";
+//export const API_URL = "http://localhost:8081";
 //export const API_URL = "http://192.168.0.183:8081";
+export const API_URL = "http://192.168.0.107:8081";
+//export const API_URL = "http://71.65.209.237:8081";
 
 /* UI Text */
 export const UI_SEARCH_TEXT = "Filter by any search term...";
@@ -10,13 +12,14 @@ export const UI_CATS_TEXT   = "Filter by category...";
 export const UI_REQUEST_TEXT = "Song added to queue.";
 export const UI_REQUEST_PENDING_TEXT = "Request submitted for manual review.";
 export const UI_UPLOAD_SUCCESS_TEXT = "Your file should appear in the New Arrivals section in a few moments.";
+export const UI_REQUEST_ERROR_TEXT = "Something went wrong. Please try again or notify the DJ.";
 export const UI_UPLOAD_ERROR_TEXT = "Please try again. If the issue persists, try refreshing the browser. Otherwise, contact an admin.";
 export const UI_BTN_TOOLTIP_DISABLED = "Please wait before requesting another song."
 export const UI_WELCOME_TEXT     = "<strong>Welcome to Legendary Radio!</strong><br> " 
-                                 + "Below you'll find an index of (nearly) every song ever uploaded & played at LAN. Old stuff, new stuff, pop, indie, outdated memes, movie sountracks, video game classics, and more. "
+                                 + "Below you'll find an index of (nearly) every song ever uploaded & played at LAN. Old stuff, new stuff, pop, indie, outdated memes, movie soundtracks, weird anime stuff, video game classics, and more. "
                                  + "Type any search term to filter by artist, album, song title, etc. Use the drop-down menu to filter by a curated music category. Or just scroll and see what you find.<br>";
 export const UI_HELPTEXT_REQUEST = "<strong>Requests</strong><br>"
-                                 + "To request, click the '+' button next to a song title. (You'll briefly be unable to request additional songs.) Your request should appear at the top of the play queue shortly. "
+                                 + "To request, click the '+' button next to a song title. (You'll briefly be unable to request additional songs.) Your request should appear in the play queue shortly. "
                                  + "Please note that at any given time, there will always be at least 2 upcoming songs in the queue even if nobody has requested anything; the music software always has something pre-loaded so it can prepare a transition to the next song.<br>"
                                  + "The DJ reserves the right to move requests around for the sake of cool transitions or matching the vibe of the current game. But they will still make every effort to accommodate all requests as fairly as possible.<br>";
 export const UI_HELPTEXT_UPLOAD  = "<strong>Uploads</strong><br>"

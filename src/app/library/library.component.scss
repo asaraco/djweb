@@ -16,6 +16,7 @@ div#libraryForm {
         input::placeholder, span.crateDropPlaceholder, span.crateDropIcon {
             color: rgba(var(--inputFg),0.5);
             font-style: italic;
+            align-content: center;
         }
         div#searchField {
             flex: 2;
