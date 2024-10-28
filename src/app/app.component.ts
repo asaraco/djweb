@@ -35,6 +35,7 @@ export class AppComponent implements OnInit {
   uploadCheckInterval!: any;
   refreshLibrary: boolean = true;
   refreshNewUploads: boolean = true;
+  refreshCounter: number = 0;
   requestInterval: any;
   toastInterval: any;
   justRequested: string = "";
@@ -118,7 +119,11 @@ export class AppComponent implements OnInit {
       this.uploadedTracks = data;
       this.refreshNewUploads = false;
       newSize = this.uploadedTracks.length;
-      if (currentSize!=newSize) clearInterval(this.uploadCheckInterval);
+      if (currentSize!=newSize && this.refreshCounter<10) {
+        console.log("Refreshed New Arrivals but didn't seem to change. Trying again (up to 10x).");
+        clearInterval(this.uploadCheckInterval);
+        this.refreshCounter++;
+      } 
       this.libraryDataService.setUploadsOutdated(false);
     });
     if (this.libraryDataService.isLibraryOutdated()) this.getLibrary();
