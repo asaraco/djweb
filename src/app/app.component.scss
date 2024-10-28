@@ -125,7 +125,7 @@ button#closeQueue, button#closeNew {
 
     #queueWrapper, app-new-arrivals {
         top: 3dvw;
-        width: 90dvw;
+        /*width: 90dvw;*/
     }
 }
 
@@ -175,6 +175,8 @@ button#closeQueue, button#closeNew {
     }
     #queueWrapper, #leftWrapper {
         display: none;
+        mask-image: none;
+        height: auto;
     }    
     /*#headerQueueButton {
         display: inline-block;
@@ -194,8 +196,8 @@ button#closeQueue, button#closeNew {
         flex-direction: column;
         color: rgba(var(--btnFg),1);
         background-color: rgba(var(--btnBg),1);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(1rem);
+        -webkit-backdrop-filter: blur(1rem);
         button.toggled {
             background-color: gray;
         }
@@ -210,18 +212,25 @@ button#closeQueue, button#closeNew {
             color: rgba(var(--btnBg),1);
         }
     }
-    #queueWrapper.mobileQueue {
+    #queueWrapper.mobileQueue, #leftWrapper.mobileNew {
         position: absolute;
         top:auto;
-        left: 0;
-        padding: 0 2dvw 3dvh 2dvw;
-        /*width: 100%;*/
+        width: 100%;
         display: flex;
         flex-direction: column;
         z-index: 500;
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        border-radius: 3dvh;
+        background: none;
+        backdrop-filter: blur(1rem);
+        -webkit-backdrop-filter: blur(1rem);
+    }
+    #queueWrapper.mobileQueue {        
+        background-color: rgba(var(--queueBg-a),0.75);
+        #pAutoDj {
+            padding: 1rem 1rem 0 1rem;
+        }
+        #pRecent {
+            padding: 0 1rem 1rem 1rem;
+        }
         button#closeQueue {
             display: block;
             position: absolute;
@@ -232,14 +241,7 @@ button#closeQueue, button#closeNew {
         }
     }
     #leftWrapper.mobileNew {
-        position: absolute;
-        top:auto;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        z-index: 500;
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
+        background-color: rgba(var(--queueBg-a),0.75);
         button#closeNew {
             display: block;
             position: absolute;
@@ -249,7 +251,6 @@ button#closeQueue, button#closeNew {
             color: rgba(var(--newsHeadFg),1);
         }
     }
-
     .desktopOnly, #headerSection div.headerButton.desktopOnly {
         display: none;
     }

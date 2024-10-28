@@ -8,4 +8,6 @@ div.trackProgressBar {
     display: inline-block;
     position: absolute;
     background-color: rgba(200,200,255,0.5);
+    height: max-content;
+    z-index: -50;
 }

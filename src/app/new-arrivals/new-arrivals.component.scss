@@ -88,3 +88,8 @@ div.libraryGrid {
         }
     }   
 }
+@media (orientation: portrait) {
+    div.libraryGrid {
+        padding: 1rem;
+    }
+}

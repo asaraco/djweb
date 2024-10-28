@@ -47,7 +47,7 @@ export class LibraryComponent implements OnInit {
   selectedCrateIds: string[] = [];
   filterCrates: CrateMeta[] = [];
   startsWith: string = "";
-  searchTerm: string = "";
+  //searchTerm: string = "";
   searchControl: FormControl = new FormControl();
   //justRequested: string = "";
   showReqToast: boolean = false;

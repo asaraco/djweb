@@ -3,7 +3,7 @@ import { PlaylistDataService } from './service/data/playlist-data.service';
 import { UserDataService } from './service/data/user-data.service';
 import { Playlist } from './playlist/playlist.component';
 import { repeat, Subscription } from 'rxjs';
-import { UI_BTN_TOOLTIP_DISABLED, UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD, UI_REQUEST_ERROR_TEXT, UI_REQUEST_TEXT, UI_WELCOME_TEXT } from './app.constants';
+import { LISTEN_URL, UI_BTN_TOOLTIP_DISABLED, UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD, UI_REQUEST_ERROR_TEXT, UI_REQUEST_TEXT, UI_WELCOME_TEXT } from './app.constants';
 import { Track } from './track/track.component';
 import { LibraryDataService } from './service/data/library-data.service';
 import { SongRequest } from './library/library.component';
@@ -43,6 +43,7 @@ export class AppComponent implements OnInit {
   showReqToast: boolean = false;
   reqToastText: string = "";
   /* imported constants */
+  LISTEN_URL: string = LISTEN_URL;
   UI_WELCOME_TEXT: string = UI_WELCOME_TEXT;
   UI_HELPTEXT_REQUEST: string = UI_HELPTEXT_REQUEST;
   UI_HELPTEXT_UPLOAD: string = UI_HELPTEXT_UPLOAD;
@@ -359,15 +360,15 @@ export class AppComponent implements OnInit {
    */
   incrementProgressBar() {
     let progressDiv = document.querySelector("#pAutoDj .playlistDiv div:last-child .trackProgressBar");
-    if (this.currentTrackProgress<98) {
+    if (this.currentTrackProgress<100) {
       this.currentTrackProgress++
       //console.log(this.currentTrackProgress);
     } else {
-      // If progress is >=98%, wait 3% longer and then trigger component INIT (which eventually starts this again)
+      // If progress is >=100%, wait 1% longer and then trigger component INIT (which eventually starts this again)
       console.log("clearing interval");
       this.libraryDataService.setQueueOutdated(true);
       this.currentTrackProgress=0;
-      setTimeout(() => this.getQueue(), this.currentTrackDuration*30); // duration * 1000 converts to ms, /100 increments, *2 for 2 increments
+      setTimeout(() => this.getQueue(), this.currentTrackDuration*10); // duration * 1000 converts to ms, /100 increments, *2 for 2 increments
     } 
     let style = "display:inline-block;width:" + this.currentTrackProgress + "%";
     progressDiv?.setAttribute("style", style);
@@ -385,6 +386,10 @@ export class AppComponent implements OnInit {
     reqToast() {
       this.showReqToast = true;
       this.toastInterval = setInterval(() => {this.showReqToast = false; clearInterval(this.toastInterval)}, 2000);
+    }
+
+    goToRadioURL() {
+      window.open(`${LISTEN_URL}`, '_blank');
     }
 
 }

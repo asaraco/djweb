@@ -4,7 +4,7 @@ div#libraryForm {
     form {
         display: flex;
         flex-direction: row;
-        font-size:1rem;
+        font-size:0.75rem;
         div {
             display: flex;
         }
@@ -17,6 +17,7 @@ div#libraryForm {
             color: rgba(var(--inputFg),0.5);
             font-style: italic;
             align-content: center;
+            font-size: 0.75rem;
         }
         div#searchField {
             flex: 2;
@@ -67,7 +68,8 @@ div#libraryForm {
                     min-height: 100%;
                 }
                 div.crateDropIcon {
-                    width: 5dvh;
+                    width: 2rem;
+                    height: 2rem;
                     background-image: url(/assets/images/btnFilter.svg);
                     background-size: cover;
                     background-repeat: no-repeat;
