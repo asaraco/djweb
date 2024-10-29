@@ -3,7 +3,7 @@ import { Track } from '../track/track.component';
 import { LibraryDataService } from '../service/data/library-data.service';
 import { UI_SEARCH_TEXT, UI_CATS_TEXT, CrateMeta, CRATES_SELECTABLE, CRATES_SIMPLEVIEW, CRATE_ALL, CRATES_ALBUMVIEW, UI_REQUEST_TEXT, UI_BTN_TOOLTIP_DISABLED, UI_REQUEST_PENDING_TEXT } from '../app.constants';
 import { FormControl } from '@angular/forms';
-import { Observable, Subscription, debounceTime, map, startWith } from 'rxjs';
+import { Observable, Subscription, debounceTime, filter, map, startWith } from 'rxjs';
 import { PlaylistDataService } from '../service/data/playlist-data.service';
 import { PlaylistTrack } from '../playlist-track/playlist-track.component';
 
@@ -37,6 +37,7 @@ export class LibraryComponent implements OnInit {
   @Input() tracks!: Track[];
   @Input() justRequested: string = "";
   @Output() requestEvent = new EventEmitter<Track>();
+  @Output() askTheDJEvent = new EventEmitter<string>();
 
   onlineResults!: OnlineResult[];
   //tracks!: Track[];
@@ -112,10 +113,14 @@ export class LibraryComponent implements OnInit {
     const filterValue = value ? value.trim().toLowerCase() : "";
     let s = "";
     // AMS 9/30/2024 - ALso trigger online search
-    if (filterValue!="" && filterValue!=this.mostRecentSearch) {
-      this.libraryDataService.deezerSearch(this.searchControl.value).subscribe(data2 => {
-        this.onlineResults = data2;
-      });
+    if (filterValue!=this.mostRecentSearch) {
+      if (filterValue=="") {
+        this.onlineResults = [];
+      } else {
+        this.libraryDataService.deezerSearch(this.searchControl.value).subscribe(data2 => {
+          this.onlineResults = data2;
+        });
+      }      
       this.mostRecentSearch = filterValue;  // This should prevent duplicate searches
     }
     this.filterCrates.forEach(c=>s+=c.id);
@@ -252,24 +257,7 @@ export class LibraryComponent implements OnInit {
   }
 
   askTheDJ(message: string) {
-    var resultMsg: string;
-    // Set username
-    var username: string;
-    let ls_userId = localStorage.getItem('userId');
-    if (ls_userId) {
-      username = ls_userId;
-    } else {
-      username = "";
-    }
-    // Send request
-    console.log(message);
-    this.playlistDataService.requestAskTheDJ(encodeURIComponent(message), encodeURIComponent(username)).subscribe(data => {
-      //console.log("Got a result");
-      resultMsg = data;
-      //console.log(resultMsg);
-      this.reqToastText = UI_REQUEST_PENDING_TEXT;
-      this.showReqToast = true;
-    })
+    this.askTheDJEvent.emit(message);
   }
 
   askTheDJSong(artist: string, title: string) {

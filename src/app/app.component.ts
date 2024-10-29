@@ -3,7 +3,7 @@ import { PlaylistDataService } from './service/data/playlist-data.service';
 import { UserDataService } from './service/data/user-data.service';
 import { Playlist } from './playlist/playlist.component';
 import { repeat, Subscription } from 'rxjs';
-import { LISTEN_URL, UI_BTN_TOOLTIP_DISABLED, UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD, UI_REQUEST_ERROR_TEXT, UI_REQUEST_TEXT, UI_WELCOME_TEXT } from './app.constants';
+import { LISTEN_URL, UI_BTN_TOOLTIP_DISABLED, UI_HELPTEXT_NEW, UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD, UI_REQUEST_ERROR_TEXT, UI_REQUEST_PENDING_TEXT, UI_REQUEST_TEXT, UI_WELCOME_TEXT } from './app.constants';
 import { Track } from './track/track.component';
 import { LibraryDataService } from './service/data/library-data.service';
 import { SongRequest } from './library/library.component';
@@ -25,8 +25,8 @@ export class AppComponent implements OnInit {
   showMenu: boolean = false;
   showQueue: boolean = false;  
   showNew: boolean = false;
-  firstTime: boolean = false;
   showHelp: boolean = false;
+  showWhatsNew: boolean = false;
   scrolledDown: boolean = false;
   //requestSubscription: Subscription;
   currentTrackDuration: number = 100;
@@ -47,8 +47,10 @@ export class AppComponent implements OnInit {
   UI_WELCOME_TEXT: string = UI_WELCOME_TEXT;
   UI_HELPTEXT_REQUEST: string = UI_HELPTEXT_REQUEST;
   UI_HELPTEXT_UPLOAD: string = UI_HELPTEXT_UPLOAD;
+  UI_HELPTEXT_NEW: string = UI_HELPTEXT_NEW;
   UI_REQUEST_TEXT: string = UI_REQUEST_TEXT;
   UI_REQUEST_ERROR_TEXT: string = UI_REQUEST_ERROR_TEXT;
+  UI_REQUEST_PENDING_TEXT: string = UI_REQUEST_PENDING_TEXT;
   UI_BTN_TOOLTIP_DISABLED: string = UI_BTN_TOOLTIP_DISABLED;
 
   constructor(
@@ -95,6 +97,7 @@ export class AppComponent implements OnInit {
         this.userDataService.generateID().subscribe(data => {
           localStorage.setItem('userId', JSON.stringify(data));
           this.showHelp = true;
+          this.showWhatsNew = true;
           localStorage.setItem('requestTotal', '0');
         });
       }
@@ -209,6 +212,27 @@ export class AppComponent implements OnInit {
     this.handleReq(song, true);
   }
 
+  handleAskTheDJ(message: string) {
+    var resultMsg: string;
+    // Set username
+    var username: string;
+    let ls_userId = localStorage.getItem('userId');
+    if (ls_userId) {
+      username = ls_userId;
+    } else {
+      username = "";
+    }
+    // Send request
+    console.log(message);
+    this.playlistDataService.requestAskTheDJ(encodeURIComponent(message), encodeURIComponent(username)).subscribe(data => {
+      //console.log("Got a result");
+      resultMsg = data;
+      //console.log(resultMsg);
+      this.reqToastText = UI_REQUEST_PENDING_TEXT;
+      this.showReqToast = true;
+    })
+  }
+
   /**
    * Calculate and set a delay for requests
    * @param duration 
@@ -313,6 +337,11 @@ export class AppComponent implements OnInit {
     this.showMenu = false;
   }
 
+  toggleWhatsNew(): void {
+    this.showWhatsNew = !this.showWhatsNew;
+    this.showMenu = false;
+  }
+
   /**
    * Determine color scheme from browser setting (default)
    * or one that the user has selected (from local storage)
@@ -391,5 +420,4 @@ export class AppComponent implements OnInit {
     goToRadioURL() {
       window.open(`${LISTEN_URL}`, '_blank');
     }
-
 }

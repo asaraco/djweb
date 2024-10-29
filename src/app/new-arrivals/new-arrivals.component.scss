@@ -28,9 +28,11 @@ div.libraryGrid {
             }            
             &.title {
                 color: rgba(var(--newsFg),1);
+                font-weight: 500;
             }
             &.otherInfo {
                 color: rgba(var(--newsFg),0.5);
+                font-weight: 250;
             }
         }
         div.gridCol.request button {
@@ -45,6 +47,7 @@ div.libraryGrid {
     &#recents {
         div.gridHeading {
             font-size: 0.8rem;
+            font-weight: 900;
             color: rgba(var(--recentHeadFg),1);
             border-bottom: 1px solid rgba(var(--recentHeadFg),1);
             background: linear-gradient(0deg, rgba(var(--recentHeadFg),0.15), rgba(0,0,0,0.0) 25%);

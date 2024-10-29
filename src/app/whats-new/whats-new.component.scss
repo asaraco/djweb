@@ -1,0 +1,27 @@
+div {
+    color: rgba(var(--btnFg),1);
+    background-color: rgba(var(--libBg), 1);
+    border-radius: 5px;
+    margin: 1dvmax;
+    padding: 0.25dvmin 1dvmin;
+    font-family: "Roboto Serif", serif;
+    font-optical-sizing: auto;
+    font-weight: 250;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100,
+        "GRAD" 0;
+    h1 {
+        font-size: 2rem;
+        text-decoration: underline;
+    }
+    h2 {
+        font-family: "Roboto Sans", sans-serif;
+        font-size: 1.5rem;
+        color: rgba(var(--headFgB), 1);
+    }
+    a {
+        font-weight: bold;
+        color: rgba(var(--queueFg),1);
+    }
+}

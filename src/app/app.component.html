@@ -1,5 +1,7 @@
 <section id="headerSection" [ngClass]="{shrink: scrolledDown}">
     <div class="headerButton hbLeft">
+        <button class="desktopOnly" (click)="toggleHelpText()">Help</button>
+        <button class="desktopOnly" (click)="toggleWhatsNew()">What's New</button>
         <app-file-upload class="desktopOnly" (uploadEvent)="getNewArrivalsUntilChanged()"></app-file-upload>
         <button id="hamburgerBtn" class="mobileOnly" (click)="toggleHamburgerMenu()">☰</button>
     </div>
@@ -9,7 +11,6 @@
         </a>
     </div>
     <div class="headerButton hbRight desktopOnly">
-        <button (click)="toggleHelpText()">Help</button>
         <button (click)="toggleTheme()">{{themeButton}}</button>
         <button onclick="window.location.href='http://intranet.legendarylan.com'">Intranet</button>
         <button (click)="goToRadioURL()">Listen</button>
@@ -19,13 +20,16 @@
         <button id="headerQueueButton" (click)="toggleQueue()" [ngClass]="{toggled: showQueue}">Queue</button>
         <button id="headerNewButton" (click)="toggleNewArrivals()" [ngClass]="{toggled: showNew}">New Arrivals</button>
         <button (click)="toggleHelpText()">Help</button>
+        <button (click)="toggleWhatsNew()">What's New</button>
         <button (click)="toggleTheme()">{{themeButton}}</button>
+        <button onclick="window.location.href='http://intranet.legendarylan.com'">Intranet</button>
+        <button (click)="goToRadioURL()">Listen</button>
         <app-file-upload></app-file-upload>
     </div>
 </section>
 
 <section id="welcomeText">
-    <app-toast [toastText]="[UI_WELCOME_TEXT, UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD]" [(showToast)]=showHelp [persistent]=true></app-toast>
+    <app-toast [toastText]="[UI_WELCOME_TEXT, UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD, UI_HELPTEXT_NEW]" [(showToast)]=showHelp [persistent]=true></app-toast>
     <app-toast id="requestToast" [toastText]="[reqToastText]" [(showToast)]="showReqToast"></app-toast>
 </section>
 
@@ -35,8 +39,8 @@
         <button id="closeNew" class="mobileOnly" (click)="toggleNewArrivals()" [ngClass]="{mobileQueue: showNew}">𐌢</button>
     </section>
     <section class="subSection" id="browseWrapper">
-        <!--router-outlet></router-outlet-->
-        <app-library [tracks]="libraryTracks" [justRequested]="justRequested" (requestEvent)="handleReqLib($event)"></app-library>
+        <app-whats-new *ngIf="showWhatsNew" (closeEvent)="toggleWhatsNew()"></app-whats-new>
+        <app-library [tracks]="libraryTracks" [justRequested]="justRequested" (requestEvent)="handleReqLib($event)" (askTheDJEvent)="handleAskTheDJ($event)"></app-library>
     </section>
     <section class="subSection" id="queueWrapper" [ngClass]="{mobileQueue: showQueue}">
         <div id="queueHeader">

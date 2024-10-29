@@ -7,6 +7,9 @@
     font-size: 0.25em;
     color: rgba(var(--newsFg));
 }
+.fileUploadBtn {
+    margin: 0.5dvmin;
+}
 
 @media screen and (max-width: 960px) {
     .fileUploadBtn {

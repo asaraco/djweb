@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { NewArrivalsComponent } from './new-arrivals/new-arrivals.component';
 import { ToastComponent } from './toast/toast.component';
+import { WhatsNewComponent } from './whats-new/whats-new.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ToastComponent } from './toast/toast.component';
     HideCratesPipe,
     FileUploadComponent,
     NewArrivalsComponent,
-    ToastComponent
+    ToastComponent,
+    WhatsNewComponent
   ],
   imports: [
     BrowserModule,

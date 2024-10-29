@@ -1,8 +1,13 @@
 span i {
     opacity: 0.75;
+    font-weight: 300;
+}
+span strong {
+    font-weight: 500;
 }
 .tDuration {
     opacity: 0.5;
+    font-weight: 100;
 }
 div.trackProgressBar {
     display: inline-block;

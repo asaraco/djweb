@@ -70,7 +70,7 @@
             </ng-container>
         </div>
 
-        <div class="libraryGrid deezerResults" *ngIf="onlineResults">
+        <div class="libraryGrid deezerResults" *ngIf="onlineResults && onlineResults.length>0">
             <div class="gridRow">
                 <div class="gridCol gridHeading">Online Results from Deezer</div>
             </div>
@@ -81,7 +81,7 @@
                     <div class="gridCol gc2 artist">{{t.artist}}</div>
                 </div>
                 <div *ngIf="!t.explicit" class="gridCol gc1 request" [ngClass]="{'requested': justRequested=='netsearch://dz'+t.id}">
-                    <button type="button" (click)="requestSongDeezer(t)" [disabled]="(justRequested=='') && (justRequested!='netsearch://dz'+t.id)" title={{buttonTooltip}}>+</button>
+                    <button type="button" (click)="requestSongDeezer(t)" [disabled]="(justRequested!='') && (justRequested!='netsearch://dz'+t.id)" title={{buttonTooltip}}>+</button>
                     <span>✔️</span>
                 </div>
                 <div *ngIf="t.explicit" class="gridCol gc1 request" [ngClass]="{'requested': justRequested=='netsearch://dz'+t.id}">
@@ -94,8 +94,8 @@
                 <div class="gridCol gc1 gc2 duration">{{t.duration * 1000 | date:'mm:ss'}}</div>          
             </div>
             </ng-container>
-            <div class="gridRow" *ngIf="onlineResults.length==100">
-                <div class="gridCol gc2 title">NOTE: Result limit of 100 reached, but there may be more results available. If you can't find what you're looking for, try adding more search terms.</div>
+            <div class="deezerLimitWarning" *ngIf="onlineResults.length==100">
+                NOTE: Result limit of 100 reached, but there may be more results available. If you can't find what you're looking for, try adding more search terms.
             </div>
         </div>
     </div>
