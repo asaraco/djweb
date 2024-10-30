@@ -151,7 +151,8 @@ export class AppComponent implements OnInit {
         
       })
       this.autoDjPlaylist.name = data.name;
-      this.autoDjPlaylist.playlistTracks = data.playlistTracks.splice(0,5).reverse();
+      //this.autoDjPlaylist.playlistTracks = data.playlistTracks.splice(0,5).reverse();
+      this.autoDjPlaylist.playlistTracks = data.playlistTracks.reverse();
       /* --- PROGRESS BAR --- */
       this.currentTrackDuration = data.currentTrackDurationSec;
       this.currentTrackProgress = data.currentTrackProgress * 100;  // fraction of 1.0, convert to percentage
@@ -190,14 +191,14 @@ export class AppComponent implements OnInit {
         resultMsg = data.toString();
         console.log(resultMsg);
         if (resultMsg==="true") {
-          // Reload queue
-          this.getQueue();
           // Handle request blocking
           localStorage.setItem('lastRequest', song.id.toString());
           this.justRequested = song.filePath;
           this.reqToastText = UI_REQUEST_TEXT;
           this.showReqToast = true;
           this.setReqDelay(song.duration, requestTotal, now);
+          // Reload queue (should be done as late as possible to avoid getting it before VDJ finishes moving track to proper position)
+          setTimeout(() => this.getQueue(), 3000);
         } else {
           this.reqToastText = UI_REQUEST_ERROR_TEXT;
           this.showReqToast = true;
