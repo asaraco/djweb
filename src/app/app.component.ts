@@ -190,6 +190,9 @@ export class AppComponent implements OnInit {
         resultMsg = data.toString();
         console.log(resultMsg);
         if (resultMsg==="true") {
+          // Reload queue
+          this.getQueue();
+          // Handle request blocking
           localStorage.setItem('lastRequest', song.id.toString());
           this.justRequested = song.filePath;
           this.reqToastText = UI_REQUEST_TEXT;

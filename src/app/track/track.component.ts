@@ -8,11 +8,13 @@ export class Track {
   album: string = "";
   albumArtist: string = "";
   sortArtist: string = "";
+  composer: string = "";
   grouping: string = "";
   duration: number = 0;
   year: number = 0;
   genre: string = "";
   crates!: string[];
+  searchTerms: string = "";
   onlineSource: boolean = false;
   constructor() {
   }

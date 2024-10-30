@@ -165,17 +165,31 @@ export class LibraryComponent implements OnInit {
       friendlyText += " - " + t.albumArtist;
     }
 
+    if (t.composer) {
+      friendlyText += " - " + t.composer
+    }
+
+    if (t.grouping) {
+      friendlyText += " [ " + t.grouping + "]";
+    }
+
     if (t.album) {
-      friendlyText += "[" + t.album + "]"
+      friendlyText += " - " + t.album
     }
 
     if (t.year) {
       friendlyText += " (" + t.year + ")"
+    }    
+
+    if (t.searchTerms) {
+      friendlyText += " - " + t.searchTerms
     }
 
     if (t.genre) {
-      friendlyText += " - " + t.genre
+      friendlyText += "(" + t.genre + ")"
     }
+
+    
 
     return friendlyText;
   }
