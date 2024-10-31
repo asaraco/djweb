@@ -198,12 +198,14 @@ export class AppComponent implements OnInit {
           this.showReqToast = true;
           this.setReqDelay(song.duration, requestTotal, now);
           // Reload queue (should be done as late as possible to avoid getting it before VDJ finishes moving track to proper position)
-          setTimeout(() => this.getQueue(), 3000);
+          setTimeout(() => this.getQueue(), 5000);
         } else {
           this.reqToastText = UI_REQUEST_ERROR_TEXT;
           this.showReqToast = true;
         }        
-      });    
+      });
+      // Replicate request to Ask The DJ to help keep track and make sure none slip through the cracks
+      this.handleAskTheDJ(song.artist + " - " + song.title);
     }
   }
 
@@ -294,6 +296,15 @@ export class AppComponent implements OnInit {
     } else {
       this.scrolledDown = false;
     }
+  }
+
+  /**
+   * Run "init" again when returning to tab so updates happen to queue and whatnot
+   */
+  @HostListener("window:focus")
+  onReturnToWindow() {
+    console.log("Returning to window");
+    this.getQueue();
   }
 
   /**
