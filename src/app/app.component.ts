@@ -196,7 +196,9 @@ export class AppComponent implements OnInit {
           this.justRequested = song.filePath;
           this.reqToastText = UI_REQUEST_TEXT;
           this.showReqToast = true;
-          this.setReqDelay(song.duration, requestTotal, now);
+          //this.setReqDelay(song.duration, requestTotal, now);
+          // Trying to use queue length instead of requestTotal
+          this.setReqDelay(song.duration, this.autoDjPlaylist.playlistTracks.length, now);
           // Reload queue (should be done as late as possible to avoid getting it before VDJ finishes moving track to proper position)
           setTimeout(() => this.getQueue(), 5000);
         } else {
@@ -250,7 +252,7 @@ export class AppComponent implements OnInit {
    * @param duration 
    * @param now 
    */
-  setReqDelay(duration: number, reqTotal: number, now: Date) {
+  setReqDelay(duration: number, queueLength: number, now: Date) {
     //Determine time since last request; if it's been a while, cut the "request total" down
     const ls_noRequestsUntil = localStorage.getItem('noRequestsUntil');
     if (ls_noRequestsUntil) {
@@ -259,17 +261,20 @@ export class AppComponent implements OnInit {
       console.log("LIBRARY: It's been " + timeSince + " since a request was made and delayed");
       if (timeSince > 1800000) {  // 1,800,000 milliseconds = 30 minutes
         let discountFactor = 1 + (timeSince / 1800000); // At least 1; for every half hour, add another
-        reqTotal = Math.round(reqTotal/discountFactor);
+        //reqTotal = Math.round(reqTotal/discountFactor);
+        queueLength = Math.round(queueLength/discountFactor);
       }
     }
     //Calculate delay
-    let newDelay = Math.round(duration) * ((1 + Math.round(reqTotal/3))*100);
+    // AMS 10/31/2024 - Trying to set this by queue size instead of total requests per user
+    let newDelay = Math.round(duration) * ((1 + Math.round(queueLength/8))*100);
+    //let newDelay = Math.round(duration) * ((1 + Math.round(reqTotal/3))*100);
     this.requestInterval = setInterval(() => this.reqTimeoutOver(), newDelay);
     let delayTime = now.getTime() + newDelay;
     console.log("Setting noRequestsUntil to " + delayTime);
     localStorage.setItem('noRequestsUntil', JSON.stringify(delayTime));
-    reqTotal++;
-    localStorage.setItem('requestTotal',JSON.stringify(reqTotal));
+    //reqTotal++;
+    //localStorage.setItem('requestTotal',JSON.stringify(reqTotal));
     //Set button tooltips
     this.buttonTooltip = UI_BTN_TOOLTIP_DISABLED;
   }
