@@ -1,5 +1,5 @@
 <div id="libraryForm">
-    <form>
+    <form (keydown.enter)="$event.preventDefault()">
         <div id="searchField">
             <input type="search" placeholder="{{UI_SEARCH_TEXT}}" [formControl]="searchControl">
         </div>
@@ -8,7 +8,7 @@
         </div>
         <div id="categoryFilter">
             <div id="crateActive" class="crateBtn"
-                    title="AMS - PUT TITLE HERE - AMS"
+                    title="Select from one or more filters to narrow down song list"
                     (click)="toggleCrateDropDown()">
                 <span *ngIf="filterCrates.length===0" class="crateDropPlaceholder">{{UI_CATS_TEXT}}</span>
                 <ng-container *ngIf="filterCrates.length>0">

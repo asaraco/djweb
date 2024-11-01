@@ -70,7 +70,6 @@ export class AppComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    console.log("APP COMPONENT INIT");
     this.detectColorScheme();
     this.checkReqDelay();
     // AMS 10/24/2024 - refactoring to retrieve Library tracks at app level
@@ -88,7 +87,6 @@ export class AppComponent implements OnInit {
                         Also store in array to make sure there are no duplicates. */
     // AMS 2024/10/24 - If present, retrieve "username" from URL param
     let username = window.location.search.substring(8); //string begins with "?userId="
-    console.log("window.location.search = " + username);
     // Check if localStorage already has userId set, otherwise initialize it
     if (!localStorage.getItem('userId')) {
       if (username!="") {
@@ -118,13 +116,12 @@ export class AppComponent implements OnInit {
   getNewArrivals(): void {
     let currentSize: number = this.uploadedTracks.length;
     let newSize: number = 0;
-    console.log("Get new arrivals: currentSize / newSize " + currentSize + newSize);
     this.libraryDataService.retrieveNewTracks().subscribe( data => {
       this.uploadedTracks = data;
       this.refreshNewUploads = false;
       newSize = this.uploadedTracks.length;
       if (currentSize!=newSize && this.refreshCounter<10) {
-        console.log("Refreshed New Arrivals but didn't seem to change. Trying again (up to 10x).");
+        //console.log("Refreshed New Arrivals but didn't seem to change. Trying again (up to 10x).");
         clearInterval(this.uploadCheckInterval);
         this.refreshCounter++;
       } 
@@ -160,7 +157,7 @@ export class AppComponent implements OnInit {
       // If duration is 0, default it to the time remaining instead -- better than nothing, literally
       if (this.currentTrackDuration==0) {
         this.currentTrackDuration = remainingTimeMs/1000;
-        console.log("defaulting currentTrackDuration to " + this.currentTrackDuration);
+        //console.log("defaulting currentTrackDuration to " + this.currentTrackDuration);
       }
       // Set current track progress bar interval, as well as refresh interval
       clearInterval(this.progressBarInterval);
@@ -172,15 +169,13 @@ export class AppComponent implements OnInit {
     //Verify that requests aren't currently delayed
     const now = new Date();
     const nru = localStorage.getItem('noRequestsUntil');
-    console.log("nru & now " + nru + " " + now);
     if ((nru) && (now.getTime() < JSON.parse(nru))) { 
-      console.log("Should show toast");
       this.reqToastText = UI_BTN_TOOLTIP_DISABLED;
       this.showReqToast = true;
     } else {
       //Get total # of requests by this user from local storage
       let ls_requestTotal = localStorage.getItem('requestTotal');
-      console.log("ls_requestTotal = " + ls_requestTotal);
+      //console.log("ls_requestTotal = " + ls_requestTotal);
       let requestTotal: number = 0;
       if (ls_requestTotal) {
         requestTotal = JSON.parse(ls_requestTotal);
@@ -258,7 +253,7 @@ export class AppComponent implements OnInit {
     if (ls_noRequestsUntil) {
       let nru: number = JSON.parse(ls_noRequestsUntil);
       let timeSince: number = now.getTime() - nru;
-      console.log("LIBRARY: It's been " + timeSince + " since a request was made and delayed");
+      //console.log("LIBRARY: It's been " + timeSince + " since a request was made and delayed");
       if (timeSince > 1800000) {  // 1,800,000 milliseconds = 30 minutes
         let discountFactor = 1 + (timeSince / 1800000); // At least 1; for every half hour, add another
         //reqTotal = Math.round(reqTotal/discountFactor);
@@ -267,11 +262,11 @@ export class AppComponent implements OnInit {
     }
     //Calculate delay
     // AMS 10/31/2024 - Trying to set this by queue size instead of total requests per user
-    let newDelay = Math.round(duration) * ((1 + Math.round(queueLength/8))*100);
+    let newDelay = Math.round(duration/2) * ((1 + Math.round(queueLength/8))*100);
     //let newDelay = Math.round(duration) * ((1 + Math.round(reqTotal/3))*100);
     this.requestInterval = setInterval(() => this.reqTimeoutOver(), newDelay);
     let delayTime = now.getTime() + newDelay;
-    console.log("Setting noRequestsUntil to " + delayTime);
+    //console.log("Setting noRequestsUntil to " + delayTime);
     localStorage.setItem('noRequestsUntil', JSON.stringify(delayTime));
     //reqTotal++;
     //localStorage.setItem('requestTotal',JSON.stringify(reqTotal));
@@ -314,7 +309,6 @@ export class AppComponent implements OnInit {
    */
   @HostListener("window:focus")
   onReturnToWindow() {
-    console.log("Returning to window");
     this.getQueue();
   }
 
@@ -415,12 +409,12 @@ export class AppComponent implements OnInit {
    */
   incrementProgressBar() {
     let progressDiv = document.querySelector("#pAutoDj .playlistDiv div:last-child .trackProgressBar");
-    if (this.currentTrackProgress<100) {
+    if (this.currentTrackProgress<98) {
       this.currentTrackProgress++
       //console.log(this.currentTrackProgress);
     } else {
-      // If progress is >=100%, wait 1% longer and then trigger component INIT (which eventually starts this again)
-      console.log("clearing interval");
+      // If progress is >=98%, wait 1% longer and then trigger component INIT (which eventually starts this again)
+
       this.libraryDataService.setQueueOutdated(true);
       this.currentTrackProgress=0;
       setTimeout(() => this.getQueue(), this.currentTrackDuration*10); // duration * 1000 converts to ms, /100 increments, *2 for 2 increments

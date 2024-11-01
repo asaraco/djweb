@@ -80,7 +80,7 @@ export class LibraryComponent implements OnInit {
       this.filteredTracks = this.searchControl.valueChanges.pipe(debounceTime(500), startWith(''), map(value => this._filter(value)));
     }
     if (changes.justRequested) {
-      console.log("Library - justRequested: " + this.justRequested);
+      //console.log("Library - justRequested: " + this.justRequested);
     }
   }
 
@@ -109,7 +109,7 @@ export class LibraryComponent implements OnInit {
    * @returns Track[] - filtered array of Track objects
    */
   private _filter(value: string): Track[] {
-    console.log("_filter: ENTER");
+    //console.log("_filter: ENTER");
     const filterValue = value ? value.trim().toLowerCase() : "";
     let s = "";
     // AMS 9/30/2024 - ALso trigger online search
@@ -126,7 +126,6 @@ export class LibraryComponent implements OnInit {
     this.filterCrates.forEach(c=>s+=c.id);
     //return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue));
     this.filterCrates = [];
-    console.log("Crates: " + this.selectedCrateIds);
     if (this.selectedCrateIds.length > 0) { // some track category selected
       // In order to avoid changing category view TOO fast, defer directive-modifying variable change to here
       //this.filterCrate = this.selectedCrateId;
@@ -220,7 +219,6 @@ export class LibraryComponent implements OnInit {
    * @param id 
    */
   selectCrate(id: string) {
-    console.log("selectCrate(" + id + ")");
     // If blank selection, clear all crates
     if (id.trim()=="") {
       this.selectedCrateIds = [];

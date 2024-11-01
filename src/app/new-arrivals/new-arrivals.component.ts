@@ -30,10 +30,10 @@ export class NewArrivalsComponent implements OnInit {
 
   ngOnChanges(changes: { newTracks: any; justRequested: string; }) {
     if (changes.newTracks) {
-      console.log("newTracks changed");
+      //console.log("newTracks changed");
     }
     if (changes.justRequested) {
-      console.log("NewArrivals - justRequested: " + this.justRequested);
+      //console.log("NewArrivals - justRequested: " + this.justRequested);
     }
   }
 
