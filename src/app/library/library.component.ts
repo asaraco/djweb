@@ -265,6 +265,7 @@ export class LibraryComponent implements OnInit {
     deezerTrack.artist = song.artist;
     deezerTrack.title = song.title;
     deezerTrack.duration = song.duration;
+    deezerTrack.rating = 0;
     console.log(song.artist + song.title);
     console.log(deezerTrack.artist + deezerTrack.title);
     this.requestSong(deezerTrack);

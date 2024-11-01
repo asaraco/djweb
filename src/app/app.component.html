@@ -40,7 +40,7 @@
     </section>
     <section class="subSection" id="browseWrapper">
         <app-whats-new *ngIf="showWhatsNew" (closeEvent)="toggleWhatsNew()"></app-whats-new>
-        <app-library [tracks]="libraryTracks" [justRequested]="justRequested" (requestEvent)="handleReqLib($event)" (askTheDJEvent)="handleAskTheDJ($event)"></app-library>
+        <app-library [tracks]="libraryTracks" [justRequested]="justRequested" (requestEvent)="handleReqLib($event)" (askTheDJEvent)="handleAskTheDJ($event, false)"></app-library>
     </section>
     <section class="subSection" id="queueWrapper" [ngClass]="{mobileQueue: showQueue}">
         <div id="queueHeader">

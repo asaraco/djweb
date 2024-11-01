@@ -16,6 +16,7 @@ export class Track {
   crates!: string[];
   searchTerms: string = "";
   onlineSource: boolean = false;
+  rating: number = 0;
   constructor() {
   }
 }

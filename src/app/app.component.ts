@@ -204,8 +204,8 @@ export class AppComponent implements OnInit {
           this.showReqToast = true;
         }        
       });
-      // Replicate request to Ask The DJ to help keep track and make sure none slip through the cracks
-      this.handleAskTheDJ(song.artist + " - " + song.title);
+      // Replicate request to Ask The DJ (but hide user feedback) to help keep track and make sure none slip through the cracks
+      this.handleAskTheDJ(song.artist + " - " + song.title, true);
     }
   }
 
@@ -215,10 +215,14 @@ export class AppComponent implements OnInit {
   }
 
   handleReqLib(song: Track) {
-    this.handleReq(song, true);
+    if (song.rating > 0) {
+      this.handleReq(song, true);
+    } else {
+      this.handleReq(song, false);
+    }
   }
 
-  handleAskTheDJ(message: string) {
+  handleAskTheDJ(message: string, hidden: boolean) {
     var resultMsg: string;
     // Set username
     var username: string;
@@ -233,9 +237,11 @@ export class AppComponent implements OnInit {
     this.playlistDataService.requestAskTheDJ(encodeURIComponent(message), encodeURIComponent(username)).subscribe(data => {
       //console.log("Got a result");
       resultMsg = data;
-      //console.log(resultMsg);
-      this.reqToastText = UI_REQUEST_PENDING_TEXT;
-      this.showReqToast = true;
+      // If this is being called in the background, don't show the "toast" informing the user
+      if (!hidden) {
+        this.reqToastText = UI_REQUEST_PENDING_TEXT;
+        this.showReqToast = true;
+      }      
     })
   }
 
