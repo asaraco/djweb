@@ -8,10 +8,10 @@
     <section>
         <div>
             <h2>ONLINE MUSIC CATALOG SUPPORT</h2>
-            <p>Our most-requested feature, previously thought to be impossible, is a reality! Searches will continue to bring up songs already in the database, but additional results sourced from the online Deezer catalog will appear as well. (Results are limited to 100 per search; this limit comes from the Deezer API, and while a workaround could probably be coded, results get spotty after 100 anyway -- best to just narrow the search instead. There is also a limit of 50 searches every 5 seconds, which probably shouldn't be a problem...)</p>
+            <p>Our most-requested feature, previously thought to be impossible, is a reality! Searches will continue to bring up songs already in the database, but additional results sourced from the online Deezer catalog will appear as well. (Results are limited to 100 per search; this limit comes from the Deezer API, and while a workaround could probably be coded, results get spotty after 100 anyway -- best to just narrow the search instead. There is also a limit of 50 searches every 5 seconds, which <i>probably</i> shouldn't be a problem...)</p>
             <p>Why Deezer? Because the DJ software supports it. We also have access to another online catalog called IDJPool, which has lots of alternate mixes (and clean versions), but those are not easily searchable outside the software. (See "Ask the DJ" for more on that.)</p>
-            <p>A note about this: like most music services, Deezer flags certain songs as "Explicit". Flagged songs can still be requested, but they will go through a manual approval process (see "Ask the DJ" below). There's a high chance these requests will be denied unless a clean version can be found, the song can be easily edited on the fly, or the song is known to be flagged incorrectly. As with uploaded songs, we want to maintain a friendly atmosphere for all attendees.</p>
-            <p>Online songs which have already been added to the database (by the DJ) are indicated by a different font color. Request them while you can, because you never know when they might disappear from streaming!</p>
+            <p><b>NOTE:</b> Like most music services, Deezer flags certain songs as "Explicit". Flagged songs can still be requested, but they will go through a manual approval process (see "Ask the DJ" below). There's a high chance these requests will be denied unless a clean version can be found, the song can be easily edited on the fly, or the song is known to be flagged incorrectly. As with uploaded songs, we want to maintain a friendly atmosphere for all attendees.</p>
+            <p>Online songs which have already been added to the database (by the DJ or upon request) are indicated by a different font color. Request them while you can, because you never know when they might disappear from streaming!</p>
         </div>                
     </section>
     <section>
@@ -31,7 +31,18 @@
     <section>
         <div>
             <h2>RECENTLY RELEASED SONGS</h2>
-            <p>Under the "NEW ARRIVALS" sidebar widget which still shows newly uploaded songs, you will now see a quick view of every song in the database that was released within the past 2 years. In other words, songs that probably haven't been played to death yet and could use another spin.</p>
+            <p>Under the "JUST ADDED" sidebar widget which still shows newly uploaded songs, you will now see a quick view of every song in the database that was released within the past year. In other words, songs that probably haven't been played to death yet and could use another spin.</p>
+        </div>
+    </section>
+    <section>
+        <div>
+            <h2>KNOWN ISSUES</h2>
+            <ul>
+                <li>Song Queue may occasionally show upcoming requests in the wrong order. There is also always going to be a little bit of a delay in showing the current song. Most of the time it does a pretty good job updating consistently, but sometimes the music software itself doesn't update its database quickly enough. It should correct itself eventually. Refreshing the page (or leaving and coming back) may help too.</li>
+                <li>Light theme still sucks because I didn't have time to make it good and I'm not sure anybody uses it anyway. Someday though! If your device defaults to it, you can just click "Switch Theme".</li>
+                <li>There are some built-in delays for the user feedback on things like uploads and requests. This is intentional and designed to give the DJ software a chance to get its database all sorted out before the front-end attempts to display it.</li>
+                <li>I have occasionally seen an issue where online requests do not fetch their metadata in time and end up showing as blank or "no artist". Unfortunately it's hard to fix this if it happens, but the good news is the song should still play!</li>
+            </ul>
         </div>
     </section>
     <section>
