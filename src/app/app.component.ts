@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
   showWhatsNew: boolean = false;
   scrolledDown: boolean = false;
   //requestSubscription: Subscription;
-  currentTrackDuration: number = 100;
+  currentTrackDuration: number = 250;
   currentTrackProgress!: number;
   progressBarInterval!: any;
   uploadCheckInterval!: any;
@@ -261,6 +261,8 @@ export class AppComponent implements OnInit {
       }
     }
     //Calculate delay
+    // AMS 11/2/2024 - Default duration to 250 if still 0 - later I need to make this more consistent across the board
+    if (duration==0) duration=250;
     // AMS 10/31/2024 - Trying to set this by queue size instead of total requests per user
     let newDelay = Math.round(duration/2) * ((1 + Math.round(queueLength/8))*100);
     //let newDelay = Math.round(duration) * ((1 + Math.round(reqTotal/3))*100);
