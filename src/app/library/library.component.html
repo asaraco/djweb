@@ -7,36 +7,32 @@
             <button (click)="askTheDJ(searchControl.value)">Ask The DJ</button>
         </div>
         <div id="categoryFilter">
-            <div id="crateActive" class="crateBtn"
-                    title="Select from one or more filters to narrow down song list"
-                    (click)="toggleCrateDropDown()">
+            <div id="crateActive"
+                    title="Select from one or more filters to narrow down song list">
                 <span *ngIf="filterCrates.length===0" class="crateDropPlaceholder">{{UI_CATS_TEXT}}</span>
                 <ng-container *ngIf="filterCrates.length>0">
-                    <img *ngFor="let crate of filterCrates" src="assets/images/{{crate.imageFileName}}" alt="{{crate.id}}"/>
+                    <div class="crateBtn" *ngFor="let crate of filterCrates" 
+                        title="{{crate.name}} - {{crate.desc}}"
+                        (click)="selectCrate(crate.id)">
+                        <div class="crateLogo" [ngStyle]="{'background-image': 'url(assets/images/'+crate.imageFileName+')'}">
+                        </div>
+                        <div>X</div>
+                    </div>
                 </ng-container>
-                <!--span class="crateDropIcon">▼</span-->
-                <div class="crateDropIcon">&nbsp;</div>
+                <div class="crateDropIcon" (click)="toggleCrateDropDown()">&nbsp;</div>
             </div>
             <div id="crateDropDown" [ngClass]="{unrolled: showCrateDropDown}">
-                <!--button class="crateBtn" (click)="selectCrate(0)" [ngClass]="{'crateSelected': filterCrate===0}">
-                    All
-                </button-->
-                <div class="crateBtn" *ngFor="let crate of CRATES_SELECTABLE" 
-                        title="{{crate.name}}"
+                <div class="crateBtn" *ngFor="let crate of unFilterCrates" 
+                        title="{{crate.name}} - {{crate.desc}}"
                         [ngClass]="{'crateSelected': filterCrates.includes(crate)}"
                         (click)="selectCrate(crate.id)">
                     <div class="crateLogo" [ngStyle]="{'background-image': 'url(assets/images/'+crate.imageFileName+')'}">
-                        <!--img *ngIf="!(crate.imageFileName == '')" src="assets/images/{{crate.imageFileName}}" alt="{{crate.name}}"/>
-                        <ng-container *ngIf="crate.imageFileName=='' ">{{crate.name}}</ng-container-->
-                    </div>                    
-                    <div class="crateDesc">{{crate.desc}}</div>
+                    </div>
                 </div>
             </div>
         </div>
     </form>
 </div>
-
-<!--app-toast id="requestToast" [toastText]="[reqToastText]" [(showToast)]="showReqToast"></app-toast-->
 
 <div id="libraryBrowse">
     <div id="alphaScroll" *ngIf="searchControl.value==null || searchControl.value==''" [ngClass]="{shrink: scrolledDown}">

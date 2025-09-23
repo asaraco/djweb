@@ -47,6 +47,7 @@ export class LibraryComponent implements OnInit {
   //@Input() filterCrate: number = 0;
   selectedCrateIds: string[] = [];
   filterCrates: CrateMeta[] = [];
+  unFilterCrates: CrateMeta[] = CRATES_SELECTABLE; //AMS 9/22/2025 - Trying to track non-active crates separately
   startsWith: string = "";
   //searchTerm: string = "";
   searchControl: FormControl = new FormControl();
@@ -124,21 +125,18 @@ export class LibraryComponent implements OnInit {
       this.mostRecentSearch = filterValue;  // This should prevent duplicate searches
     }
     this.filterCrates.forEach(c=>s+=c.id);
-    //return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue));
     this.filterCrates = [];
     if (this.selectedCrateIds.length > 0) { // some track category selected
       // In order to avoid changing category view TOO fast, defer directive-modifying variable change to here
-      //this.filterCrate = this.selectedCrateId;
       CRATES_SELECTABLE.forEach(c => {
         if (this.selectedCrateIds.includes(c.id) && !this.filterCrates.includes(c)) { this.filterCrates.push(c); }
       });
+      this.unFilterCrates = CRATES_SELECTABLE.filter(c => !this.selectedCrateIds.includes(c.id));
       this.headingListChanged = true;
       // "some" function checks if one array contains any element of another; "every" checks if it has ALL
-      //return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue) && this.selectedCrateIds.every(e=>track.crates.includes(e)));
       return this.tracks.filter(track => this.hasAllSearchTerms(this.friendlyTrackString(track), filterValue) && this.selectedCrateIds.every(e=>track.crates.includes(e)));
     } else {                      // "All tracks"
       // In order to avoid changing category view TOO fast, defer directive-modifying variable change to here
-      //this.filterCrate = this.selectedCrateId;
       CRATES_SELECTABLE.forEach(c => {        
         if (this.selectedCrateIds.includes(c.id) && !this.filterCrates.includes(c)) { this.filterCrates.push(c); }     
       });
@@ -241,7 +239,7 @@ export class LibraryComponent implements OnInit {
       }
     }    
     this.searchControl.updateValueAndValidity({onlySelf: false, emitEvent: true});
-    this.toggleCrateDropDown();
+    //this.toggleCrateDropDown();
   }
 
   /**

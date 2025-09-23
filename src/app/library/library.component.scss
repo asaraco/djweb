@@ -50,42 +50,39 @@ div#libraryForm {
             align-items: flex-end;
             position: relative;
             background-color: rgba(var(--inputBg),1);
-            .crateBtn {           
+            div.crateDropIcon {
+                width: 2rem;
+                height: 2rem;
+                cursor: pointer;
+                background-image: url(/assets/images/btnFilter.svg);
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position-x: right;
+            }
+            .crateBtn {
                 color: rgba(var(--libTh));
-                /*height: 2em;
-                width: 100%;*/
-                border: none;
                 cursor: pointer;
                 display: flex;
                 align-items: center;
+                border: 1px solid rgba(var(--inputFg));
+                border-radius: 10%;
+                width: 4dvw;
+                margin: 0.25em;
                 div.crateLogo {
                     flex: 1;
-                    width: 100%;
+                    height: 1.5rem;
                     background-size: contain;
                     background-repeat: no-repeat;
                     background-position: center;
-                }
-                div.crateDesc {
-                    /*flex: 1;*/
-                    font-family: 'Roboto Condensed', 'Roboto', Arial;
-                    padding: 1dvh;
                 }
                 img {                    
                     height: 0;
                     min-height: 100%;
                 }
-                div.crateDropIcon {
-                    width: 2rem;
-                    height: 2rem;
-                    background-image: url(/assets/images/btnFilter.svg);
-                    background-size: cover;
-                    background-repeat: no-repeat;
-                    background-position-x: right;
-                }
             }            
             div#crateDropDown {
                 position: absolute;
-                margin-top: 2em;
+                margin-top: 2rem;
                 width: 0;
                 height: 0;
                 z-index: 100;
@@ -97,23 +94,22 @@ div#libraryForm {
                 -webkit-backdrop-filter: blur(8px);
                 .crateBtn {
                     display: none;
-                    flex-direction: column;
+                    flex-direction: row;
                     font-size: 0.7rem;
                     background-color: rgba(var(--headBgA),0.9);
-                    border-radius: 5px;
                     margin: auto 1%;
                     padding: 1%;
-                    width: 21%;
-                    height: 20dvh;
-                    border-bottom: 10px inset black;
+                    /*border-bottom: 10px inset black;
                     &.crateSelected {
                         border-bottom-color: rgba(var(--btnBg),1);
-                    }
+                    }*/
                 }
             }
             div#crateDropDown.unrolled {
-                width: 50dvw;
-                height: 75dvh;
+                //width: 50dvw;
+                //height: 75dvh;
+                width: max-content;
+                height: min-content;
                 .crateBtn {
                     display: flex;
                 }
@@ -133,7 +129,7 @@ div#libraryForm {
                     }
                 }
             }
-            div#crateDropDown .crateBtn:hover, #crateActive:hover {
+            .crateBtn:hover {
                 background-color: rgba(var(--crateHover),0.5);
             }
         }
