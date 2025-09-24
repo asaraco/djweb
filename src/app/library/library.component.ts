@@ -131,8 +131,8 @@ export class LibraryComponent implements OnInit {
       CRATES_SELECTABLE.forEach(c => {
         if (this.selectedCrateIds.includes(c.id) && !this.filterCrates.includes(c)) { this.filterCrates.push(c); }
       });
-      this.unFilterCrates = CRATES_SELECTABLE.filter(c => !this.selectedCrateIds.includes(c.id));
       this.headingListChanged = true;
+      this.unFilterCrates = CRATES_SELECTABLE.filter(c => !this.selectedCrateIds.includes(c.id));
       // "some" function checks if one array contains any element of another; "every" checks if it has ALL
       return this.tracks.filter(track => this.hasAllSearchTerms(this.friendlyTrackString(track), filterValue) && this.selectedCrateIds.every(e=>track.crates.includes(e)));
     } else {                      // "All tracks"
@@ -141,6 +141,7 @@ export class LibraryComponent implements OnInit {
         if (this.selectedCrateIds.includes(c.id) && !this.filterCrates.includes(c)) { this.filterCrates.push(c); }     
       });
       this.headingListChanged = true;
+      this.unFilterCrates = CRATES_SELECTABLE.filter(c => !this.selectedCrateIds.includes(c.id));
       return this.tracks.filter(track => this.hasAllSearchTerms(this.friendlyTrackString(track), filterValue));
     }
   }
@@ -223,15 +224,6 @@ export class LibraryComponent implements OnInit {
     } else {
       // Check if crate already selected; if so, deselect it
       if (this.selectedCrateIds.includes(id)) {
-        // "Deep copy" the array to force DOM to update
-        /*
-        let tempArray: string[] = [];
-        this.selectedCrateIds.forEach(c=>tempArray.push(c));
-        this.selectedCrateIds = [];
-        let i = tempArray.indexOf(id);
-        tempArray.splice(i,1);
-        tempArray.forEach(t=>this.selectedCrateIds.push(t));
-        */
         let i = this.selectedCrateIds.indexOf(id);
         this.selectedCrateIds.splice(i,1);
       } else {
