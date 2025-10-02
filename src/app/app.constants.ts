@@ -2,10 +2,10 @@ import { Crate } from "./crate/crate.component";
 
 /* App Configuration */
 //export const API_URL = "http://localhost:8081";
-//export const API_URL = "http://192.168.0.183:8081";
+export const API_URL = "http://192.168.0.183:8081";
 //export const API_URL = "http://192.168.0.107:8081";
-export const API_URL = "http://192.168.11.108:8081";
-export const LISTEN_URL = "http://192.168.11.108:8000/legendarydj";
+//export const API_URL = "http://192.168.11.108:8081";
+export const LISTEN_URL = "http://192.168.0.183:8000/legendarydj";
 
 /* UI Text */
 export const UI_SEARCH_TEXT = "Filter by any search term...";
@@ -40,20 +40,20 @@ export class CrateMeta {
 }
 
 export const CRATE_ALL              = new CrateMeta("", "Clear selections", "btn_clear.png", "Clear selections");   // Not really a crate, just useful for making the selectable options iterable
-export const CRATE_INSTRUMENTALS    = new CrateMeta("#instrumental", "Instrumentals", "btn_instrumentals.png",   "Instrumental versions of non-instrumental songs.");
+export const CRATE_INSTRUMENTALS    = new CrateMeta("#instrumental", "Instrumentals", "btn_instrumentals-h.png",   "Instrumental versions of non-instrumental songs.");
 export const CRATE_ACAPELLAS        = new CrateMeta("#acapella", "Acapellas",     "", "* HIDDEN * | Acapella versions of songs");
 export const CRATE_MAIN             = new CrateMeta("#main", "Main Rotation", "", "Songs that will play automatically.");
-export const CRATE_OLD              = new CrateMeta("#dad", "Golden Oldies", "btn_goldenoldies.png", "Dad Rock other music that appeals to the more 'experienced' gamers in the room.");
-export const CRATE_SOUNDTRACKS      = new CrateMeta("#soundtrack", "Soundtracks",   "btn_soundtracks.png", "Movie/TV soundtracks and high-quality game soundtracks.");
+export const CRATE_OLD              = new CrateMeta("#dad", "Golden Oldies", "btn_goldenoldies-h.png", "Dad Rock other music that appeals to the more 'experienced' gamers in the room.");
+export const CRATE_SOUNDTRACKS      = new CrateMeta("#soundtrack", "Soundtracks",   "btn_soundtracks-h.png", "Movie/TV soundtracks and high-quality game soundtracks.");
 export const CRATE_CHILL            = new CrateMeta("#chill", "Chill",         "", "* HIDDEN * | For when the party dies down");
-export const CRATE_COMEDY           = new CrateMeta("#comedy", "Comedic", "btn_comedy.png", "Intentionally comedic songs. Could be a tragedy for the rest of us. Request at your peril.");
-export const CRATE_MEMES            = new CrateMeta("#meme", "Memey", "btn_meme.png", "Songs that have become viral/memes for whatever reasons. Request at your peril.");
-export const CRATE_VGM              = new CrateMeta("#vgm", "Video Game","btn_vgm.png", "Music from or related to video games.");
+export const CRATE_COMEDY           = new CrateMeta("#comedy", "Comedic", "btn_comedy-h.png", "Intentionally comedic songs. Could be a tragedy for the rest of us. Request at your peril.");
+export const CRATE_MEMES            = new CrateMeta("#meme", "Memey", "btn_meme-h.png", "Songs that have become viral/memes for whatever reasons. Request at your peril.");
+export const CRATE_VGM              = new CrateMeta("#vgm", "Video Game","btn_vgm-h.png", "Music from or related to video games.");
 export const CRATE_OSV              = new CrateMeta("#osv", "Video Game OSV","btn_osv.png", "No covers or remixes, just pure VGM (in fact or in spirit).");
 //export const CRATE_GAME_OTHER       = new CrateMeta(14, "Video Game Covers/Remixes",    "btn_vgremix.png", "Video game music, reinterpreted.")
-export const CRATE_PSYCHED          = new CrateMeta("#getPsyched", "GET PSYCHED",  "btn_getpsyched.png", "When there's no time for a training montage, these will get you pumped for a legendary performance.");
-export const CRATE_HITS             = new CrateMeta("#hit", "Greatest Hits","btn_greatesthits.png", "Songs that are objectively popular or have otherwise achieved Legendary status.");
-export const CRATE_MASHUP           = new CrateMeta("#mashup", "Mash-ups",     "btn_mashups.png", "Mash-ups of songs, some better than others.");
+export const CRATE_PSYCHED          = new CrateMeta("#getPsyched", "GET PSYCHED",  "btn_getpsyched-h.png", "When there's no time for a training montage, these will get you pumped for a legendary performance.");
+export const CRATE_HITS             = new CrateMeta("#hit", "Greatest Hits","btn_greatesthits-h.png", "Songs that are objectively popular or have otherwise achieved Legendary status.");
+export const CRATE_MASHUP           = new CrateMeta("#mashup", "Mash-ups",     "btn_mashups-h.png", "Mash-ups of songs, some better than others.");
 export const CRATE_LAN_LIBRARY      = new CrateMeta("#ll", "The LAN Library","","Catch-all crate for uploaded songs.");
 
 export const CRATES_HIDDEN = [  CRATE_ACAPELLAS.id  ]
@@ -73,5 +73,4 @@ export const CRATES_SELECTABLE = [  CRATE_HITS,
                                     CRATE_INSTRUMENTALS,
                                     CRATE_MASHUP,
                                     CRATE_COMEDY,
-                                    CRATE_MEMES,
-                                    CRATE_ALL         ]
+                                    CRATE_MEMES ]
