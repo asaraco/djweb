@@ -126,24 +126,26 @@ export class LibraryComponent implements OnInit {
     }
     this.filterCrates.forEach(c=>s+=c.id);
     this.filterCrates = [];
+    let tracksToReturn: Track[] = [];
     if (this.selectedCrateIds.length > 0) { // some track category selected
       // In order to avoid changing category view TOO fast, defer directive-modifying variable change to here
       CRATES_SELECTABLE.forEach(c => {
         if (this.selectedCrateIds.includes(c.id) && !this.filterCrates.includes(c)) { this.filterCrates.push(c); }
       });
-      this.headingListChanged = true;
-      this.unFilterCrates = CRATES_SELECTABLE.filter(c => !this.selectedCrateIds.includes(c.id));
       // "some" function checks if one array contains any element of another; "every" checks if it has ALL
-      return this.tracks.filter(track => this.hasAllSearchTerms(this.friendlyTrackString(track), filterValue) && this.selectedCrateIds.every(e=>track.crates.includes(e)));
+      tracksToReturn = this.tracks.filter(track => this.hasAllSearchTerms(this.friendlyTrackString(track), filterValue) && this.selectedCrateIds.every(e=>track.crates.includes(e)));
     } else {                      // "All tracks"
       // In order to avoid changing category view TOO fast, defer directive-modifying variable change to here
       CRATES_SELECTABLE.forEach(c => {        
         if (this.selectedCrateIds.includes(c.id) && !this.filterCrates.includes(c)) { this.filterCrates.push(c); }     
       });
-      this.headingListChanged = true;
-      this.unFilterCrates = CRATES_SELECTABLE.filter(c => !this.selectedCrateIds.includes(c.id));
-      return this.tracks.filter(track => this.hasAllSearchTerms(this.friendlyTrackString(track), filterValue));
+      tracksToReturn = this.tracks.filter(track => this.hasAllSearchTerms(this.friendlyTrackString(track), filterValue));
     }
+    this.headingListChanged = true;
+    this.unFilterCrates = CRATES_SELECTABLE.filter(c => !this.selectedCrateIds.includes(c.id));
+    // If scrolled down, scroll back to top
+    if (this.scrolledDown) window.scrollTo(0,0);
+    return tracksToReturn;
   }
 
   /**
