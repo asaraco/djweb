@@ -15,8 +15,8 @@
                         title="{{crate.name}} - {{crate.desc}}"
                         (click)="selectCrate(crate.id)">
                         <div class="crateLogo" [ngStyle]="{'background-image': 'url(assets/images/'+crate.imageFileName+')'}">
+                            x
                         </div>
-                        <div>X</div>
                     </div>
                 </ng-container>
                 <div class="crateDropIcon" (click)="toggleCrateDropDown()">&nbsp;</div>
@@ -27,6 +27,7 @@
                         [ngClass]="{'crateSelected': filterCrates.includes(crate)}"
                         (click)="selectCrate(crate.id)">
                     <div class="crateLogo" [ngStyle]="{'background-image': 'url(assets/images/'+crate.imageFileName+')'}">
+                        +
                     </div>
                 </div>
             </div>

@@ -60,20 +60,24 @@ div#libraryForm {
                 background-position-x: right;
             }
             .crateBtn {
-                color: rgba(var(--libTh));
+                color: rgba(0,0,0,0);
                 cursor: pointer;
                 display: flex;
                 align-items: center;
-                border: 1px solid rgba(var(--inputFg));
-                border-radius: 10%;
-                width: 4dvw;
-                margin: 0.25em;
+                text-align: center;
+                background-image: linear-gradient(0deg, rgba(var(--inputBg)), rgba(var(--libBg)), rgba(var(--inputBg)));
+                border: 1px solid rgba(var(--libTh));
+                border-radius: .5rem;
+                width: 5dvw;
+                margin: 0.25rem;
                 div.crateLogo {
                     flex: 1;
                     height: 1.5rem;
                     background-size: contain;
                     background-repeat: no-repeat;
                     background-position: center;
+                    justify-content: center;
+                    font-size: 1.2rem;
                 }
                 img {                    
                     height: 0;
@@ -97,19 +101,19 @@ div#libraryForm {
                     flex-direction: row;
                     font-size: 0.7rem;
                     background-color: rgba(var(--headBgA),0.9);
+                    padding: .2rem;
+                    /*
                     margin: auto 1%;
-                    padding: 1%;
-                    /*border-bottom: 10px inset black;
+                    border-bottom: 10px inset black;
                     &.crateSelected {
                         border-bottom-color: rgba(var(--btnBg),1);
                     }*/
                 }
             }
             div#crateDropDown.unrolled {
-                //width: 50dvw;
-                //height: 75dvh;
-                width: max-content;
+                width: 30dvw;
                 height: min-content;
+                justify-content: space-around;
                 .crateBtn {
                     display: flex;
                 }
@@ -130,7 +134,12 @@ div#libraryForm {
                 }
             }
             .crateBtn:hover {
-                background-color: rgba(var(--crateHover),0.5);
+                color: rgba(var(--inputFg),1);
+                text-shadow: 0px 0px 3px rgba(var(--inputBg),1);
+                .crateLogo {
+                    background-blend-mode: color-burn;
+                }
+                background-color: rgba(var(--crateHover),0.75);
             }
         }
     }
