@@ -20,6 +20,7 @@
             margin: 0;
             /*font-family: 'Roboto Condensed', 'Roboto', Arial;*/
             font-family: 'Roboto', 'Roboto', Arial;
+            font-weight: 900;
             text-transform: uppercase;
             text-shadow: rgba(var(--glow),0.5) 1px 0px 3px;
             color: rgba(var(--headFgA), 0.75);
@@ -35,8 +36,9 @@
         /*padding: 1dvh;*/
         transition: 110ms;
         button {
-            /*margin-left: 1dvh;*/
             margin: 0.5dvmin;
+            padding: 0.5dvmin;
+            width: 5dvmin;
         }
     }
     div.hbLeft {

@@ -1,7 +1,7 @@
 <section id="headerSection" [ngClass]="{shrink: scrolledDown}">
     <div class="headerButton hbLeft">
-        <button class="desktopOnly" (click)="toggleHelpText()">Help</button>
-        <button class="desktopOnly" (click)="toggleWhatsNew()">What's New</button>
+        <button class="desktopOnly" (click)="toggleHelpText()" title="Help">?</button>
+        <button class="desktopOnly" (click)="toggleWhatsNew()" title="What's New">ℹ️</button>
         <app-file-upload class="desktopOnly" (uploadEvent)="getNewArrivalsUntilChanged()"></app-file-upload>
         <button id="hamburgerBtn" class="mobileOnly" (click)="toggleHamburgerMenu()">☰</button>
     </div>
@@ -11,19 +11,19 @@
         </a>
     </div>
     <div class="headerButton hbRight desktopOnly">
-        <button (click)="toggleTheme()">{{themeButton}}</button>
+        <button (click)="toggleTheme()" title="Switch Theme">{{themeButton}}</button>
         <button onclick="window.location.href='http://intranet.legendarylan.com'">Intranet</button>
-        <button (click)="goToRadioURL()">Listen</button>
+        <button (click)="goToRadioURL()" title="Listen Online">🔊</button>
     </div>    
     <div id="hamburgerMenu" *ngIf="showMenu">
         <!--button id="libraryButton" (click)="resetView()" [ngClass]="{toggled: (!showQueue && !showNew)}">Library</button-->
-        <button id="headerQueueButton" (click)="toggleQueue()" [ngClass]="{toggled: showQueue}">Queue</button>
-        <button id="headerNewButton" (click)="toggleNewArrivals()" [ngClass]="{toggled: showNew}">New Arrivals</button>
-        <button (click)="toggleHelpText()">Help</button>
-        <button (click)="toggleWhatsNew()">What's New</button>
-        <button (click)="toggleTheme()">{{themeButton}}</button>
-        <button onclick="window.location.href='http://intranet.legendarylan.com'">Intranet</button>
-        <button (click)="goToRadioURL()">Listen</button>
+        <button id="headerQueueButton" (click)="toggleQueue()" title="Song Queue" [ngClass]="{toggled: showQueue}">Queue</button>
+        <button id="headerNewButton" (click)="toggleNewArrivals()" title="New Arrivals" [ngClass]="{toggled: showNew}">New Arrivals</button>
+        <button (click)="toggleHelpText()" title="Help">?</button>
+        <button (click)="toggleWhatsNew()" title="What's New">ℹ️</button>
+        <button (click)="toggleTheme()" title="Switch Theme">{{themeButton}}</button>
+        <button onclick="window.location.href='http://intranet.legendarylan.com'" title="Back to LL Intranet">Intranet</button>
+        <button (click)="goToRadioURL()" title="Listen Online">🔊</button>
         <app-file-upload></app-file-upload>
     </div>
 </section>

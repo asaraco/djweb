@@ -394,10 +394,10 @@ export class AppComponent implements OnInit {
 
     if (this.lightTheme) {
       theme = "Light Theme";
-      this.themeButton = "Dark Theme";
+      this.themeButton = "🌑";
     } else {
       theme = "Dark Theme";
-      this.themeButton = "Light Theme";
+      this.themeButton = "☀️";
     }
     
     localStorage.setItem("theme", theme);

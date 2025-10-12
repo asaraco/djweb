@@ -1,3 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+    version="v1.1"
+    class="svgDefinition">
+    <title>Upload button</title>
+    <desc>1 horizontal line with an upward arrow in the middle</desc>
+    <symbol id="svg-upload">
+        <line   x1="10" x2="90"
+                y1="80" y2="80"
+                stroke="currentcolor" stroke-width="8" />
+        <line x1="50" x2="50"
+            y1="80" y2="10"
+            stroke="currentcolor" stroke-width="8" />
+        <polyline points="20,40 50,10 80,40" 
+            fill="none"
+            stroke="currentcolor" stroke-width="8" stroke-linecap="round" />
+    </symbol>
+</svg>
+
 <input  type="file" 
         accept=".mp3,.m4a,.aac,.ogg,.xm,.mod,.s3m,.it,.adts,.ass,.aiff,.aif,.caf,.f4a,.ult,.uni,.m15,.mtm,.669,.med,.mpga,.m4v,.f4v,.lrv,.oga,.opus,.spx,.ogv,.okt,.stm,.wv,.wvp"
         class="nativeFileUploader" (change)="onFileSelected($event)" #fileUpload>
@@ -5,8 +23,11 @@
      .flac,.wav,.mp4
     -->
 <div class="fileUploader">
-    <button class="fileUploadBtn" (click)="fileUpload.click()">
-        Upload Song
+    <button class="fileUploadBtn" title="Upload File" (click)="fileUpload.click()">
+        <svg viewBox="0 0 100 100" 
+            xmlns="http://www.w3.org/2000/svg" version="v1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <use xlink:href="#svg-upload"/>
+        </svg>
     </button>
     <app-toast class="toastInfo"  [toastText]="fileMessage || []" [(showToast)]=infoToast></app-toast>  
     <app-toast class="toastError" [toastText]="fileMessage || []" [(showToast)]=errorToast></app-toast>  

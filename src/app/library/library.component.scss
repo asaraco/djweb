@@ -73,7 +73,7 @@ div#libraryForm {
                 background-image: linear-gradient(0deg, rgba(var(--inputBg)), rgba(var(--libBg)), rgba(var(--inputBg)));
                 border: 1px solid rgba(var(--libBg));
                 border-radius: .5rem;
-                width: 5dvw;
+                width: clamp(5dvw, 29%, 10dvw);
                 margin: 0.25rem;
                 transition: 0.15s all;
                 div.crateLogo {
@@ -109,12 +109,6 @@ div#libraryForm {
                     font-size: 0.7rem;
                     background-color: rgba(var(--headBgA),0.9);
                     padding: .2rem;
-                    /*
-                    margin: auto 1%;
-                    border-bottom: 10px inset black;
-                    &.crateSelected {
-                        border-bottom-color: rgba(var(--btnBg),1);
-                    }*/
                 }
             }
             div#crateDropDown.unrolled {
@@ -249,7 +243,7 @@ div.libraryGrid {
         }
         &.title {
             color: rgba(var(--libTitle),1);
-            font-weight: bold;            
+            font-weight: var(--libFontWeight);
             .remix {
                 color: rgba(var(--libTitle),0.5);
                 font-style: italic;
@@ -374,7 +368,7 @@ div.libraryGrid.deezerResults {
         form {
             div#categoryFilter {
                 .crateBtn {
-                    width: 9dvh;
+                    width: clamp(9dvh, 45%, 25dvh);
                     span.crateLogo, span.crateDesc {
                         padding: 1dvmax;
                     }

@@ -46,18 +46,18 @@ $recentBtnFg0: #000000;
 $recentBtnBg0: $legendaryRed;
 
 /* Light theme vars */
-$bg1:   #e5e5f5;
+$bg1:   #fefefe;
 $fg1:   #003000;
 $glow1: #000000;
 $shadow1: #111111;
 $headFgA1:  #141434;
 $headFgB1:  darken($legendaryGreen, 45%);
 $headBgA1:  #d5d5f8;
-$headBgB1:  #525278;
-$headBgC1:  #323238;
+$headBgB1:  #e5e5f8;
+$headBgC1:  #525278;
 $inputBg1:  #ffffff;
 $inputFg1:  #004f00;
-$libBg1:    #f0fff0;
+$libBg1:    #f9fff9;
 $libFg1:    #000000;
 $libTh1:    #000000;
 $libTitle1: #004f00;
@@ -102,7 +102,7 @@ $recentBtnBg1: darken($legendaryRed,25%);
     --libTitle: #{hexToRGB($libTitle0)};
     --libDur:   #{hexToRGB($libDur0)};
     --queueFg:  #{hexToRGB($queueFg0)};
-    --queueFg-weak:  #{hexToRGB(darken($queueFg0, 5%))};
+    --queueFg-weak:  #{hexToRGB(darken($queueFg0, 15%))};
     --queueFg-strong:  #{hexToRGB(lighten($queueFg0, 10%))};
     --queueBg-a:  #{hexToRGB($queueBg0)};
     --queueBg-b:  #{hexToRGB(lighten($queueBg0, 10%))};
@@ -125,6 +125,7 @@ $recentBtnBg1: darken($legendaryRed,25%);
     --recentBg:     #{hexToRGB($recentBg0)};
     --recentBtnFg:  #{hexToRGB($recentBtnFg0)};
     --recentBtnBg:  #{hexToRGB($recentBtnBg0)};
+    --libFontWeight: 600;
     /*@media screen and (prefers-color-scheme: light) {*/
     
 }
@@ -169,4 +170,5 @@ $recentBtnBg1: darken($legendaryRed,25%);
     --recentBg:     #{hexToRGB($recentBg1)};
     --recentBtnFg:  #{hexToRGB($recentBtnFg1)};
     --recentBtnBg:  #{hexToRGB($recentBtnBg1)};
+    --libFontWeight: 400;
 }
