@@ -1,6 +1,7 @@
 div#libraryForm {
     position: sticky;
     top: 4dvh;
+    border-bottom: var(--libFormBorder);
     form {
         display: flex;
         flex-direction: row;
@@ -210,16 +211,14 @@ div#libraryBrowse {
 }
 
 div.libraryGrid {
-    background-color: rgba(0,0,0,0);
-    background: linear-gradient(0deg, rgba(var(--libBg),0.05), rgba(var(--libBg),0.25));
     color: rgba(var(--libFg0),1);
     div.gridRow {
         display: flex;
         font-size: .8rem;
         align-items: center;
     }
-    div.gridRow:nth-child(odd) {
-        background-color: rgba(var(--libBg),0.4);
+    div.gridRow:nth-child(even) {
+        background-color: rgba(var(--libBg),0.05);
     }
     div.gridHeading {
         flex: 1;

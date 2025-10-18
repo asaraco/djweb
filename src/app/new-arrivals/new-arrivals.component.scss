@@ -18,8 +18,8 @@ div#rrHeader h3 {
 div.libraryGrid {
     padding: 0.25dvw;
     &#news {
-        div.gridRow:nth-child(odd) {
-            background-color: rgba(var(--newsBg),0.25);
+        div.gridRow:nth-child(even) {
+            background-color: rgba(var(--newsBg),0.15);
         }
         div.gridCol {
             font-size: 0.7rem;
@@ -60,8 +60,8 @@ div.libraryGrid {
                 transition: 0s;
             }
         }
-        div.gridRow:nth-child(odd) {
-            background-color: rgba(var(--recentBg),0.25);
+        div.gridRow:nth-child(even) {
+            background-color: rgba(var(--recentBg),0.15);
         }
         div.gridCol {
             font-size: 0.7rem;

@@ -24,7 +24,7 @@
             font-family: 'Roboto', 'Roboto', Arial;
             font-weight: 900;
             text-transform: uppercase;
-            text-shadow: rgba(var(--glow),0.5) 1px 0px 3px;
+            text-shadow: var(--headShadow);
             color: rgba(var(--headFgA), 0.75);
             .h1Secondary {
                 color: rgba(var(--headFgB), 0.75);
@@ -71,11 +71,16 @@
 #leftWrapper {
     /*min-width: 15%;*/
     flex: 1;
+    background: linear-gradient(0deg, rgba(var(--newsBg),1), rgba(var(--recentBg),1));
+    top: 4dvh;
+    height: max-content;
+    position: sticky;
 }
 
 #browseWrapper {
     flex: 3;
     flex-grow: 4;
+    box-shadow: var(--browseShadow)
 }
 
 #queueWrapper {

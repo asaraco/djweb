@@ -1,7 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="v1.1" class="svgDefinition">
+    <title>Info button</title>
+    <desc>A circle with a lowercase i</desc>
+    <symbol id="svg-info">
+        <circle cx="50" cy="50" r="45" stroke="currentcolor" stroke-width="8" fill="none"/>
+        <circle cx="50" cy="25" r="1" stroke="currentcolor" stroke-width="8" fill="none"/>
+        <line   x1="50" x2="50" y1="40" y2="75"
+                stroke="currentcolor" stroke-width="8" stroke-linecap="round" />
+        <line   x1="44" x2="56" y1="75" y2="75"
+                stroke="currentcolor" stroke-width="8" stroke-linecap="round" />
+    </symbol>
+</svg>
+<svg xmlns="http://www.w3.org/2000/svg" version="v1.1" class="svgDefinition">
+    <title>Light Theme button</title>
+    <desc>A sun-shaped icon</desc>
+    <symbol id="svg-theme-light">
+        <circle cx="50" cy="50" r="25" stroke="currentcolor" stroke-width="8" fill="none"/>
+        <line   x1="50" y1="5" x2="50" y2="10" stroke="currentcolor" stroke-width="8" stroke-linecap="round" />
+        <line   x1="80" y1="23" x2="85" y2="18" stroke="currentcolor" stroke-width="8" stroke-linecap="round" />
+        <line   x1="90" y1="50" x2="95" y2="50" stroke="currentcolor" stroke-width="8" stroke-linecap="round" />
+        <line   x1="80" y1="77" x2="85" y2="82" stroke="currentcolor" stroke-width="8" stroke-linecap="round" />
+        <line   x1="50" y1="90" x2="50" y2="95" stroke="currentcolor" stroke-width="8" stroke-linecap="round" />
+        <line   x1="20" y1="77" x2="15" y2="82" stroke="currentcolor" stroke-width="8" stroke-linecap="round" />
+        <line   x1="10" y1="50" x2="5" y2="50" stroke="currentcolor" stroke-width="8" stroke-linecap="round" />
+        <line   x1="20" y1="23" x2="15" y2="18" stroke="currentcolor" stroke-width="8" stroke-linecap="round" />
+    </symbol>
+</svg>
+<svg xmlns="http://www.w3.org/2000/svg" version="v1.1" class="svgDefinition">
+    <title>Dark Theme button</title>
+    <desc>A vaguely moon-shaped icon</desc>
+    <symbol id="svg-theme-dark">
+        <circle cx="50" cy="50" r="25" stroke="currentcolor" stroke-width="8" fill="none"/>
+        <line   x1="50" y1="25" x2="50" y2="75" stroke="currentcolor" stroke-width="8" stroke-linecap="round" />
+    </symbol>
+</svg>
+
 <section id="headerSection" [ngClass]="{shrink: scrolledDown}">
     <div class="headerButton hbLeft">
         <button class="desktopOnly" (click)="toggleHelpText()" title="Help">?</button>
-        <button class="desktopOnly" (click)="toggleWhatsNew()" title="What's New">ℹ️</button>
+        <button class="desktopOnly" (click)="toggleWhatsNew()" title="What's New">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" version="v1.1" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="#svg-info"/></svg>
+        </button>
         <app-file-upload class="desktopOnly" (uploadEvent)="getNewArrivalsUntilChanged()"></app-file-upload>
         <button id="hamburgerBtn" class="mobileOnly" (click)="toggleHamburgerMenu()">☰</button>
     </div>
@@ -11,7 +49,9 @@
         </a>
     </div>
     <div class="headerButton hbRight desktopOnly">
-        <button (click)="toggleTheme()" title="Switch Theme">{{themeButton}}</button>
+        <button (click)="toggleTheme()" title="Switch Theme">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" version="v1.1" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="" [attr.xlink:href]="themeButton"/></svg>
+        </button>
         <button onclick="window.location.href='http://intranet.legendarylan.com'">Intranet</button>
         <button (click)="goToRadioURL()" title="Listen Online">🔊</button>
     </div>    
@@ -20,7 +60,9 @@
         <button id="headerQueueButton" (click)="toggleQueue()" title="Song Queue" [ngClass]="{toggled: showQueue}">Queue</button>
         <button id="headerNewButton" (click)="toggleNewArrivals()" title="New Arrivals" [ngClass]="{toggled: showNew}">New Arrivals</button>
         <button (click)="toggleHelpText()" title="Help">?</button>
-        <button (click)="toggleWhatsNew()" title="What's New">ℹ️</button>
+        <button (click)="toggleWhatsNew()" title="What's New">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" version="v1.1" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="#svg-info"/></svg>
+        </button>
         <button (click)="toggleTheme()" title="Switch Theme">{{themeButton}}</button>
         <button onclick="window.location.href='http://intranet.legendarylan.com'" title="Back to LL Intranet">Intranet</button>
         <button (click)="goToRadioURL()" title="Listen Online">🔊</button>
