@@ -40,7 +40,8 @@
         button {
             margin: 0.5dvmin;
             padding: 0.5dvmin;
-            width: 5dvmin;
+            /*width: 5dvmin;*/
+            height: clamp(1rem, 2rem, 3dvh);
         }
     }
     div.hbLeft {

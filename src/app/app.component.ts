@@ -373,13 +373,22 @@ export class AppComponent implements OnInit {
     let ls_theme = localStorage.getItem("theme");
     if (!this.lightTheme) {
       theme = "Dark Theme";
+      this.themeButton = "#svg-theme-light";
     }
     if (ls_theme) {
       theme = ls_theme;
+      if (theme==="Light Theme") {
+        this.lightTheme = true;
+        this.themeButton = "#svg-theme-dark";
+      } else {
+        this.lightTheme = false;
+        this.themeButton = "#svg-theme-light";
+      }
     } else {
       if (window.matchMedia("(prefers-color-scheme: light").matches) {
         this.lightTheme = true;
         theme = "Light Theme";
+        this.themeButton = "#svg-theme-dark";
       }
     }
     document.documentElement.setAttribute("data-theme", theme);
