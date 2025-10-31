@@ -37,7 +37,7 @@ button {
     text-transform:uppercase;
     font-weight:900;
     cursor:pointer;
-    text-shadow: 0px 1px 3px rgba(var(--shadow),0.75);
+    text-shadow: 0px 1px 5px rgba(var(--shadow),0.5);
     transition: all .35s ease-in-out;
     svg {
         filter: drop-shadow(0px 1px 3px rgba(var(--shadow), 0.5));
@@ -45,6 +45,7 @@ button {
     }
 }
 button:hover {
+    color: rgba(var(--headerFgA),1);
     box-shadow: 0 0 10px rgba(var(--btnBg),0.5), inset 0 0 1px 1px rgba(var(--btnFg),1);
 }
 
@@ -56,6 +57,83 @@ button:hover {
     padding-bottom: 2px;
 }
 
+#headerSection {
+    z-index: 1000;
+    height: 8dvh;
+    top: 0;
+    position: sticky;
+    display: flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:flex-end;
+    background: var(--headBg);
+    border-bottom: var(--headerBorder);
+    font-size: clamp(1rem, 2rem, 3dvh);
+    text-align: center;
+    transition: 100ms;
+    div#headerBar {
+        height: 8dvh;
+        flex: 1;
+        transition: 110ms;
+        top: 0;
+        align-content: center;
+        h1 {
+            margin: 0;
+            font-family: 'Roboto', 'Roboto', Arial;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-shadow: var(--headShadow);
+            color: rgba(var(--headFgA), 0.75);
+            .h1Secondary {
+                color: rgba(var(--headFgB), 0.75);
+            }
+        }
+    }    
+    div.headerButton {
+        display: flex;
+        flex: 1;
+        justify-content: space-between;
+        transition: 110ms;
+    }
+    div.hbLeft {
+        justify-content: flex-start;
+    }
+    div.hbRight {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+    button.iconButton {
+        margin: 0.5dvmin;
+        padding: 1dvh;
+        width: clamp(2dvh, 6dvh, 8dvh);
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+        justify-content: center;
+    }
+}
+#headerSection.shrink {
+    height: 4dvh;
+    font-size: clamp(0.5dvh, 1rem, 1dvh);
+    top: 0;
+    div#headerBar {
+        height: 4dvh;
+    }
+    div#toolBar {
+        height: 100%;
+        align-items: center;
+    }
+    button.iconButton {
+        height: 3dvh;
+        width: clamp(1dvh, 4dvh, 4dvh);
+        padding: 0dvh;
+        svg {
+            flex: 0.5;
+        }
+    }
+}
+
 #pAutoDj {
     color: rgba(var(--queueFg), 0.95);
     .playlistDiv {
@@ -64,7 +142,6 @@ button:hover {
             font-weight: bold;
             text-shadow: rgba(var(--queueFg-weak), 0.5) 1px 0 4px;
             border-bottom: 1px solid rgba(var(--queueFg-strong));
-            /*border-top: 1px solid rgba(var(--queueFg-strong));*/
             padding: 3px 0 1px 0;
             margin: 2px 0;
         }
@@ -73,19 +150,67 @@ button:hover {
 
 #pRecent {
     color: rgba(var(--queueFg-weak), 0.5);
-    /*.playlistDiv {
-        div:first-child {
-            color: rgba(var(--queueFg-strong), 1);
-            font-weight: bold;
-            text-shadow: rgba(var(--queueFg-weak), 0.5) 1px 0 4px;
-            border-bottom: 1px solid rgba(var(--queueFg-strong));
-        }
-    }*/
 }
 
-/*@media screen and (max-width: 960px) {*/
 @media (orientation: portrait) {
     body {
         margin: 0;
+    }
+}
+
+@media (orientation: landscape) {
+    .mobileOnly {
+        display: none;
+    }
+}
+
+@media screen and (orientation: portrait) {
+    #headerSection {
+        height: 6dvw;
+        div#headerBar {
+            height: 6dvw;
+        }
+        div.headerButton {
+            flex: 0;
+            padding: 0.75dvw;
+        }
+    }
+    #headerSection.shrink {
+        height: 3dvw;
+        div#headerBar {
+            height: 3dvw;
+        }
+    }
+}
+
+@media (orientation: portrait) {
+    #headerSection {
+        top: 0;
+        margin-top: 0;
+        height: 5dvh;
+        align-items: center;
+        div#headerBar {
+            height: 5dvh;
+            h1 {
+                font-size: 1.5rem;
+                padding: 0.5dvh;
+            }
+        } 
+    }
+    #headerSection.shrink {
+        height: 5dvh;
+        div#headerBar {
+            height: 5dvh;
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+        div#toolBar {
+            height: 100%;
+            align-items: center;
+        }
+    }
+    .desktopOnly, #headerSection div.headerButton.desktopOnly {
+        display: none;
     }
 }

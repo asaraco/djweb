@@ -1,70 +1,3 @@
-#headerSection {
-    z-index: 1000;
-    height: 8dvh;
-    top: 0;
-    position: sticky;
-    display: flex;
-    flex-direction:row;
-    justify-content:center;
-    align-items:flex-end;
-    background: var(--headBg);
-    border-bottom: var(--headerBorder);
-    font-size: clamp(1rem, 2rem, 3dvh);
-    text-align: center;
-    transition: 100ms;
-    div#headerBar {
-        height: 8dvh;
-        flex: 1;
-        transition: 110ms;
-        top: 0;
-        align-content: center;
-        h1 {
-            margin: 0;
-            /*font-family: 'Roboto Condensed', 'Roboto', Arial;*/
-            font-family: 'Roboto', 'Roboto', Arial;
-            font-weight: 900;
-            text-transform: uppercase;
-            text-shadow: var(--headShadow);
-            color: rgba(var(--headFgA), 0.75);
-            .h1Secondary {
-                color: rgba(var(--headFgB), 0.75);
-            }
-        }
-    }    
-    div.headerButton {
-        display: flex;
-        flex: 1;
-        justify-content: space-between;
-        /*padding: 1dvh;*/
-        transition: 110ms;
-        button {
-            margin: 0.5dvmin;
-            padding: 0.5dvmin;
-            /*width: 5dvmin;*/
-            height: clamp(1rem, 2rem, 3dvh);
-        }
-    }
-    div.hbLeft {
-        justify-content: flex-start;
-    }
-    div.hbRight {
-        flex-wrap: wrap;
-        justify-content: flex-end;
-    }
-}
-#headerSection.shrink {
-    height: 4dvh;
-    font-size: clamp(0.5dvh, 1rem, 1dvh);
-    top: 0;
-    div#headerBar {
-        height: 4dvh;
-    }
-    div#toolBar {
-        height: 100%;
-        align-items: center;
-    }
-}
-
 #mainSection {
     display: flex;
 }
@@ -114,83 +47,20 @@ app-new-arrivals {
 #hamburgerBtn {
     display: none;
 }
-/*
-#hamburgerMenu {
-    display: none;
-}
-
-button#closeQueue, button#closeNew {
-    display: none;
-}
-*/
 
 @media screen and (orientation: portrait) {
-    #headerSection {
-        height: 6dvw;
-        /*font-size: 2rem;*/
-        div#headerBar {
-            height: 6dvw;
-        }
-        div.headerButton {
-            flex: 0;
-            padding: 0.75dvw;
-        }
-    }
-    #headerSection.shrink {
-        height: 3dvw;
-        /*font-size: 1rem;*/
-        div#headerBar {
-            height: 3dvw;
-        }
-    }
-
     #queueWrapper, app-new-arrivals {
         top: 3dvw;
-        /*width: 90dvw;*/
     }
 }
 
-/*@media screen and (min-width: 960px) {*/
 @media (orientation: landscape) {
     .mobileOnly {
         display: none;
     }
 }
 
-/*@media screen and (max-width: 960px) {*/
 @media (orientation: portrait) {
-    #headerSection {
-        top: 0;
-        margin-top: 0;
-        height: 5dvh;
-        align-items: center;
-        div#headerBar {
-            height: 5dvh;
-            h1 {
-                /*font-family: 'Roboto', 'Roboto', Arial;*/
-                font-size: 1.5rem;
-                padding: 0.5dvh;
-            }
-        }
-        /*
-        div#toolBar app-file-upload {
-            display: none;
-        } 
-        */   
-    }
-    #headerSection.shrink {
-        height: 5dvh;
-        div#headerBar {
-            height: 5dvh;
-            h1 {
-                font-size: 1.5rem;
-            }
-        }
-        div#toolBar {
-            height: 100%;
-            align-items: center;
-        }
-    }
     #mainSection {
         flex-direction: column;
     }
@@ -199,9 +69,6 @@ button#closeQueue, button#closeNew {
         mask-image: none;
         height: auto;
     }    
-    /*#headerQueueButton {
-        display: inline-block;
-    }*/
     #hamburgerBtn {
         display: inline-block;
         background-color: rgba(0,0,0,0);
