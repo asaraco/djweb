@@ -83,34 +83,39 @@
         </a>
     </div>
     <div class="headerButton hbRight desktopOnly">
-        <button class="iconButton" (click)="toggleTheme()" title="Switch Theme">
+        <button class="iconButton desktopOnly" (click)="toggleTheme()" title="Switch Theme">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" version="v1.1" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="" [attr.xlink:href]="themeButton"/></svg>
         </button>
-        <button class="iconButton" onclick="window.location.href='http://intranet.legendarylan.com'" title="Back to LL Intranet">
+        <button class="iconButton desktopOnly" onclick="window.location.href='http://intranet.legendarylan.com'" title="Back to LL Intranet">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="80 60 720 620" version="v1.1" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="#svg-ll-logo"/></svg>
         </button>
-        <button class="iconButton" (click)="goToRadioURL()" title="Listen Online">
+        <button class="iconButton desktopOnly" (click)="goToRadioURL()" title="Listen Online">
             <svg viewBox="0 0 75 75" xmlns="http://www.w3.org/2000/svg" version="v1.1" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="#svg-speaker"/></svg>
         </button>
     </div>    
     <div id="hamburgerMenu" *ngIf="showMenu">
         <!--button id="libraryButton" (click)="resetView()" [ngClass]="{toggled: (!showQueue && !showNew)}">Library</button-->
-        <button id="headerQueueButton" (click)="toggleQueue()" title="Song Queue" [ngClass]="{toggled: showQueue}">Queue</button>
-        <button id="headerNewButton" (click)="toggleNewArrivals()" title="New Arrivals" [ngClass]="{toggled: showNew}">New Arrivals</button>
-        <button (click)="toggleHelpText()" title="Help">
-            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" version="v1.1" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="#svg-question"/></svg>
+        <button id="headerQueueButton" class="iconButton" (click)="toggleQueue()" title="Song Queue" [ngClass]="{toggled: showQueue}">Queue</button>
+        <button id="headerNewButton" class="iconButton" (click)="toggleNewArrivals()" title="New Arrivals" [ngClass]="{toggled: showNew}">New Arrivals</button>
+        <button (click)="toggleHelpText()" class="iconButton" title="Help">
+            <svg viewBox="0 0 200 200" xmlns="hHettp://www.w3.org/2000/svg" version="v1.1" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="#svg-question"/></svg>
+            <span>Help</span>
         </button>
-        <button (click)="toggleWhatsNew()" title="What's New">
+        <button (click)="toggleWhatsNew()" class="iconButton" title="What's New">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" version="v1.1" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="#svg-info"/></svg>
+            <span>What's New</span>
         </button>
-        <button (click)="toggleTheme()" title="Switch Theme">
+        <button (click)="toggleTheme()" class="iconButton" title="Switch Theme">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" version="v1.1" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="" [attr.xlink:href]="themeButton"/></svg>
+            <span>Theme</span>
         </button>
-        <button title="LL Intranet" onclick="window.location.href='http://intranet.legendarylan.com'" title="Back to LL Intranet">
+        <button title="LL Intranet" class="iconButton" onclick="window.location.href='http://intranet.legendarylan.com'" title="Back to LL Intranet">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="140 110 720 620" version="v1.1" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="#svg-ll-logo"/></svg>
+            <span>Intranet</span>
         </button>
-        <button (click)="goToRadioURL()" title="Listen Online">
+        <button (click)="goToRadioURL()" class="iconButton" title="Listen Online">
             <svg viewBox="0 0 75 75" xmlns="http://www.w3.org/2000/svg" version="v1.1" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="#svg-speaker"/></svg>
+            <span>Listen</span>
         </button>
         <app-file-upload></app-file-upload>
     </div>

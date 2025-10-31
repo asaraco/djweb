@@ -99,6 +99,11 @@ app-new-arrivals {
             background-color: rgba(var(--btnFg),1);
             color: rgba(var(--btnBg),1);
         }
+        button.iconButton {
+            display: flex;
+            flex-direction: row;
+            align-items: center;;
+        }
     }
     #queueWrapper.mobileQueue, #leftWrapper.mobileNew {
         position: absolute;

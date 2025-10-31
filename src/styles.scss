@@ -102,7 +102,7 @@ button:hover {
         flex-wrap: wrap;
         justify-content: flex-end;
     }
-    button.iconButton {
+    button.iconButton.desktopOnly {
         margin: 0.5dvmin;
         padding: 1dvh;
         width: clamp(2dvh, 6dvh, 8dvh);
@@ -124,7 +124,7 @@ button:hover {
         height: 100%;
         align-items: center;
     }
-    button.iconButton {
+    button.iconButton.desktopOnly {
         height: 3dvh;
         width: clamp(1dvh, 4dvh, 4dvh);
         padding: 0dvh;
@@ -210,7 +210,7 @@ button:hover {
             align-items: center;
         }
     }
-    .desktopOnly, #headerSection div.headerButton.desktopOnly {
+    .desktopOnly, #headerSection div.headerButton.desktopOnly, #headerSection div.headerButton .desktopOnly {
         display: none;
     }
 }
