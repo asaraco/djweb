@@ -6,6 +6,8 @@ import { CRATES_ALBUMVIEW } from '../app.constants';
 export class PlaylistTrack {
   position: number = 0;
   track: Track = new Track();
+  requested: boolean = false;
+  requestedBy: string = "";
   constructor(public id: number){}
 }
 

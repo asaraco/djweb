@@ -42,6 +42,7 @@ export class AppComponent implements OnInit {
   buttonTooltip: string = "";
   showReqToast: boolean = false;
   reqToastText: string = "";
+  userid: string = "";
   /* imported constants */
   LISTEN_URL: string = LISTEN_URL;
   UI_WELCOME_TEXT: string = UI_WELCOME_TEXT;
@@ -101,6 +102,7 @@ export class AppComponent implements OnInit {
       }
       console.log("Assigned User ID: " + localStorage.getItem('userId'));
     }
+    this.userid = localStorage.getItem('userId') || "";
   }
 
   getLibrary(): void {
@@ -182,7 +184,7 @@ export class AppComponent implements OnInit {
       }
       //Make the request
       var resultMsg: string = "false";
-      this.playlistDataService.requestFile(song, rated).subscribe(data => {
+      this.playlistDataService.requestFile(song, rated, this.userid).subscribe(data => {
         resultMsg = data.toString();
         console.log(resultMsg);
         if (resultMsg==="true") {
@@ -199,7 +201,7 @@ export class AppComponent implements OnInit {
         } else {
           this.reqToastText = UI_REQUEST_ERROR_TEXT;
           this.showReqToast = true;
-        }        
+        }
       });
       // Replicate request to Ask The DJ (but hide user feedback) to help keep track and make sure none slip through the cracks
       this.handleAskTheDJ(song.artist + " - " + song.title, true);

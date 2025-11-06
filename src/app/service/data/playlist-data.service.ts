@@ -66,10 +66,11 @@ export class PlaylistDataService {
    * Request a song using Track metadata
    * @param track Track - use filePath, title, & artist properties
    * @param rated boolean - different behavior depending on whether track is already rated (if not, it's a new upload)
+   * @param userid string - name or other ID of user making the request
    * @returns Observable<string>
    */
-  requestFile(track: Track, rated: boolean): Observable<string> {
-    var req: SongRequest = new SongRequest(track.filePath, track.title, track.artist, track.duration, rated);
+  requestFile(track: Track, rated: boolean, userid: string): Observable<string> {
+    var req: SongRequest = new SongRequest(track.filePath, track.title, track.artist, track.duration, rated, userid);
     return this.http.post<string>(`${API_URL}/requestDirect`, req);
   }  
 
@@ -77,11 +78,11 @@ export class PlaylistDataService {
    * Sends a request string to VirtualDJ's "Ask the DJ" service
    * as well as a "username" parameter (not too important to functionality)
    * @param message string - plaintext song request or other message
-   * @param username string - name or other ID of user making the request
+   * @param userid string - name or other ID of user making the request
    * @returns Observable<string>
    */
-  requestAskTheDJ(message: string, username: string): Observable<string> {
-    return this.http.post<string>(`${API_URL}/requestAskTheDJ?message=${message}&name=${username}`, null);
+  requestAskTheDJ(message: string, userid: string): Observable<string> {
+    return this.http.post<string>(`${API_URL}/requestAskTheDJ?message=${message}&name=${userid}`, null);
   }
 
   /**

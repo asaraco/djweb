@@ -22,7 +22,8 @@ export class SongRequest {
     public title: string,
     public artist: string,
     public duration: number,
-    public rated: boolean = false
+    public rated: boolean = false,
+    public userid: string = ""
   ){}
 }
 
