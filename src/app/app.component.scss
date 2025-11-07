@@ -7,8 +7,10 @@
     flex: 1;
     background: linear-gradient(0deg, rgba(var(--newsBg),1), rgba(var(--recentBg),1));
     top: 4dvh;
-    height: max-content;
+    height: 96vh;
     position: sticky;
+    overflow-y: scroll;
+    scrollbar-width: none;
 }
 
 #browseWrapper {
@@ -23,9 +25,11 @@
     /*min-width: 15%;*/
     flex: 1;
     /*height: fit-content;*/
-    height: 100vh;
-    position: sticky;
     top: 4dvh;
+    height: 96vh;
+    position: sticky;
+    overflow-y: scroll;
+    scrollbar-width: none;
     div#queueHeader {
         h3 {
             color: rgba(var(--queueFg),1);

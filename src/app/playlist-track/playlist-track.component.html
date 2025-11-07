@@ -1,9 +1,8 @@
 <span class="track">
     <div class="trackProgressBar" style="display:none;width:0%"> &nbsp; </div>
-    <span class="tMain" 
-          title="{{playlistTrack.track.subtitle==null ? '' : '('+playlistTrack.track.subtitle+') // '}}{{playlistTrack.track.grouping==playlistTrack.track.artist ? '' : playlistTrack.track.artist+' // '}}{{playlistTrack.track.album==null ? '' : playlistTrack.track.album}}{{playlistTrack.track.year==0 ? '' : ' ('+playlistTrack.track.year+')'}}">
+    <span class="tMain" [ngClass]="{requested: playlistTrack.requested}"
+          title="{{playlistTrack.track.subtitle==null ? '' : '('+playlistTrack.track.subtitle+') // '}}{{playlistTrack.track.grouping==playlistTrack.track.artist ? '' : playlistTrack.track.artist+' // '}}{{playlistTrack.track.album==null ? '' : playlistTrack.track.album}}{{playlistTrack.track.year==0 ? '' : ' ('+playlistTrack.track.year+')'}}{{playlistTrack.requested ? ' // requested by '+playlistTrack.requestedBy : ''}}">
         <strong>{{playlistTrack.track.title}}</strong> - <i>{{playlistTrack.track.grouping}}</i>
-        <span *ngIf="playlistTrack.requested==true">REQBY: {{playlistTrack.requestedBy}}</span>
     </span>
     <span class="tDuration">({{playlistTrack.track.duration * 1000 | date:'mm:ss'}})</span>
 </span>

@@ -16,3 +16,6 @@ div.trackProgressBar {
     height: max-content;
     z-index: -50;
 }
+.requested {
+    color: rgba(var(--newsFg),1)
+}

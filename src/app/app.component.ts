@@ -88,13 +88,16 @@ export class AppComponent implements OnInit {
                         Also store in array to make sure there are no duplicates. */
     // AMS 2024/10/24 - If present, retrieve "username" from URL param
     let username = window.location.search.substring(8); //string begins with "?userId="
-    // Check if localStorage already has userId set, otherwise initialize it
-    if (!localStorage.getItem('userId')) {
+    // Check if localStorage already has userId set, otherwise initialize it.
+    // Or, accept it from the URL param if we don't have a non-generated ID yet.
+    this.userid = localStorage.getItem('userId') || "";
+    if (this.userid=="" || this.userid.startsWith("generated-")) {
+      console.log("Either we have no user ID yet, or it's a generated one. Setting user ID now.");
       if (username!="") {
         localStorage.setItem('userId', username);
       } else {
         this.userDataService.generateID().subscribe(data => {
-          localStorage.setItem('userId', JSON.stringify(data));
+          localStorage.setItem('userId', "generated-"+JSON.stringify(data));
           this.showHelp = true;
           this.showWhatsNew = true;
           localStorage.setItem('requestTotal', '0');
@@ -211,6 +214,8 @@ export class AppComponent implements OnInit {
   handleReqNew(song: Track) {
     this.handleReq(song, false);
     this.getNewArrivalsUntilChanged();
+    // Update Queue just for kicks
+    this.getQueue();
   }
 
   handleReqLib(song: Track) {
@@ -219,6 +224,9 @@ export class AppComponent implements OnInit {
     } else {
       this.handleReq(song, false);
     }
+    // Update New Arrivals & Queue just for kicks
+    this.getQueue();
+    this.getNewArrivals();
   }
 
   handleAskTheDJ(message: string, hidden: boolean) {
@@ -296,7 +304,7 @@ export class AppComponent implements OnInit {
 
   /**
    * Track & manage window scrolling behavior
-   * (allows for automatic scrolling to links)
+   * (for header sizing)
    */
   @HostListener("window:scroll", [])
   onWindowScroll() {
@@ -314,6 +322,7 @@ export class AppComponent implements OnInit {
   @HostListener("window:focus")
   onReturnToWindow() {
     this.getQueue();
+    this.getNewArrivals()
   }
 
   /**
@@ -427,10 +436,9 @@ export class AppComponent implements OnInit {
       //console.log(this.currentTrackProgress);
     } else {
       // If progress is >=98%, wait 1% longer and then trigger component INIT (which eventually starts this again)
-
       this.libraryDataService.setQueueOutdated(true);
       this.currentTrackProgress=0;
-      setTimeout(() => this.getQueue(), this.currentTrackDuration*10); // duration * 1000 converts to ms, /100 increments, *2 for 2 increments
+      setTimeout(() => {this.getQueue(), this.getNewArrivals()}, this.currentTrackDuration*10); // duration * 1000 converts to ms, /100 increments, *2 for 2 increments
     } 
     let style = "display:inline-block;width:" + this.currentTrackProgress + "%";
     progressDiv?.setAttribute("style", style);
