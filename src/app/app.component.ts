@@ -7,6 +7,7 @@ import { LISTEN_URL, UI_BTN_TOOLTIP_DISABLED, UI_HELPTEXT_NEW, UI_HELPTEXT_REQUE
 import { Track } from './track/track.component';
 import { LibraryDataService } from './service/data/library-data.service';
 import { SongRequest } from './library/library.component';
+import { PlaylistTrack } from './playlist-track/playlist-track.component';
 
 @Component({
   selector: 'app-root',
@@ -155,6 +156,7 @@ export class AppComponent implements OnInit {
       this.autoDjPlaylist.name = data.name;
       //this.autoDjPlaylist.playlistTracks = data.playlistTracks.splice(0,5).reverse();
       this.autoDjPlaylist.playlistTracks = data.playlistTracks.reverse();
+      console.log(this.autoDjPlaylist)
       /* --- PROGRESS BAR --- */
       this.currentTrackDuration = data.currentTrackDurationSec;
       this.currentTrackProgress = data.currentTrackProgress * 100;  // fraction of 1.0, convert to percentage
@@ -178,6 +180,7 @@ export class AppComponent implements OnInit {
       this.reqToastText = UI_BTN_TOOLTIP_DISABLED;
       this.showReqToast = true;
     } else {
+      /*
       //Get total # of requests by this user from local storage
       let ls_requestTotal = localStorage.getItem('requestTotal');
       //console.log("ls_requestTotal = " + ls_requestTotal);
@@ -185,6 +188,7 @@ export class AppComponent implements OnInit {
       if (ls_requestTotal) {
         requestTotal = JSON.parse(ls_requestTotal);
       }
+      */
       //Make the request
       var resultMsg: string = "false";
       this.playlistDataService.requestFile(song, rated, this.userid).subscribe(data => {
@@ -197,8 +201,15 @@ export class AppComponent implements OnInit {
           this.reqToastText = UI_REQUEST_TEXT;
           this.showReqToast = true;
           //this.setReqDelay(song.duration, requestTotal, now);
-          // Trying to use queue length instead of requestTotal
-          this.setReqDelay(song.duration, this.autoDjPlaylist.playlistTracks.length, now);
+          // AMS 11/8/2025 - Count # of upcoming requests by this user and exponentially increase delay
+          let upcomingUserRequests: number = 0;
+          this.autoDjPlaylist.playlistTracks.forEach( (pt: PlaylistTrack) => {
+            if (pt.requestedBy === this.userid) {
+              upcomingUserRequests++;
+            }
+          });
+          // Use # of upcoming user requests to set delay
+          this.setReqDelay(song.duration, upcomingUserRequests, now);
           // Reload queue (should be done as late as possible to avoid getting it before VDJ finishes moving track to proper position)
           setTimeout(() => this.getQueue(), 5000);
         } else {
@@ -214,8 +225,6 @@ export class AppComponent implements OnInit {
   handleReqNew(song: Track) {
     this.handleReq(song, false);
     this.getNewArrivalsUntilChanged();
-    // Update Queue just for kicks
-    this.getQueue();
   }
 
   handleReqLib(song: Track) {
@@ -224,8 +233,7 @@ export class AppComponent implements OnInit {
     } else {
       this.handleReq(song, false);
     }
-    // Update New Arrivals & Queue just for kicks
-    this.getQueue();
+    // Update New Arrivals just for kicks
     this.getNewArrivals();
   }
 
@@ -255,9 +263,11 @@ export class AppComponent implements OnInit {
   /**
    * Calculate and set a delay for requests
    * @param duration 
+   * @param upcomingUserReqs
    * @param now 
    */
-  setReqDelay(duration: number, queueLength: number, now: Date) {
+  setReqDelay(duration: number, upcomingUserReqs: number, now: Date) {
+    /*
     //Determine time since last request; if it's been a while, cut the "request total" down
     const ls_noRequestsUntil = localStorage.getItem('noRequestsUntil');
     if (ls_noRequestsUntil) {
@@ -266,22 +276,22 @@ export class AppComponent implements OnInit {
       //console.log("LIBRARY: It's been " + timeSince + " since a request was made and delayed");
       if (timeSince > 1800000) {  // 1,800,000 milliseconds = 30 minutes
         let discountFactor = 1 + (timeSince / 1800000); // At least 1; for every half hour, add another
-        //reqTotal = Math.round(reqTotal/discountFactor);
-        queueLength = Math.round(queueLength/discountFactor);
+        upcomingUserReqs = Math.round(upcomingUserReqs/discountFactor);
       }
     }
+    */
     //Calculate delay
     // AMS 11/2/2024 - Default duration to 250 if still 0 - later I need to make this more consistent across the board
     if (duration==0) duration=250;
-    // AMS 10/31/2024 - Trying to set this by queue size instead of total requests per user
-    let newDelay = Math.round(duration/2) * ((1 + Math.round(queueLength/8))*100);
-    //let newDelay = Math.round(duration) * ((1 + Math.round(reqTotal/3))*100);
+    console.log("duration = " + duration);
+    // AMS 11/8/2025 - Set delay to (requested song duration) * (upcoming requests by user) * 100
+    console.log("# requests by user in queue: " + upcomingUserReqs);
+    let newDelay = Math.round(duration/2) * upcomingUserReqs * 1000;
+    console.log("Request delay to add: " + newDelay + " ms");
     this.requestInterval = setInterval(() => this.reqTimeoutOver(), newDelay);
     let delayTime = now.getTime() + newDelay;
-    //console.log("Setting noRequestsUntil to " + delayTime);
+    console.log("Setting noRequestsUntil to " + delayTime);
     localStorage.setItem('noRequestsUntil', JSON.stringify(delayTime));
-    //reqTotal++;
-    //localStorage.setItem('requestTotal',JSON.stringify(reqTotal));
     //Set button tooltips
     this.buttonTooltip = UI_BTN_TOOLTIP_DISABLED;
   }
