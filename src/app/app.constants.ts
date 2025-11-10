@@ -2,9 +2,7 @@ import { Crate } from "./crate/crate.component";
 
 /* App Configuration */
 //export const API_URL = "http://localhost:8081";
-export const API_URL = "http://music.legendarylan.com:8081";
-//export const API_URL = "http://192.168.0.107:8081";
-//export const API_URL = "http://192.168.11.108:8081";
+export const API_URL = "http://music.legendarylan.com:80";
 export const LISTEN_URL = "http://music.legendarylan.com:8000/legendarydj";
 
 /* UI Text */
