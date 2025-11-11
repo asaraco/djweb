@@ -88,30 +88,33 @@ export class AppComponent implements OnInit {
     /* AMS 2023/10/16 - Retrieve or randomly generate a user ID # for this session.
                         Also store in array to make sure there are no duplicates. */
     // AMS 2024/10/24 - If present, retrieve "username" from URL param
-    let useridParam = window.location.search.substring(8); //string begins with "?userId="
-    // Check if localStorage already has userId set, otherwise initialize it.
-    // Or, accept it from the URL param if we don't have a non-generated ID yet.
-    this.userid = localStorage.getItem('userId') || "";
+    let useridParam = window.location.search.substring(8); //string begins with "?userid="
+    // Check if localStorage already has userid set from previous visit
+    this.userid = localStorage.getItem('userid') || "";
+    // If localstorage didn't have it, or if it's a generated one, try getting it again
     if (this.userid=="" || this.userid.startsWith("generated-")) {
       console.log("Either we have no user ID yet, or it's a generated one. Setting user ID now.");
-      let useridInput = prompt("Please enter your username from the Legendary LAN Intranet:") || "";
+      // URL param takes priority, most users should come with it from intranet
       if (useridParam!="") {
-        localStorage.setItem('userId', useridParam);
-      } else if (useridInput!="") {
-        localStorage.setItem('userId', useridInput);
-        this.showHelp = true;
-        this.showWhatsNew = true;
-      } else {
-        this.userDataService.generateID().subscribe(data => {
-          localStorage.setItem('userId', "generated-"+JSON.stringify(data));
+        localStorage.setItem('userid', useridParam);
+      } else {  // Otherwise, prompt them for it and hope for the best
+        let useridInput = prompt("Please enter your username from the Legendary LAN Intranet:") || "";
+        if (useridInput!="") {
+          localStorage.setItem('userid', useridInput);
           this.showHelp = true;
           this.showWhatsNew = true;
-          //localStorage.setItem('requestTotal', '0');
-        });
-      }
-      console.log("Assigned User ID: " + localStorage.getItem('userId'));
+        } else {  // This shouldn't happen much, but they could cancel out of the prompt and land here
+          this.userDataService.generateID().subscribe(data => {
+            localStorage.setItem('userid', "generated-"+JSON.stringify(data));
+            this.showHelp = true;
+            this.showWhatsNew = true;
+            //localStorage.setItem('requestTotal', '0');
+          });
+        }
+      } 
+      console.log("Assigned User ID: " + localStorage.getItem('userid'));
     }
-    this.userid = localStorage.getItem('userId') || "";
+    this.userid = localStorage.getItem('userid') || "";
   }
 
   getLibrary(): void {
@@ -248,9 +251,9 @@ export class AppComponent implements OnInit {
     var resultMsg: string;
     // Set username
     var username: string;
-    let ls_userId = localStorage.getItem('userId');
-    if (ls_userId) {
-      username = ls_userId;
+    let ls_userid = localStorage.getItem('userid');
+    if (ls_userid) {
+      username = ls_userid;
     } else {
       username = "";
     }
