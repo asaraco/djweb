@@ -208,18 +208,16 @@ export class AppComponent implements OnInit {
           this.justRequested = song.filePath;
           this.reqToastText = UI_REQUEST_TEXT;
           this.showReqToast = true;
-          //this.setReqDelay(song.duration, requestTotal, now);
-          // AMS 11/8/2025 - Count # of upcoming requests by this user and exponentially increase delay
-          let upcomingUserRequests: number = 0;
-          let upcomingUserDuration: number = 0;
+          // AMS 11/8/2025 - Total the duration of upcoming requests, and ones by this user, to determine delay
+          let songDuration: number = song.duration>0 ? song.duration : 250 // Default song duration to 250 if 0
+          let upcomingTotalDuration: number = songDuration;
+          let upcomingUserDuration: number = songDuration;
           this.autoDjPlaylist.playlistTracks.forEach( (pt: PlaylistTrack) => {
-            if (pt.requestedBy === this.userid) {
-              upcomingUserRequests++;
-              upcomingUserDuration += pt.track.duration;
-            }
+            upcomingTotalDuration += pt.track.duration;
+            if (pt.requestedBy === this.userid) upcomingUserDuration += pt.track.duration;
           });
           // Use # of upcoming user requests to set delay
-          this.setReqDelay(song.duration, upcomingUserRequests, upcomingUserDuration, now);
+          this.setReqDelay(songDuration, upcomingUserDuration, upcomingTotalDuration, now);
           // Reload queue (should be done as late as possible to avoid getting it before VDJ finishes moving track to proper position)
           setTimeout(() => this.getQueue(), 5000);
         } else {
@@ -272,12 +270,12 @@ export class AppComponent implements OnInit {
 
   /**
    * Calculate and set a delay for requests
-   * @param duration 
+   * @param songDuration 
    * @param upcomingUserReqs
    * @param upcomingUserDuration
    * @param now 
    */
-  setReqDelay(duration: number, upcomingUserReqs: number, upcomingUserDuration: number, now: Date) {
+  setReqDelay(songDuration: number, upcomingUserDuration: number, upcomingTotalDuration: number, now: Date) {
     /*
     //Determine time since last request; if it's been a while, cut the "request total" down
     const ls_noRequestsUntil = localStorage.getItem('noRequestsUntil');
@@ -291,15 +289,10 @@ export class AppComponent implements OnInit {
       }
     }
     */
-    //Calculate delay
-    // AMS 11/2/2024 - Default duration to 250 if still 0 - later I need to make this more consistent across the board
-    if (duration==0) duration=250;
-    if (upcomingUserDuration==0) upcomingUserDuration=duration;
-    console.log("duration = " + duration);
-    // AMS 11/8/2025 - Set delay to (requested song duration) * (upcoming requests by user) * 100
-    console.log("# requests by user in queue: " + upcomingUserReqs);
-    console.log("Total duration of user's upcoming requests: " + upcomingUserDuration);
-    let newDelay = Math.round((duration+upcomingUserDuration)/2) * 1000;
+    console.log("New request duration = " + songDuration);
+    console.log("Total duration of upcoming request by this user: " + upcomingUserDuration);
+    console.log("Total duration of all upcoming requests: " + upcomingTotalDuration);
+    let newDelay = Math.round(songDuration * (upcomingUserDuration/upcomingTotalDuration) * 1000);
     console.log("Request delay to add: " + newDelay + " ms");
     this.requestInterval = setInterval(() => this.reqTimeoutOver(), newDelay);
     let delayTime = now.getTime() + newDelay;
