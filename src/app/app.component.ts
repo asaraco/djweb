@@ -269,34 +269,19 @@ export class AppComponent implements OnInit {
   }
 
   /**
-   * Calculate and set a delay for requests
+   * Calculate and set a delay for requests based on current song duration,
+   * total duration of upcoming requests, and total duration of upcoming requests by this user
    * @param songDuration 
    * @param upcomingUserReqs
    * @param upcomingUserDuration
    * @param now 
    */
   setReqDelay(songDuration: number, upcomingUserDuration: number, upcomingTotalDuration: number, now: Date) {
-    /*
-    //Determine time since last request; if it's been a while, cut the "request total" down
-    const ls_noRequestsUntil = localStorage.getItem('noRequestsUntil');
-    if (ls_noRequestsUntil) {
-      let nru: number = JSON.parse(ls_noRequestsUntil);
-      let timeSince: number = now.getTime() - nru;
-      //console.log("LIBRARY: It's been " + timeSince + " since a request was made and delayed");
-      if (timeSince > 1800000) {  // 1,800,000 milliseconds = 30 minutes
-        let discountFactor = 1 + (timeSince / 1800000); // At least 1; for every half hour, add another
-        upcomingUserReqs = Math.round(upcomingUserReqs/discountFactor);
-      }
-    }
-    */
-    console.log("New request duration = " + songDuration);
-    console.log("Total duration of upcoming request by this user: " + upcomingUserDuration);
-    console.log("Total duration of all upcoming requests: " + upcomingTotalDuration);
     let newDelay = Math.round(songDuration * (upcomingUserDuration/upcomingTotalDuration) * 1000);
-    console.log("Request delay to add: " + newDelay + " ms");
+    //console.log("Request delay to add: " + newDelay + " ms");
     this.requestInterval = setInterval(() => this.reqTimeoutOver(), newDelay);
     let delayTime = now.getTime() + newDelay;
-    console.log("Setting noRequestsUntil to " + delayTime);
+    //console.log("Setting noRequestsUntil to " + delayTime);
     localStorage.setItem('noRequestsUntil', JSON.stringify(delayTime));
     //Set button tooltips
     this.buttonTooltip = UI_BTN_TOOLTIP_DISABLED;
