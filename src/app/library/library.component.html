@@ -53,9 +53,12 @@
                 <ng-container *ngFor="let t of group.items; first as isFirst">
             <div class="gridRow" [ngClass]="{onlineSource: t.onlineSource}">
                 <div class="gridCol gc1 title">{{t.title==null ? t.filePath : t.title}} <span class="remix">{{t.subtitle}}</span></div>
-                <div class="gridCol gc1 request" [ngClass]="{'requested': justRequested==t.filePath}">
+                <div *ngIf="!t.alreadyPlayed" class="gridCol gc1 request" [ngClass]="{'requested': justRequested==t.filePath}">
                     <button type="button" (click)="requestSong(t)" [disabled]="(justRequested!='') && (justRequested!=t.filePath)" title={{buttonTooltip}}>+</button>
                     <span>✔️</span>
+                </div>
+                <div *ngIf="t.alreadyPlayed" class="gridCol gc1 request" [ngClass]="{'requested': justRequested==t.filePath}">
+                    <button class="alreadyPlayed" type="button" (click)="askTheDJSong(t.artist,t.title)" title="Song has already been played - request will be reviewed manually">+</button>
                 </div>
                 <div class="gridCol gc1 otherInfo">
                     <div class="gridCol gc2 artist">{{t.artist}}</div>
