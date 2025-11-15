@@ -38,7 +38,8 @@ export class CrateMeta {
 }
 
 export const CRATE_ALL              = new CrateMeta("", "Clear selections", "btn_clear.png", "Clear selections");   // Not really a crate, just useful for making the selectable options iterable
-export const CRATE_INSTRUMENTALS    = new CrateMeta("#instrumental", "Instrumentals", "btn_instrumentals-h.png",   "Instrumental versions of non-instrumental songs.");
+export const CRATE_INSTRUMENTAL     = new CrateMeta("#instrumental", "Instrumentals", "btn_instrumental-h.png",   "Instrumental versions of non-instrumental songs.");
+export const CRATE_ORCHESTRAL       = new CrateMeta("#orchestral", "Orchestral", "btn_orchestral-h.png",   "Music played by orchestras, mostly real ones.");
 export const CRATE_ACAPELLAS        = new CrateMeta("#acapella", "Acapellas",     "", "* HIDDEN * | Acapella versions of songs");
 export const CRATE_MAIN             = new CrateMeta("#main", "Main Rotation", "", "Songs that will play automatically.");
 export const CRATE_OLD              = new CrateMeta("#dad", "Golden Oldies", "btn_goldenoldies-h.png", "Dad Rock other music that appeals to the more 'experienced' gamers in the room.");
@@ -68,7 +69,8 @@ export const CRATES_SELECTABLE = [  CRATE_HITS,
                                     CRATE_SOUNDTRACKS,
                                     CRATE_VGM,
                                     CRATE_OSV,
-                                    CRATE_INSTRUMENTALS,
+                                    CRATE_INSTRUMENTAL,
                                     CRATE_MASHUP,
                                     CRATE_COMEDY,
-                                    CRATE_MEMES ]
+                                    CRATE_MEMES,
+                                    CRATE_ORCHESTRAL,]

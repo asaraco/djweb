@@ -55,10 +55,6 @@ div#libraryForm {
                 width: 2rem;
                 height: 2rem;
                 cursor: pointer;
-                background-image: url(/assets/images/btnFilter.svg);
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-position-x: right;
                 transition: 0.15s all;
                 &:hover {
                     background-color: rgba(var(--inputFg), 0.5);

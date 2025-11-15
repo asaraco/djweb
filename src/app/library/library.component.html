@@ -7,8 +7,7 @@
             <button (click)="askTheDJ(searchControl.value)">Ask The DJ</button>
         </div>
         <div id="categoryFilter">
-            <div id="crateActive"
-                    title="Select from one or more filters to narrow down song list">
+            <div id="crateActive" title="Select from one or more filters to narrow down song list">
                 <span *ngIf="filterCrates.length===0" class="crateDropPlaceholder">{{UI_CATS_TEXT}}</span>
                 <ng-container *ngIf="filterCrates.length>0">
                     <div class="crateBtn" *ngFor="let crate of filterCrates" 
@@ -19,7 +18,9 @@
                         </div>
                     </div>
                 </ng-container>
-                <div class="crateDropIcon" (click)="toggleCrateDropDown()">&nbsp;</div>
+                <div class="crateDropIcon" (click)="toggleCrateDropDown()">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" version="v1.1" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="#svg-filter"/></svg>
+                </div>
             </div>
             <div id="crateDropDown" [ngClass]="{unrolled: showCrateDropDown}">
                 <div class="crateBtn" *ngFor="let crate of unFilterCrates" 
