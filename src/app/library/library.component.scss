@@ -283,6 +283,14 @@ div.libraryGrid {
         button:hover {
             cursor: pointer;
         }
+        button:disabled, button.alreadyPlayed:disabled {
+            background-color:rgba(0, 0, 0, 0.5);
+            cursor:auto;
+            box-shadow: none;
+        }
+        button:disabled[title] {
+            content: 'Please wait before requesting again.';
+        }
         span {
             display: none;
             text-align: center;
@@ -296,14 +304,6 @@ div.libraryGrid {
         span {
             display: block;
         }
-    }
-    div.gridCol.request button:disabled {
-        background-color:rgba(0, 0, 0, 0.5);
-        cursor:auto;
-        box-shadow: none;
-    }
-    div.gridCol.request button:disabled[title] {
-        content: 'Please wait before requesting again.';
     }
 }
 div.libraryGrid.deezerResults {

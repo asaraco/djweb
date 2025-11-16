@@ -38,6 +38,7 @@ export class AppComponent implements OnInit {
   refreshNewUploads: boolean = true;
   refreshCounter: number = 0;
   requestInterval: any;
+  noRequestsUntil: Date = new Date();
   toastInterval: any;
   justRequested: string = "";
   buttonTooltip: string = "";
@@ -283,6 +284,7 @@ export class AppComponent implements OnInit {
     let delayTime = now.getTime() + newDelay;
     //console.log("Setting noRequestsUntil to " + delayTime);
     localStorage.setItem('noRequestsUntil', JSON.stringify(delayTime));
+    this.noRequestsUntil = new Date(delayTime);
     //Set button tooltips
     this.buttonTooltip = UI_BTN_TOOLTIP_DISABLED;
   }

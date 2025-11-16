@@ -250,16 +250,41 @@ export class LibraryComponent implements OnInit {
   }
 
   requestSongDeezer(song: OnlineResult) {
-    let deezerTrack = new Track();
-    deezerTrack.filePath = "netsearch%3A%2F%2Fdz" + song.id;
-    deezerTrack.id = song.id;
-    deezerTrack.artist = song.artist;
-    deezerTrack.title = song.title;
-    deezerTrack.duration = song.duration;
-    deezerTrack.rating = 0;
-    console.log(song.artist + song.title);
-    console.log(deezerTrack.artist + deezerTrack.title);
-    this.requestSong(deezerTrack);
+    // AMS 11/15/2025 - Check for existing track in library with artist & title matches (using 'includes' to hopefully catch slight variations)
+    //                - Also considering checking duration within 10 seconds, but it's possible a truly better version will have different length...
+    let goWithDeezer = false;
+    let matchingTracks = this.tracks.filter(existingSong => 
+                                                    (   (existingSong.artist!=null && existingSong.artist.toLowerCase().trim().includes(song.artist.toLowerCase().trim())) 
+                                                     || (existingSong.albumArtist!=null && existingSong.albumArtist.toLowerCase().trim().includes(song.artist.toLowerCase().trim()))
+                                                     || (existingSong.sortArtist!=null && existingSong.sortArtist.toLowerCase().trim().includes(song.artist.toLowerCase().trim()))
+                                                    )
+                                                  && existingSong.title.toLowerCase().trim().includes(song.title.toLowerCase().trim()) 
+                                                  //&& Math.abs(existingSong.duration-song.duration)<10
+                                                );
+    if (matchingTracks.length>0) {
+      let confirmMsg = confirm("We think we have a better version of this track already:\n\n" +
+                               "\"" + matchingTracks[0].title + "\" by " + matchingTracks[0].artist + "\n\n" +
+                               "Press OK to request the existing track (preferred), or Cancel to request from Deezer.");
+      if (confirmMsg) {
+        this.requestSong(matchingTracks[0]);
+        return;
+      } else {
+        goWithDeezer = true;
+      }
+    }
+    // If no matching track found, or user chose to go with Deezer version anyway
+    if (goWithDeezer || matchingTracks.length==0) {
+      let deezerTrack = new Track();
+      deezerTrack.filePath = "netsearch%3A%2F%2Fdz" + song.id;
+      deezerTrack.id = song.id;
+      deezerTrack.artist = song.artist;
+      deezerTrack.title = song.title;
+      deezerTrack.duration = song.duration;
+      deezerTrack.rating = 0;
+      //console.log(song.artist + song.title);
+      //console.log(deezerTrack.artist + deezerTrack.title);
+      this.requestSong(deezerTrack);
+    }
   }
 
   askTheDJ(message: string) {
