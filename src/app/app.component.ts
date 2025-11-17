@@ -343,6 +343,8 @@ export class AppComponent implements OnInit {
     this.showQueue = !this.showQueue;
     this.showNew = false;
     this.showMenu = false;
+    // AMS 11/17/2025 - If toggling queue on while scrolled down, scroll to top
+    if (this.showQueue && this.scrolledDown) window.scrollTo(0,0);
   }  
 
   /**

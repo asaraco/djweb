@@ -3,7 +3,6 @@
 }
 
 #leftWrapper {
-    /*min-width: 15%;*/
     flex: 1;
     background: linear-gradient(0deg, rgba(var(--newsBg),1), rgba(var(--recentBg),1));
     top: 4dvh;
@@ -22,9 +21,7 @@
 #queueWrapper {
     background: linear-gradient(180deg, rgba(var(--queueBg-a),0.25), rgba(var(--queueBg-b),0.9));
     mask-image: linear-gradient(to bottom, rgba(var(--queueBg-b),0.9) 0%, transparent 100%);
-    /*min-width: 15%;*/
     flex: 1;
-    /*height: fit-content;*/
     top: 4dvh;
     height: 96vh;
     position: sticky;
@@ -43,7 +40,6 @@
 
 app-new-arrivals {
     display: inline-block;
-    /*position: sticky;*/
     top: 4dvh;
     width: 100%;
 }
