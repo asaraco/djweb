@@ -343,7 +343,7 @@ export class AppComponent implements OnInit {
     this.showQueue = !this.showQueue;
     this.showNew = false;
     this.showMenu = false;
-    // AMS 11/17/2025 - If toggling queue on while scrolled down, scroll to top
+    // AMS 11/17/2025 - If toggling on while scrolled down, scroll to top
     if (this.showQueue && this.scrolledDown) window.scrollTo(0,0);
   }  
 
@@ -355,6 +355,8 @@ export class AppComponent implements OnInit {
     this.showNew = !this.showNew;
     this.showQueue = false;
     this.showMenu = false;
+    // AMS 11/17/2025 - If toggling on while scrolled down, scroll to top
+    if (this.showNew && this.scrolledDown) window.scrollTo(0,0);
   }
 
   /**
@@ -373,11 +375,15 @@ export class AppComponent implements OnInit {
   toggleHelpText(): void {
     this.showHelp = !this.showHelp;
     this.showMenu = false;
+    // AMS 11/17/2025 - If toggling on while scrolled down, scroll to top
+    if (this.showHelp && this.scrolledDown) window.scrollTo(0,0);
   }
 
   toggleWhatsNew(): void {
     this.showWhatsNew = !this.showWhatsNew;
     this.showMenu = false;
+    // AMS 11/17/2025 - If toggling on while scrolled down, scroll to top
+    if (this.showWhatsNew && this.scrolledDown) window.scrollTo(0,0);
   }
 
   /**
