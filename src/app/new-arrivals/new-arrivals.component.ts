@@ -58,4 +58,12 @@ export class NewArrivalsComponent implements OnInit {
       }
     }    
   }
+
+  refreshNew() {
+    this.libraryDataService.forceReloadAll().subscribe(
+      response => {
+        console.log("New arrivals refreshed.");
+      }
+    );
+  }
 }

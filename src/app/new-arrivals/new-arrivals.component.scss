@@ -91,6 +91,24 @@ div.libraryGrid {
         }
     }   
 }
+
+.clearBtn {
+    position: absolute;
+    top: 0.5rem;
+    width: 15%;
+    color: rgba(var(--newsHeadFg),0.5);
+    border: none;
+    background: none;
+    transition: 0.1s ease-out all;
+    &:hover {
+        cursor: pointer;
+        color: rgba(var(--newsHeadFg),1);
+        rotate: 270deg; 
+        border: none;
+        box-shadow: none;
+    }
+}
+
 @media (orientation: portrait) {
     div.libraryGrid {
         padding: 1rem;

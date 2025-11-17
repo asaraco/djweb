@@ -77,4 +77,8 @@ export class LibraryDataService {
   deezerSearch(query: string): Observable<OnlineResult[]> {
     return this.http.get<OnlineResult[]>(`${API_URL}/deezerSearch?query=${query}`);
   }
+
+  forceReloadAll(): Observable<any> {
+    return this.http.get<any>(`${API_URL}/forceReloadDatabase`);
+  }
 }
