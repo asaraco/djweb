@@ -67,7 +67,7 @@ div#libraryForm {
                 display: flex;
                 align-items: center;
                 text-align: center;
-                background-image: linear-gradient(0deg, rgba(var(--inputBg)), rgba(var(--libBg)), rgba(var(--inputBg)));
+                background-image: linear-gradient(0deg, rgba(var(--inputBg)), rgba(var(--libBg),0.5), rgba(var(--inputBg)));
                 border: 1px solid rgba(var(--libBg));
                 border-radius: .5rem;
                 width: clamp(5dvw, 29%, 10dvw);

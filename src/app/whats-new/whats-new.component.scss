@@ -1,6 +1,6 @@
 div {
-    color: rgba(var(--btnFg),1);
-    background-color: rgba(var(--libBg), 1);
+    color: rgba(var(--fg),1);
+    background-color: rgba(var(--bg), 1);
     border-radius: 5px;
     margin: 1dvmax;
     padding: 0.25dvmin 1dvmin;
@@ -14,11 +14,12 @@ div {
     h1 {
         font-size: 2rem;
         text-decoration: underline;
+        color: rgba(var(--libTh), 1);
     }
     h2 {
         font-family: "Roboto Sans", sans-serif;
         font-size: 1.5rem;
-        color: rgba(var(--headFgB), 1);
+        color: rgba(var(--libTh), 1);
     }
     a {
         font-weight: bold;

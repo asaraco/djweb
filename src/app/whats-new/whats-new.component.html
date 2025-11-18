@@ -1,47 +1,29 @@
 <div>
     <section>
         <div>
-            <h1>What's New (2024)</h1>
-            A lot has changed in the 2024 edition of Legendary Radio. In fact, it's almost completely different under the hood. But here's a brief overview of the changes that will be meaningful to most users.
+            <h1>What's New (2025)</h1>
+            Welcome back! We've made a number of incremental improvements since last year. If this is your first time, click the 'Help' button (or just read the popup toast that should've greeted you) for more details on how this works.
         </div>
     </section>
     <section>
         <div>
-            <h2>ONLINE MUSIC CATALOG SUPPORT</h2>
-            <p>Our most-requested feature, previously thought to be impossible, is a reality! Searches will continue to bring up songs already in the database, but additional results sourced from the online Deezer catalog will appear as well. (Results are limited to 100 per search; this limit comes from the Deezer API, and while a workaround could probably be coded, results get spotty after 100 anyway -- best to just narrow the search instead. There is also a limit of 50 searches every 5 seconds, which <i>probably</i> shouldn't be a problem...)</p>
-            <p>Why Deezer? Because the DJ software supports it. We also have access to another online catalog called IDJPool, which has lots of alternate mixes (and clean versions), but those are not easily searchable outside the software. (See "Ask the DJ" for more on that.)</p>
-            <p><b>NOTE:</b> Like most music services, Deezer flags certain songs as "Explicit". Flagged songs can still be requested, but they will go through a manual approval process (see "Ask the DJ" below). There's a high chance these requests will be denied unless a clean version can be found, the song can be easily edited on the fly, or the song is known to be flagged incorrectly. As with uploaded songs, we want to maintain a friendly atmosphere for all attendees.</p>
-            <p>Online songs which have already been added to the database (by the DJ or upon request) are indicated by a different font color. Request them while you can, because you never know when they might disappear from streaming!</p>
-        </div>                
-    </section>
-    <section>
-        <div>
-            <h2>"ASK THE DJ" FUNCTIONALITY</h2>
-            <p>Still can't find what you need? Click "Ask the DJ" from the search bar and your search text will be added to a list of manual requests that the DJ can review (whenever they lose the next tournament round). This is a function of the VirtualDJ software designed to quickly determine if anything resembling the request exists in any available database.</p>
-            <p>This functionality can even be accessed over the internet via the following URL:</p>
-            <p><a href="http://virtualdj.com/ask/Legendary__LAN" target="_blank">http://virtualdj.com/ask/Legendary__LAN</a></p>
-        </div>
-    </section>
-    <section>
-        <div>
-            <h2>IMPROVED CATEGORY FILTERS</h2>
-            <p>Tired of trying to figure out if something would be considered part of a "Soundtrack", "Video Game Music", or "Video Game OSV"? Me too! You can now select as many category filters as you think might possibly apply to narrow down your options. Think of them less as different buckets to choose from and more like different "tags" a given song could have on it. (Or like the product filters on any given online store.)</p>
-        </div>
-    </section>
-    <section>
-        <div>
-            <h2>RECENTLY RELEASED SONGS</h2>
-            <p>Under the "JUST ADDED" sidebar widget which still shows newly uploaded songs, you will now see a quick view of every song in the database that was released within the past year. In other words, songs that probably haven't been played to death yet and could use another spin.</p>
+            <h2>IMPROVEMENTS</h2>
+            <ul>
+                <li>User ID is assigned via the Intranet page link, manual prompt, or randomly generated. This is used to keep track of requests and timing. And it <i>mostly</i> works!</li>
+                <li>Refresh button (in 'New Arrivals' section) to supplement the automatic refresh when a song gets uploaded. (If that still fails, a full browser refresh will <i>almost definitely</i> do it.</li>
+                <li>Sidebar lists (in desktop mode) are now individually scrollable.</li>
+                <li>Nicer-looking buttons.</li>
+                <li>Light theme is no longer awful, though I suspect most of us will still prefer going dark.</li>
+            </ul>
         </div>
     </section>
     <section>
         <div>
             <h2>KNOWN ISSUES</h2>
             <ul>
-                <li>Song Queue may occasionally show upcoming requests in the wrong order. There is also always going to be a little bit of a delay in showing the current song. Most of the time it does a pretty good job updating consistently, but sometimes the music software itself doesn't update its database quickly enough. It should correct itself eventually. Refreshing the page (or leaving and coming back) may help too.</li>
-                <li>Light theme still sucks because I didn't have time to make it good and I'm not sure anybody uses it anyway. Someday though! If your device defaults to it, you can just click "Switch Theme".</li>
-                <li>There are some built-in delays for the user feedback on things like uploads and requests. This is intentional and designed to give the DJ software a chance to get its database all sorted out before the front-end attempts to display it.</li>
-                <li>I have occasionally seen an issue where online requests do not fetch their metadata in time and end up showing as blank or "no artist". Unfortunately it's hard to fix this if it happens, but the good news is the song should still play!</li>
+                <li>I (SirLemming) have personally witnessed slowdown when resizing the browser or scrolling down. GPU actually seems to make it worse somehow, I have no idea why. <b>Please let me know if this happens to you</b> so I can collect some more data on why this might be happening!</li>
+                <li>Song Queue may occasionally show upcoming requests in the wrong order. Switching away from the tab and coming back should help.</li>
+                <li>Occasionally an online request ends up with blank metadata due to a timing issue. Unfortunately it's hard to fix this if it happens, but the good news is the song should still play!</li>
             </ul>
         </div>
     </section>
