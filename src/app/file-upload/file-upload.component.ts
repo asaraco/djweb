@@ -52,7 +52,7 @@ export class FileUploadComponent {
               });
               */
             } else {
-              console.log("VDJ song browser upload may have failed, but song should still be uploaded");
+              console.log("VDJ song browser update may have failed, but song should still be uploaded");
             }            
           });
         },

@@ -165,7 +165,7 @@ export class AppComponent implements OnInit {
       this.autoDjPlaylist.name = data.name;
       //this.autoDjPlaylist.playlistTracks = data.playlistTracks.splice(0,5).reverse();
       this.autoDjPlaylist.playlistTracks = data.playlistTracks.reverse();
-      console.log(this.autoDjPlaylist)
+      //console.log(this.autoDjPlaylist)
       /* --- PROGRESS BAR --- */
       this.currentTrackDuration = data.currentTrackDurationSec;
       this.currentTrackProgress = data.currentTrackProgress * 100;  // fraction of 1.0, convert to percentage
@@ -202,7 +202,7 @@ export class AppComponent implements OnInit {
       var resultMsg: string = "false";
       this.playlistDataService.requestFile(song, rated, this.userid).subscribe(data => {
         resultMsg = data.toString();
-        console.log(resultMsg);
+        //console.log(resultMsg);
         if (resultMsg==="true") {
           // Handle request blocking
           localStorage.setItem('lastRequest', song.id.toString());
