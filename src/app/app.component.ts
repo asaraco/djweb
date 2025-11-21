@@ -181,6 +181,12 @@ export class AppComponent implements OnInit {
     });
   }
 
+  handleRefresh() {
+    this.getLibrary();
+    this.getNewArrivals();
+    this.getQueue();
+  }
+
   handleReq(song: Track, rated: boolean) {
     //Verify that requests aren't currently delayed
     const now = new Date();

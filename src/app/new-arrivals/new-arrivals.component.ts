@@ -17,10 +17,12 @@ export class NewArrivalsComponent implements OnInit {
   @Input() justRequested: string = "";
   @Output() requestAddEvent = new EventEmitter<Track>();
   @Output() requestEvent = new EventEmitter<Track>();
+  @Output() refreshEvent = new EventEmitter<void>();
 
   buttonTooltip: string = "";
   CRATE_LL: CrateMeta = CRATE_LAN_LIBRARY;
   UI_REQUEST_TEXT: string = UI_REQUEST_TEXT;
+  refreshSpinning: boolean = false;
   
   constructor(
     private libraryDataService: LibraryDataService,
@@ -60,9 +62,12 @@ export class NewArrivalsComponent implements OnInit {
   }
 
   refreshNew() {
+    this.refreshSpinning = true;
     this.libraryDataService.forceReloadAll().subscribe(
       response => {
+        this.refreshEvent.emit();
         console.log("New arrivals refreshed.");
+        this.refreshSpinning = false;
       }
     );
   }

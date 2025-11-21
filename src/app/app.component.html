@@ -183,7 +183,9 @@
 
 <section id="mainSection" ontouchmove>
     <section class="subSection" id="leftWrapper" [ngClass]="{mobileNew: showNew}">
-        <app-new-arrivals [uploadedTracks]="uploadedTracks" [recentTracks]="recentTracks" [justRequested]="justRequested" (requestEvent)="handleReqLib($event)" (requestAddEvent)="handleReqNew($event)"></app-new-arrivals>
+        <app-new-arrivals [uploadedTracks]="uploadedTracks" [recentTracks]="recentTracks" [justRequested]="justRequested" 
+                          (requestEvent)="handleReqLib($event)" (requestAddEvent)="handleReqNew($event)" (refreshEvent)="handleRefresh()">
+        </app-new-arrivals>
         <button id="closeNew" class="mobileOnly" (click)="toggleNewArrivals()" [ngClass]="{mobileQueue: showNew}">𐌢</button>
     </section>
     <section class="subSection" id="browseWrapper">

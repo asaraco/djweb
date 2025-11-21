@@ -14,6 +14,7 @@ export class LibraryDataService {
   private libraryOutdated: boolean = true;
   private queueOutdated: boolean = true;
   private uploadsOutdated: boolean = true;
+  
   public isLibraryOutdated(): boolean {
     return this.libraryOutdated;
   }

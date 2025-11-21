@@ -62,7 +62,6 @@ div#libraryForm {
                 }
             }
             .crateBtn {
-                color: rgba(0,0,0,0);
                 cursor: pointer;
                 display: flex;
                 align-items: center;
@@ -71,7 +70,6 @@ div#libraryForm {
                 border: 1px solid rgba(var(--libBg));
                 border-radius: .5rem;
                 width: clamp(5dvw, 29%, 10dvw);
-                margin: 0.25rem;
                 transition: 0.15s all;
                 div.crateLogo {
                     flex: 1;
@@ -79,9 +77,10 @@ div#libraryForm {
                     background-size: contain;
                     background-repeat: no-repeat;
                     background-position: center;
-                    justify-content: center;
+                    justify-content: flex-end;
                     font-size: 1.2rem;
                     transition: 0.15s all;  
+                    padding: .1rem;
                 }
                 img {                    
                     height: 0;
@@ -101,11 +100,16 @@ div#libraryForm {
                 backdrop-filter: blur(8px);
                 -webkit-backdrop-filter: blur(8px);
                 .crateBtn {
+                    color: rgba(0,0,0,0);
                     display: none;
                     flex-direction: row;
                     font-size: 0.7rem;
                     background-color: rgba(var(--headBgA),0.9);
-                    padding: .2rem;
+                    margin: 0.25rem;
+                    /*padding: .2rem;*/
+                    &:hover {
+                        color: rgba(var(--inputFg),1);
+                    }
                 }
             }
             div#crateDropDown.unrolled {
