@@ -147,6 +147,7 @@ export class AppComponent implements OnInit {
 
   getNewArrivalsUntilChanged(): void {
     //this.libraryDataService.setUploadsOutdated(true);
+    this.refreshCounter = 0;
     this.uploadCheckInterval = setInterval(() => this.getNewArrivals(), 1000);
     //if (this.libraryDataService.isLibraryOutdated()) this.getLibrary();
   }
